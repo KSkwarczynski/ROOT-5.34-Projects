@@ -1,0 +1,41 @@
+snarl
+/I:run
+/I:subrun
+/I:evissigcor
+/F:evisgev - energia zrekonstruowana
+/F:evisgevkNN
+/F:shwsigcor
+/F:shwgev
+/F:shwgevkNN
+/F:erecoqe
+/F:mnstp- zmienna mowiaca o szerokosci kaskady hadronowej blisko wierzcholka oddzialywania
+/F:spher- sphericity - zmienna mowiaca o przestrzennym ksztalcie zrekonstrowanego przypadku
+/F:evtet
+/F:vtxsig
+/F:nhough
+/I:sigmin
+/F:sigmax - zmienna mowiaca o tym czy tor bardziej wyglada jak pion czy jak mion
+/F:twoangle
+/F:ntrack
+/I:goodstdtrack  - zrekonstrowany tor dobrej jakosci
+/I:mom
+/F:thet
+/F:pt
+/F:charge - zrekonstruowany ladunek czastki
+/F:meanph
+/F:sigfluct
+/F:transvp
+/F:sigfluctKG
+/F:trklen- dlugosc toru
+/F:trkvtxx
+/F:trkvtxy
+/F:trkvtxz
+/F:trkendx
+/F:trkendy
+/F:trkendz
+/F:filetyp
+/I:weight
+/F:energynu
+/F:isQE/
+I:itautype
+/I:selection/I
