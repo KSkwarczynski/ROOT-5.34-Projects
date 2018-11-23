@@ -152,3 +152,4 @@ for(int CFD=10; CFD<=25; CFD+=1){
 plik->Close();
 delete plik;
 }
+
