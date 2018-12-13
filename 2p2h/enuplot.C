@@ -31,7 +31,7 @@ TH1F*   h_DIS_proton = (TH1F*) file->Get("h_DIS_proton");
    h_DIS_proton->SetMarkerStyle(21);
    h_DIS_proton->SetMarkerColor(kYellow);
 
-THStack *stackHisto = new THStack("stackHisto","Final proton momemtum distribution");
+THStack *stackHisto = new THStack("stackHisto","Final proton momentum distribution");
     stackHisto->Add(h_DIS_proton);
     stackHisto->Add(h_CCQE_proton);
     stackHisto->Add(h_2p2h_proton);
@@ -40,42 +40,49 @@ THStack *stackHisto = new THStack("stackHisto","Final proton momemtum distributi
 
 c1 = new TCanvas("c1"," ",10,10,1400,1000);
 stackHisto->Draw("");
-stackHisto->GetXaxis()->SetTitle("Momemtum [Mev]");
+stackHisto->GetXaxis()->SetTitle("Momentum [Mev]");
 stackHisto->GetYaxis()->SetTitle("Number of events");
 stackHisto->GetYaxis()->SetTitleOffset(1.4);
 gPad->Modified();
 
-TLegend *legend = new TLegend(0.68,0.72,0.98,0.92);
+TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
     legend->AddEntry(h_RES_proton,"RES","f");
     legend->AddEntry(h_2p2h_proton,"2p2h","f");
     legend->AddEntry(h_CCQE_proton,"CCQE","f");
     legend->AddEntry(h_DIS_proton,"DIS","f");
     legend->Draw();
 
-c1->Print("/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/output/ProtonMomemntumStack.pdf");
+c1->Print("/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/output/ProtonMomentumStack.pdf");
 
 delete c1;
 delete legend;
 delete stackHisto;
 //////////PROTON MAX MOMENTUM////
 TH1F*   h_CCQE_proton_max = (TH1F*) file->Get("h_CCQE_proton_max");
+    TH1F *h_CCQE_proton_max_2 = (TH1F*)(h_CCQE_proton_max->Clone("h_CCQE_proton_max_2"));
     h_CCQE_proton_max->SetFillColor(kRed);
     h_CCQE_proton_max->SetMarkerStyle(21);
     h_CCQE_proton_max->SetMarkerColor(kRed);
-TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
-   h_2p2h_proton_max->SetFillColor(kBlue);
-   h_2p2h_proton_max->SetMarkerStyle(21);
-   h_2p2h_proton_max->SetMarkerColor(kBlue);
-TH1F*   h_RES_proton_max = (TH1F*) file->Get("h_RES_proton_max");
-   h_RES_proton_max->SetFillColor(kGreen);
-   h_RES_proton_max->SetMarkerStyle(21);
-   h_RES_proton_max->SetMarkerColor(kGreen);
-TH1F*   h_DIS_proton_max = (TH1F*) file->Get("h_DIS_proton_max");
-   h_DIS_proton_max->SetFillColor(kYellow);
-   h_DIS_proton_max->SetMarkerStyle(21);
-   h_DIS_proton_max->SetMarkerColor(kYellow);
 
-THStack *stackHisto = new THStack("stackHisto","Final proton max momemtum distribution");
+TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
+    TH1F *h_2p2h_proton_max_2 = (TH1F*)(h_2p2h_proton_max->Clone("h_2p2h_proton_max_2"));
+    h_2p2h_proton_max->SetFillColor(kBlue);
+    h_2p2h_proton_max->SetMarkerStyle(21);
+    h_2p2h_proton_max->SetMarkerColor(kBlue);
+
+TH1F*   h_RES_proton_max = (TH1F*) file->Get("h_RES_proton_max");
+    TH1F *h_RES_proton_max_2 = (TH1F*)(h_RES_proton_max->Clone("h_RES_proton_max_2"));
+    h_RES_proton_max->SetFillColor(kGreen);
+    h_RES_proton_max->SetMarkerStyle(21);
+    h_RES_proton_max->SetMarkerColor(kGreen);
+
+TH1F*   h_DIS_proton_max = (TH1F*) file->Get("h_DIS_proton_max");
+    TH1F *h_DIS_proton_max_2 = (TH1F*)(h_DIS_proton_max->Clone("h_DIS_proton_max_2"));
+    h_DIS_proton_max->SetFillColor(kYellow);
+    h_DIS_proton_max->SetMarkerStyle(21);
+    h_DIS_proton_max->SetMarkerColor(kYellow);
+
+THStack *stackHisto = new THStack("stackHisto","Final proton max momentum distribution");
     stackHisto->Add(h_DIS_proton_max);
     stackHisto->Add(h_CCQE_proton_max);
     stackHisto->Add(h_2p2h_proton_max);
@@ -83,22 +90,60 @@ THStack *stackHisto = new THStack("stackHisto","Final proton max momemtum distri
 
 c1 = new TCanvas("c1"," ",10,10,1400,1000);
 stackHisto->Draw("");
-stackHisto->GetXaxis()->SetTitle("Momemtum [Mev]");
+stackHisto->GetXaxis()->SetTitle("Momentum [Mev]");
 stackHisto->GetYaxis()->SetTitle("Number of events");
 stackHisto->GetYaxis()->SetTitleOffset(1.4);
 gPad->Modified();
 
-TLegend *legend = new TLegend(0.68,0.72,0.98,0.92);
+TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
     legend->AddEntry(h_RES_proton_max,"RES","f");
     legend->AddEntry(h_2p2h_proton_max,"2p2h","f");
     legend->AddEntry(h_CCQE_proton_max,"CCQE","f");
     legend->AddEntry(h_DIS_proton_max,"DIS","f");
     legend->Draw();
 
-c1->Print("/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/output/ProtonMaxMomemntumStack.pdf");
+c1->Print("/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/output/ProtonMaxMomentumStack.pdf");
 delete c1;
 delete legend;
 delete stackHisto;
+    /////////Not stacked//////
+
+h_CCQE_proton_max_2->SetLineColorAlpha(kRed, 1);
+h_CCQE_proton_max_2->SetLineWidth(1.5);
+
+h_2p2h_proton_max_2->SetLineColorAlpha(kBlue, 1);
+h_2p2h_proton_max_2->SetLineWidth(1.5);
+
+h_RES_proton_max_2->SetLineColorAlpha(kGreen, 1 );
+h_RES_proton_max_2->SetLineWidth(1.5);
+
+h_DIS_proton_max_2->SetLineColorAlpha(kOrange, 1);
+h_DIS_proton_max_2->SetLineWidth(1.5);
+
+h_CCQE_proton_max_2->SetNameTitle("h_CCQE_proton_max_2","Anti numu max proton momentum distribution");
+h_CCQE_proton_max_2->GetXaxis()->SetTitle("Momentum [Mev]");
+h_CCQE_proton_max_2->GetYaxis()->SetTitle("Number of events");
+h_CCQE_proton_max_2->GetYaxis()->SetTitleOffset(1.4);
+
+    c1 = new TCanvas("c1"," ",10,10,1400,1000);
+    gPad->Modified();
+    h_CCQE_proton_max_2->Draw("HIST");
+    h_RES_proton_max_2->Draw("HIST SAME");
+    h_DIS_proton_max_2->Draw("HIST SAME");;
+    h_2p2h_proton_max_2->Draw("HIST SAME");
+
+TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
+    legend->AddEntry(h_RES_proton_max_2,"RES","l");
+    legend->AddEntry(h_2p2h_proton_max_2,"2p2h","l");
+    legend->AddEntry(h_CCQE_proton_max_2,"CCQE","l");
+    legend->AddEntry(h_DIS_proton_max_2,"DIS","l");
+    legend->Draw();
+
+
+
+c1->Print("/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/output/ProtonMaxMomentum.pdf");
+delete c1;
+delete legend;
 
 /////////////////NEUTRINO MOMENTUM////
 TH1F*   h_CCQE = (TH1F*) file->Get("h_CCQE");
@@ -122,9 +167,10 @@ h_Coh->SetLineColorAlpha(kViolet, 1);
 h_Coh->SetLineWidth(1.5);
 
 h_CCQE->SetNameTitle("h_CCQE","Anti numu momentum distribution");
-h_CCQE->GetXaxis()->SetTitle("Momemtum [Mev]");
+h_CCQE->GetXaxis()->SetTitle("Momentum [Mev]");
 h_CCQE->GetYaxis()->SetTitle("Number of events");
 h_CCQE->GetYaxis()->SetTitleOffset(1.4);
+
 c1 = new TCanvas("c1"," ",10,10,1400,1000);
 c1->SetLogy();
 h_CCQE->Draw("");
@@ -133,13 +179,16 @@ h_res->Draw("SAME");
 h_DIS->Draw("SAME");
 h_Coh->Draw("SAME");
 
-TLegend *legend = new TLegend(0.68,0.72,0.98,0.92);
+
+TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
     legend->AddEntry(h_CCQE,"CCQE","l");
     legend->AddEntry(h_res,"RES","l");
     legend->AddEntry(h_2p2h,"2p2h","l");
     legend->AddEntry(h_Coh,"COH","l");
     legend->AddEntry(h_DIS,"DIS","l");
     legend->Draw();
+
+    gPad->Modified();
 
 c1->Print("/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/output/AntyNeutrinoMomentum.pdf");
 delete c1;
@@ -164,9 +213,10 @@ h_anti_nue->SetLineColorAlpha(kViolet, 1);
 h_anti_nue->SetLineWidth(1.5);
 
 h_anti_numu->SetNameTitle("h_numu","Neutrino momentum distribution for anti numu beam");
-h_anti_numu->GetXaxis()->SetTitle("Momemtum [Mev]");
+h_anti_numu->GetXaxis()->SetTitle("Momentum [Mev]");
 h_anti_numu->GetYaxis()->SetTitle("Number of events");
 h_anti_numu->GetYaxis()->SetTitleOffset(1.4);
+
 c1 = new TCanvas("c1"," ",10,10,1400,1000);
 c1->SetLogy();
 h_anti_numu->Draw("");
@@ -174,14 +224,18 @@ h_numu->Draw("SAME");
 h_nue->Draw("SAME");
 h_anti_nue->Draw("SAME");
 
-TLegend *legend = new TLegend(0.68,0.72,0.98,0.92);
+TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
     legend->AddEntry(h_anti_numu,"anti_numu","l");
     legend->AddEntry(h_numu,"numu","l");
     legend->AddEntry(h_nue,"nue","l");
     legend->AddEntry(h_anti_nue,"anti_nue","l");
     legend->Draw();
 
+    gPad->Modified();
 c1->Print("/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/output/FlavourNeutrinoMomentum.pdf");
+
+delete c1;
+delete legend;
 
 file->Close();
 }

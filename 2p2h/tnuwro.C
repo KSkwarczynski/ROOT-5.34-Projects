@@ -87,7 +87,7 @@ if (fChain == 0) return;
     h_CCQE_proton->GetXaxis()->SetTitle("Momentum [MeV]");
 
     TH1F *h_CCQE_proton_max = (TH1F*)(h_CCQE_proton->Clone("h_CCQE_proton_max"));
-    h_CCQE_proton_max->SetNameTitle("h_CCQE_proton_max"," Momentum distribution for proton highest momemntum, final state, CCQE");
+    h_CCQE_proton_max->SetNameTitle("h_CCQE_proton_max"," Momentum distribution for proton highest momentum, final state, CCQE");
     TH1F *h_CCQE_proton_max_cut = new TH1F("h_CCQE_proton_max_cut", "Highest momentum proton, after cut final state, CCQE", 150, 0, 2500.0);
 
     TH1F *h_CCQE_proton_counter = new TH1F("h_CCQE_proton_counter", "CCQE proton final state counter", 80, 0, 8.0);
@@ -119,7 +119,7 @@ if (fChain == 0) return;
     TH1F *h_2p2h_neutron_counter = new TH1F("h_2p2h_neutron_counter", "2p2h neutron final state counter", 80, 0, 8.0);
 
     TH1F *h_2p2h_proton_max = (TH1F*)(h_2p2h_proton->Clone("h_2p2h_proton_max"));
-    h_2p2h_proton_max->SetNameTitle("h_2p2h_proton_max"," Momentum distribution for proton highest momemntum, final state, 2p2h");
+    h_2p2h_proton_max->SetNameTitle("h_2p2h_proton_max"," Momentum distribution for proton highest momentum, final state, 2p2h");
     TH1F *h_2p2h_proton_max_cut= new TH1F("h_2p2h_proton_max_cut", "Highest momentum proton, after cut final state, 2p2h", 150, 0, 2500.0);
 
     TH1F *h_2p2h_ifsingle_proton_counter = new TH1F("h_2p2h_ifsingle_proton_counter", "2p2h proton final state counter if one proton in primary", 80, 0, 8.0);
@@ -161,7 +161,7 @@ if (fChain == 0) return;
     h_RES_proton->GetXaxis()->SetTitle("Momentum [MeV]");
 
     TH1F *h_RES_proton_max = (TH1F*)(h_RES_proton->Clone("h_RES_proton_max"));
-    h_RES_proton_max->SetNameTitle("h_RES_proton_max"," Momentum distribution for proton highest momemntum, final state, RES");
+    h_RES_proton_max->SetNameTitle("h_RES_proton_max"," Momentum distribution for proton highest momentum, final state, RES");
 
     TH1F *h_RES_proton_counter = new TH1F("h_RES_proton_counter", "RES proton final state counter", 80, 0, 8.0);
     TH1F *h_RES_proton_counter_cut = new TH1F("h_RES_proton_counter_cut", "RES proton final state counter momentum >450 MeV", 80, 0, 8.0);
@@ -195,7 +195,7 @@ if (fChain == 0) return;
     h_DIS_proton->GetYaxis()->SetTitle("Number of events");
     h_DIS_proton->GetXaxis()->SetTitle("Momentum [MeV]");
 
-    TH1F *h_DIS_proton_max = new TH1F("h_DIS_proton_max", "Momentum distribution for proton highest momemntum, final state, DIS", 150, 0, 2500.0);
+    TH1F *h_DIS_proton_max = new TH1F("h_DIS_proton_max", "Momentum distribution for proton highest momentum, final state, DIS", 150, 0, 2500.0);
     h_DIS_proton_max->GetYaxis()->SetTitle("Number of events");
     h_DIS_proton_max->GetXaxis()->SetTitle("Momentum [MeV]");
 
@@ -231,8 +231,8 @@ if (fChain == 0) return;
     TH1F *h_numu_2p2h_particle_counter = new TH1F("h_numu_2p2h_particle_counter", "2p2h proton or neutron final state counter", 80, 0, 8.0);
     TH1F *h_numu_2p2h_neutron_counter = new TH1F("h_numu_2p2h_neutron_counter", "2p2h neutron final state counter", 80, 0, 8.0);
 
-    TH1F *h_numu_2p2h_proton_max = (TH1F*)(h_numu_2p2h_proton->Clone("h_2p2h_proton_max"));
-    h_numu_2p2h_proton_max->SetNameTitle("h_2p2h_proton_max"," Momentum distribution for proton highest momemntum, final state, 2p2h");
+    TH1F *h_numu_2p2h_proton_max = (TH1F*)(h_numu_2p2h_proton->Clone("h_numu_2p2h_proton_max"));
+    h_numu_2p2h_proton_max->SetNameTitle("h_numu_2p2h_proton_max"," Momentum distribution for proton highest momentum, final state, 2p2h");
     TH1F *h_numu_2p2h_proton_max_cut= new TH1F("h_numu_2p2h_proton_max_cut", "Highest momentum proton, after cut final state, 2p2h", 150, 0, 2500.0);
 
 
