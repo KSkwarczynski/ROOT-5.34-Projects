@@ -1,1 +1,1 @@
-Znalezienie poprawki liniowej do Monte Carlo aby lepiej odpowiadało danym ekseprymentu Minos+.
+Program uproszczenie.cpp creates ROOT file from .txt. analiza.cpp is main program. It's main purpose is to find linear correction to Monte Carlo. After correction Monte Carlo better fit data obtained from MINOS+ experiment.
