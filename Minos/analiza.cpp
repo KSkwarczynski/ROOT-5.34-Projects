@@ -7,23 +7,23 @@ double *MaksEnergia;
 //////////FUNKCJA KTORA BEDZIE MINIMALIZOWANA/////////////////
 void chi2( Int_t & /*nPar*/, Double_t * /*grad*/ , Double_t &fval, Double_t *par, Int_t /*iflag */  ){
 ///////////////////////////////////////////////
-    TFile *f2= TFile::Open("MC.root");
-	TTree *t2;
-	Float_t Energia2;
-    Float_t Good2;
-    Float_t Trklen2;
-    Float_t Charge2;
-    Float_t Sigmax2;
-    Float_t Spher2;
-    Float_t Mnstp2;
-	f2->GetObject("t2",t2);
-  	t2->SetBranchAddress("evisgev2", &Energia2);
-	t2->SetBranchAddress("goodstdtrack2", &Good2);
-    t2->SetBranchAddress("trklen2", &Trklen2);
-    t2->SetBranchAddress("charge2", &Charge2);
-    t2->SetBranchAddress("sigmax2", &Sigmax2);
-    t2->SetBranchAddress("spher2", &Spher2);
-    t2->SetBranchAddress("mnstp2", &Mnstp2);
+TFile *f2= TFile::Open("MC.root");
+TTree *t2;
+Float_t Energia2;
+Float_t Good2;
+Float_t Trklen2;
+Float_t Charge2;
+Float_t Sigmax2;
+Float_t Spher2;
+Float_t Mnstp2;
+f2->GetObject("t2",t2);
+t2->SetBranchAddress("evisgev2", &Energia2);
+t2->SetBranchAddress("goodstdtrack2", &Good2);
+t2->SetBranchAddress("trklen2", &Trklen2);
+t2->SetBranchAddress("charge2", &Charge2);
+t2->SetBranchAddress("sigmax2", &Sigmax2);
+t2->SetBranchAddress("spher2", &Spher2);
+t2->SetBranchAddress("mnstp2", &Mnstp2);
     int max2=t2->GetEntries();
 ////WARTOSCI POMOCNE//////////////////////////
     int binowanie=E1->GetNbinsX();
