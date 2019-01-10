@@ -114,24 +114,24 @@ void analiza(){
     double NDF=binowanie-3;
     TH1F* E2 = new TH1F("E2", "MC", binowanie, mini, maxi);
 ////OTWORZENIE DRZEWA////////1->Dane/////////2->MC///////////////////////////////////////
-    TFile *f1= TFile::Open("Dane.root");
+	TFile *f1= TFile::Open("Dane.root");
 	TTree *t1;
 	Float_t Energia1;
-    Float_t Good1;
-    Float_t Trklen1;
-    Float_t Charge1;
-    Float_t Sigmax1;
-    Float_t Spher1;
-    Float_t Mnstp1;
+   	Float_t Good1;
+   	Float_t Trklen1;
+   	Float_t Charge1;
+   	Float_t Sigmax1;
+   	Float_t Spher1;
+   	Float_t Mnstp1;
 	f1->GetObject("t1",t1);
   	t1->SetBranchAddress("evisgev1", &Energia1);
 	t1->SetBranchAddress("goodstdtrack1", &Good1);
-    t1->SetBranchAddress("trklen1", &Trklen1);
-    t1->SetBranchAddress("charge1", &Charge1);
-    t1->SetBranchAddress("sigmax1", &Sigmax1);
-    t1->SetBranchAddress("spher1", &Spher1);
-    t1->SetBranchAddress("mnstp1", &Mnstp1);
-    int max1=t1->GetEntries();
+   	t1->SetBranchAddress("trklen1", &Trklen1);
+   	t1->SetBranchAddress("charge1", &Charge1);
+   	t1->SetBranchAddress("sigmax1", &Sigmax1);
+   	t1->SetBranchAddress("spher1", &Spher1);
+   	t1->SetBranchAddress("mnstp1", &Mnstp1);
+   	int max1=t1->GetEntries();
 
     TFile *f2= TFile::Open("MC.root");
 	TTree *t2;
