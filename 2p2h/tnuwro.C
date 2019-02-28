@@ -79,9 +79,11 @@ if (fChain == 0) return;
     h_NCcoh->SetNameTitle("h_NCcoh","Neutrino momentum distribution for NC Coh");
 
 ////////////////////////////CCQE///////////////////////
-    TH1F *h_CCQE_neutron = new TH1F("h_CCQE_neutron", "Primary neutron momentum distribution for CCQE", 250, 0, 5000.0);
-    h_CCQE_neutron->GetYaxis()->SetTitle("Number of events");
-    h_CCQE_neutron->GetXaxis()->SetTitle("Neutrino momentum [MeV]");
+    TH1F *h_CCQE_Prim_proton_counter = new TH1F("h_CCQE_Prim_proton_counter", "CCQE proton primary counter", 80, 0, 8.0);
+    TH1F *h_CCQE_Prim_neutron = new TH1F("h_CCQE_Prim_neutron", "Primary neutron momentum distribution for CCQE", 150, 0, 2500.0);
+    h_CCQE_Prim_neutron->GetYaxis()->SetTitle("Number of events");
+    h_CCQE_Prim_neutron->GetXaxis()->SetTitle("Neutrino momentum [MeV]");
+    
     TH1F *h_CCQE_proton = new TH1F("h_CCQE_proton", "Proton final state momentum distribution for CCQE", 150, 0, 2500.0);
     h_CCQE_proton->GetYaxis()->SetTitle("Number of events");
     h_CCQE_proton->GetXaxis()->SetTitle("Momentum [MeV]");
@@ -89,12 +91,18 @@ if (fChain == 0) return;
     TH1F *h_CCQE_proton_max = (TH1F*)(h_CCQE_proton->Clone("h_CCQE_proton_max"));
     h_CCQE_proton_max->SetNameTitle("h_CCQE_proton_max"," Momentum distribution for proton highest momentum, final state, CCQE");
     TH1F *h_CCQE_proton_max_cut = new TH1F("h_CCQE_proton_max_cut", "Highest momentum proton, after cut final state, CCQE", 150, 0, 2500.0);
-
+    h_CCQE_proton_max_cut->GetYaxis()->SetTitle("Number of events");
+    h_CCQE_proton_max_cut->GetXaxis()->SetTitle("Momentum [MeV]");
+    
     TH1F *h_CCQE_proton_counter = new TH1F("h_CCQE_proton_counter", "CCQE proton final state counter", 80, 0, 8.0);
     TH1F *h_CCQE_proton_counter_cut = new TH1F("h_CCQE_proton_counter_cut", "CCQE proton final state counter momentum >450 MeV", 80, 0, 8.0);
+    
+    TH1F *h_CCQE_proton_picut = new TH1F("h_CCQE_proton_picut", "Proton final state momentum distribution for CCQE after pion cut", 150, 0, 2500.0);
+    h_CCQE_proton_picut->GetYaxis()->SetTitle("Number of events");
+    h_CCQE_proton_picut->GetXaxis()->SetTitle("Momentum [MeV]");
 ////////////////////////////2p2h///////////////////////
                     /////PRIMARY////
-    TH1F *h_2p2h_Prim_neutron = new TH1F("h_2p2h_Prim_neutron", "Neutron momentum distribution for 2p2h primary neutron", 400, 0, 5000.0);
+    TH1F *h_2p2h_Prim_neutron = new TH1F("h_2p2h_Prim_neutron", "Neutron momentum distribution for 2p2h primary neutron", 150, 0, 2500.0);
     h_2p2h_Prim_neutron->GetYaxis()->SetTitle("Number of events");
     h_2p2h_Prim_neutron->GetXaxis()->SetTitle("Momentum [MeV]");
 
@@ -123,9 +131,30 @@ if (fChain == 0) return;
     TH1F *h_2p2h_proton_max_cut= new TH1F("h_2p2h_proton_max_cut", "Highest momentum proton, after cut final state, 2p2h", 150, 0, 2500.0);
 
     TH1F *h_2p2h_ifsingle_proton_counter = new TH1F("h_2p2h_ifsingle_proton_counter", "2p2h proton final state counter if one proton in primary", 80, 0, 8.0);
-    TH1F *h_2p2h_ifdouble_proton_counter = new TH1F("h_2p2h_ifdouble_proton_counter", "2p2h proton final state counter if two protons in primary", 80, 0, 8.0);
     TH1F *h_2p2h_ifsingle_neutron_counter = new TH1F("h_2p2h_ifsingle_neutron_counter", "2p2h neutron final state counter if one proton in primary", 80, 0, 8.0);
-    TH1F *h_2p2h_ifdouble_neutron_counter = new TH1F("h_2p2h_ifdouble_neutron_counter", "2p2h neutron final state counter if two protons in primary", 80, 0, 8.0);
+    TH1F *h_2p2h_ifsingle_proton_momentum = new TH1F("h_2p2h_ifsingle_proton_momentum", "2p2h proton final state momentum if one protons in primary", 150, 0, 2500.0);
+    h_2p2h_ifsingle_proton_momentum->GetYaxis()->SetTitle("Number of events");
+    h_2p2h_ifsingle_proton_momentum->GetXaxis()->SetTitle("Momentum [MeV]");
+    
+    TH1F *h_2p2h_ifzero_proton_counter = new TH1F("h_2p2h_ifzero_proton_counter", "2p2h proton final state counter if zero protons in primary", 80, 0, 8.0);
+    TH1F *h_2p2h_ifzero_neutron_counter = new TH1F("h_2p2h_ifzero_neutron_counter", "2p2h neutron final state counter if zero protons in primary", 80, 0, 8.0);
+    TH1F *h_2p2h_ifzero_proton_momentum = new TH1F("h_2p2h_ifzero_proton_momentum", "2p2h proton final state momentum if zero protons in primary", 150, 0, 2500.0);
+    h_2p2h_ifzero_proton_momentum->GetYaxis()->SetTitle("Number of events");
+    h_2p2h_ifzero_proton_momentum->GetXaxis()->SetTitle("Momentum [MeV]");
+    
+    TH1F *h_2p2h_piplus_counter = new TH1F("h_2p2h_piplus_counter", "2p2h pi plus final state counter", 80, 0, 8.0);
+    TH1F *h_2p2h_piminus_counter = new TH1F("h_2p2h_piminus_counter", "2p2h pi minus final state counter", 80, 0, 8.0);
+    
+    TH1F *h_2p2h_piplus = new TH1F("h_2p2h_piplus", "2p2h pi plus final state momentum", 150, 0, 2500.0);
+    h_2p2h_piplus->GetYaxis()->SetTitle("Number of events");
+    h_2p2h_piplus->GetXaxis()->SetTitle("Momentum [MeV]");
+    TH1F *h_2p2h_piminus = new TH1F("h_2p2h_piminus", "2p2h pi minus final state momentum", 150, 0, 2500.0);
+    h_2p2h_piminus->GetYaxis()->SetTitle("Number of events");
+    h_2p2h_piminus->GetXaxis()->SetTitle("Momentum [MeV]");
+    
+    TH1F *h_2p2h_proton_picut = new TH1F("h_2p2h_proton_picut", "Proton final state momentum distribution for 2p2h after pion cut", 150, 0, 2500.0);
+    h_2p2h_proton_picut->GetYaxis()->SetTitle("Number of events");
+    h_2p2h_proton_picut->GetXaxis()->SetTitle("Momentum [MeV]");
 ///////////////////////////RES////////////////
             ////PRIMARY
     TH1F *h_RES_Prim_proton = new TH1F("h_RES_Prim_proton", "Primary proton momentum distribution for RES", 150, 0, 2500.0);
@@ -172,7 +201,6 @@ if (fChain == 0) return;
     h_RES_neutron->GetXaxis()->SetTitle("Momentum [MeV]");
 
     TH1F *h_RES_neutron_counter = new TH1F("h_RES_neutron_counter", "RES neutron final state counter", 100, 0, 10.0);
-
                     //////FINAL PION////
     TH1F *h_RES_piplus = new TH1F("h_RES_piplus", "Final Pi+ momentum distribution for RES", 150, 0, 2500.0);
     h_RES_piplus->GetYaxis()->SetTitle("Number of events");
@@ -190,6 +218,24 @@ if (fChain == 0) return;
     TH1F *h_RES_piminus_counter = new TH1F("h_RES_piminus_counter", "RES Pi- final state counter", 80, 0, 8.0);
 
     TH1F *h_RES_proton_max_cut = new TH1F("h_RES_proton_max_cut", "Highest momentum proton, after cut final state, RES", 150, 0, 2500.0);
+                    //////AFTER CUT////
+    TH1F *h_RES_proton_picut = new TH1F("h_RES_proton_picut", "Proton final state momentum distribution for RES after pion cut", 150, 0, 2500.0);
+    h_RES_proton_picut->GetYaxis()->SetTitle("Number of events");
+    h_RES_proton_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+    
+    TH1F *h_RES_piplus_picut = new TH1F("h_RES_piplus_picut", "Final Pi+ momentum distribution for RES after pion cut", 150, 0, 2500.0);
+    h_RES_piplus_picut->GetYaxis()->SetTitle("Number of events");
+    h_RES_piplus_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+
+    TH1F *h_RES_pizero_picut = new TH1F("h_RES_pizero_picut", "Final Pi0 momentum distribution for RES after pion cut", 150, 0, 2500.0);
+    h_RES_pizero_picut->GetYaxis()->SetTitle("Number of events");
+    h_RES_pizero_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+
+    TH1F *h_RES_piminus_picut = new TH1F("h_RES_piminus_picut", "Final Pi- momentum distribution for RES after pion cut", 150, 0, 2500.0);
+    h_RES_piminus_picut->GetYaxis()->SetTitle("Number of events");
+    h_RES_piminus_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+    
+    TH1F *h_RES_proton_counter_picut = new TH1F("h_RES_proton_counter_picut", "RES proton final state counter after pion cut", 80, 0, 8.0);
 /////////////////DIS/////////
     TH1F *h_DIS_proton = new TH1F("h_DIS_proton", "Final proton momentum distribution for DIS", 150, 0, 2500.0);
     h_DIS_proton->GetYaxis()->SetTitle("Number of events");
@@ -200,14 +246,19 @@ if (fChain == 0) return;
     h_DIS_proton_max->GetXaxis()->SetTitle("Momentum [MeV]");
 
     TH1F *h_DIS_proton_max_cut = new TH1F("h_DIS_proton_max_cut", "Highest momentum proton, after cut final state, DIS", 150, 0, 2500.0);
+    
+    TH1F *h_DIS_proton_picut = new TH1F("h_DIS_proton_picut", "Proton final state momentum distribution for DIS after pion cut", 150, 0, 2500.0);
+    h_DIS_proton_picut->GetYaxis()->SetTitle("Number of events");
+    h_DIS_proton_picut->GetXaxis()->SetTitle("Momentum [MeV]");
 
 ///////////////COH///////////
     TH1F *h_COH_proton = new TH1F("h_COH_proton", "Final proton momentum distribution for COH", 150, 0, 2500.0);
     h_COH_proton->GetYaxis()->SetTitle("Number of events");
     h_COH_proton->GetXaxis()->SetTitle("Momentum [MeV]");
+/*
 //////////2p2h for normal neutrinos test//////
                     /////PRIMARY////
-    TH1F *h_numu_2p2h_Prim_neutron = new TH1F("h_numu_2p2h_Prim_neutron", "Neutron momentum distribution for 2p2h primary neutron", 400, 0, 5000.0);
+    TH1F *h_numu_2p2h_Prim_neutron = new TH1F("h_numu_2p2h_Prim_neutron", "Neutron momentum distribution for 2p2h primary neutron", 150, 0, 2500.0);
     h_numu_2p2h_Prim_neutron->GetYaxis()->SetTitle("Number of events");
     h_numu_2p2h_Prim_neutron->GetXaxis()->SetTitle("Momentum [MeV]");
 
@@ -234,15 +285,14 @@ if (fChain == 0) return;
     TH1F *h_numu_2p2h_proton_max = (TH1F*)(h_numu_2p2h_proton->Clone("h_numu_2p2h_proton_max"));
     h_numu_2p2h_proton_max->SetNameTitle("h_numu_2p2h_proton_max"," Momentum distribution for proton highest momentum, final state, 2p2h");
     TH1F *h_numu_2p2h_proton_max_cut= new TH1F("h_numu_2p2h_proton_max_cut", "Highest momentum proton, after cut final state, 2p2h", 150, 0, 2500.0);
-
-
+    */
 ///////////
     Long64_t nentries = fChain->GetEntriesFast();
 
     Long64_t nbytes = 0, nb = 0;
 
     for (Long64_t jentry=0; jentry<nentries; jentry++)
-    { //loop start
+    {
       Long64_t ientry = LoadTree(jentry);
       if (ientry < 0) break;
         nb = fChain->GetEntry(jentry);   nbytes += nb;
@@ -250,106 +300,166 @@ if (fChain == 0) return;
 
 //////////////////RozneNeutrina////////////////////////////////
 
-        if(neutrino_pid == 14){
+        if(neutrino_pid == 14)
+        {
             h_numu->Fill(neutrino_p);
             n_numu++;
-            }
-        if(neutrino_pid == -14){
+        }
+        if(neutrino_pid == -14)
+        {
             h_anti_numu->Fill(neutrino_p);
             n_anti_numu++;
-            }
-        if(neutrino_pid == 12){
+        }
+        if(neutrino_pid == 12)
+        {
             h_nue->Fill(neutrino_p);
             n_nue++;
-            }
-        if(neutrino_pid == -12){
+        }
+        if(neutrino_pid == -12)
+        {
             h_anti_nue->Fill(neutrino_p);
             n_anti_nue++;
-            }
+        }
 //////////////////////Rozne Kanaly dla anti mu//////////////////////
-        if(neutrino_pid == -14){
-            if(channel==1){
+        if(neutrino_pid == -14)
+        {
+            if(channel==1)
+            {
                 h_CCQE->Fill(neutrino_p);
                 n_CCQE++;
-                }
-            if(channel == 9){
+            }
+            if(channel == 9)
+            {
                 h_2p2h->Fill(neutrino_p);
                 n_2p2h++;
-                }
-            if(channel == 16){
+            }
+            if(channel == 16)
+            {
                 h_res->Fill(neutrino_p);
                 n_res++;
-                }
-            if(channel == 91){
+            }
+            if(channel == 91)
+            {
                 h_DIS->Fill(neutrino_p);
                 n_DIS++;
-                }
-            if(channel == 96){
+            }
+            if(channel == 96)
+            {
                 h_Coh->Fill(neutrino_p);
                 n_Coh++;
-                }
+            }
 
-            if(channel == 2){
+            if(channel == 2)
+            {
                 h_NCQE->Fill(neutrino_p);
                 n_NCQE++;
-                }
-            if(channel == 17){
+            }
+            if(channel == 17)
+            {
                 h_NCres->Fill(neutrino_p);
                 n_NCres++;
-                }
-            if(channel == 92){
+            }
+            if(channel == 92)
+            {
                 h_NCdis->Fill(neutrino_p);
                 n_NCdis++;
-                }
-            if(channel == 97){
+            }
+            if(channel == 97)
+            {
                 h_NCcoh->Fill(neutrino_p);
                 n_NCcoh++;
-                }
             }
+        }
 //////////////////////CCQE////////////
-        if(channel == 1 && neutrino_pid == -14){
+        if(channel == 1 && neutrino_pid == -14)
+        {
             CCQELiczbaCzastek[0]=pidPrim->size();
             CCQELiczbaCzastek[1]=pid->size();
-            for(int i=0; i < CCQELiczbaCzastek[0] ; i++){
-                if(pidPrim->at(i)==2112){
-                    h_CCQE_neutron->Fill(pPrim->at(i));
+            /////Primary//////   
+            int CCQEPrimProtonCounter=0;
+            for(int i=0; i < CCQELiczbaCzastek[0]; i++)
+            {
+                if(pidPrim->at(i)==2112)
+                {
+                    h_CCQE_Prim_neutron->Fill(pPrim->at(i));
+                }           
+                if(pidPrim->at(i)==2212)
+                {
+                    CCQEPrimProtonCounter++;
                 }
             }
-
+            if(CCQEPrimProtonCounter!=0)
+            {
+                h_CCQE_Prim_proton_counter->Fill(CCQEPrimProtonCounter);
+            }
+            //////Final/////
             int CCQEProtonCounter=0;
             int CCQEProtonCounterCut=0;
             int MomentumMaxCut=0;
             int MomentumMax=0;
-            for(int i=0; i < CCQELiczbaCzastek[1] ; i++){
-                if(pid->at(i)==2212){
+            
+            int CCQEPiPlusCounter=0;
+            int CCQEPiMinusCounter=0;
+            for(int i=0; i < CCQELiczbaCzastek[1]; i++)
+            {
+                if(pid->at(i)==2212)
+                {
                     h_CCQE_proton->Fill( p->at(i) );
                     CCQEProtonCounter++;
-                    if( p->at(i) >= 450 ){
+                    if( p->at(i) >= 450 )
+                    {
                         CCQEProtonCounterCut++;
-                        if(p->at(i)>=MomentumMax){
+                        if(p->at(i)>=MomentumMax)
+                        {
                             MomentumMaxCut=p->at(i);
                         }
                     }
                     if(p->at(i)>=MomentumMax){
                         MomentumMax=p->at(i);
                     }
+                    if(pid->at(i)==211 && p->at(i)>=200)
+                    {
+                        CCQEPiPlusCounter++;
+
+                    }
+                    if(pid->at(i)==-211 && p->at(i)>=200)
+                    {
+                        CCQEPiMinusCounter++;
+                    }
                 }
             }
-            if(MomentumMax!=0){
+            if(MomentumMax!=0)
+            {
                 h_CCQE_proton_max->Fill(MomentumMax);
             }
-            if(MomentumMaxCut!=0){
+            if(MomentumMaxCut!=0)
+            {
                 h_CCQE_proton_max_cut->Fill(MomentumMaxCut);
             }
-            if(CCQEProtonCounter!=0){
+            if(CCQEProtonCounter!=0)
+            {
                 h_CCQE_proton_counter->Fill(CCQEProtonCounter);
             }
-            if(CCQEProtonCounterCut!=0){
+            if(CCQEProtonCounterCut!=0)
+            {
                 h_CCQE_proton_counter_cut->Fill(CCQEProtonCounterCut);
             }
+            ////PION CUT////
+            if(CCQEPiPlusCounter==0 && CCQEPiMinusCounter==0)
+            {             
+                for(int i=0; i < CCQELiczbaCzastek[1] ; i++)
+                {
+                    if(pid->at(i)==2212)
+                    {
+                        h_CCQE_proton_picut->Fill( p->at(i) );
+                    }
+                }
+            }
+            
         }
 ////////////////////////////2p2h///////////////////////
-        if(channel == 9 && neutrino_pid == -14){
+        if(channel == 9 && neutrino_pid == -14)
+        {
             MecLiczbaCzastek[0]=pidPrim->size();
             MecLiczbaCzastek[1]=pid->size();
             /////Primary//////
@@ -360,39 +470,50 @@ if (fChain == 0) return;
             int MecTargetProtonCounter=0;
             int MecTargetNeutronCounter=0;
 
-            if(target_pid==2212){
+            if(target_pid==2212)
+            {
                     MecTargetProtonCounter++;
-                }
-            if(target_pid==2112){
+            }
+            if(target_pid==2112)
+            {
                     MecTargetNeutronCounter++;
-                }
-            for(int i=0; i < MecLiczbaCzastek[0] ; i++){
-                if(pidPrim->at(i)==2112){
+            }
+            for(int i=0; i < MecLiczbaCzastek[0] ; i++)
+            {
+                if(pidPrim->at(i)==2112)
+                {
                     h_2p2h_Prim_neutron->Fill(pPrim->at(i));
                     MecPrimNeutronCounter++;
                 }
-                if(pidPrim->at(i)==2212){
+                if(pidPrim->at(i)==2212)
+                {
                     h_2p2h_Prim_proton->Fill(pPrim->at(i));
                     MecPrimProtonCounter++;
                 }
-                if(pidPrim->at(i)==2212 || pidPrim->at(i)==2112){
+                if(pidPrim->at(i)==2212 || pidPrim->at(i)==2112)
+                {
                     MecPrimParticleCounter++;
                 }
             }
 
-            if(MecTargetProtonCounter!=0){
+            if(MecTargetProtonCounter!=0)
+            {
                 h_2p2h_target_proton_counter->Fill(MecTargetProtonCounter);
             }
-            if(MecTargetNeutronCounter!=0){
+            if(MecTargetNeutronCounter!=0)
+            {
                 h_2p2h_target_neutron_counter->Fill(MecTargetNeutronCounter);
             }
-            if(MecPrimProtonCounter!=0){
+            if(MecPrimProtonCounter!=0)
+            {
                 h_2p2h_Prim_proton_counter->Fill(MecPrimProtonCounter);
             }
-            if(MecPrimNeutronCounter!=0){
+            if(MecPrimNeutronCounter!=0)
+            {
                 h_2p2h_Prim_neutron_counter->Fill(MecPrimNeutronCounter);
             }
-            if(MecPrimParticleCounter!=0){
+            if(MecPrimParticleCounter!=0)
+            {
                 h_2p2h_Prim_particle_counter->Fill(MecPrimParticleCounter);
             }
             //////Final/////
@@ -401,81 +522,153 @@ if (fChain == 0) return;
             int MecNeutronCounter=0;
             int MecParticleCounter=0;
 
+            int MecPiPlusCounter[2];
+            int MecPiMinusCounter[2];
+            
+            for(int ig=0; ig<2 ; ig++)
+            {
+                MecPiPlusCounter[ig]=0;
+                MecPiMinusCounter[ig]=0;
+            }
+            
             int MecIfPrimSingleProtonCounter=0;
-            int MecIfPrimDoubleProtonCounter=0;
+            int MecIfPrimZeroProtonCounter=0;
             int MecIfPrimSingleNeutronCounter=0;
-            int MecIfPrimDoubleNeutronCounter=0;
+            int MecIfPrimZeroNeutronCounter=0;
 
             int MomentumMax=0;
             int MomentumMaxCut=0;
 
-            for(int i=0; i < MecLiczbaCzastek[1] ; i++){
-                if(pid->at(i)==2212){
+            for(int i=0; i < MecLiczbaCzastek[1] ; i++)
+            {
+                if(pid->at(i)==2212)
+                {
                     h_2p2h_proton->Fill( p->at(i) );
                     MecProtonCounter++;
-                    if(p->at(i)>=450){
+                    if(p->at(i)>=450)
+                    {
                         MecProtonCounterCut++;
-                        if(p->at(i)>=MomentumMax){
+                        if(p->at(i)>=MomentumMax)
+                        {
                             MomentumMaxCut=p->at(i);
                         }
                     }
-                    if(p->at(i)>=MomentumMax){
+                    if(p->at(i)>=MomentumMax)
+                    {
                         MomentumMax=p->at(i);
                     }
-                    if(MecPrimProtonCounter==1){
-                        MecIfPrimSingleProtonCounter++;
+                    if(MecPrimProtonCounter==0 )
+                    {
+                        MecIfPrimZeroProtonCounter++;
+                        h_2p2h_ifzero_proton_momentum->Fill( p->at(i) );
                     }
-                    if(MecPrimProtonCounter==2 ){
-                        MecIfPrimDoubleProtonCounter++;
+                    if(MecPrimProtonCounter==1)
+                    {
+                        MecIfPrimSingleProtonCounter++;
+                        h_2p2h_ifsingle_proton_momentum->Fill( p->at(i) );
                     }
                 }
-                if(pid->at(i)==2112){
+                if(pid->at(i)==2112)
+                {
                     MecNeutronCounter++;
-                    if(MecPrimProtonCounter==1){
+                    if(MecPrimProtonCounter==0)
+                    {
+                        MecIfPrimZeroNeutronCounter++;
+                    }
+                    if(MecPrimProtonCounter==1)
+                    {
                         MecIfPrimSingleNeutronCounter++;
                     }
-                    if(MecPrimProtonCounter==2){
-                        MecIfPrimDoubleNeutronCounter++;
-                    }
                 }
-                if(pid->at(i)==2212 || pid->at(i)==2112){
+                if(pid->at(i)==2212 || pid->at(i)==2112)
+                {
                     MecParticleCounter++;
                 }
+                if(pid->at(i)==211)
+                {
+                    MecPiPlusCounter[0]++;
+                    h_2p2h_piplus->Fill( p->at(i) );
+                    if(p->at(i)>=200)
+                    {
+                        MecPiPlusCounter[1]++;
+                    }
+                }
+                if(pid->at(i)==-211)
+                {
+                   MecPiMinusCounter[0]++;
+                   h_2p2h_piminus->Fill( p->at(i) );
+                    if(p->at(i)>=200)
+                    {
+                        MecPiMinusCounter[1]++;
+                    }
+                }
             }
-            if(MomentumMax!=0){
+       ////filling histograms     
+            if(MomentumMax!=0)
+            {
                 h_2p2h_proton_max->Fill(MomentumMax);
             }
-            if(MomentumMaxCut!=0){
+            if(MomentumMaxCut!=0)
+            {
                 h_2p2h_proton_max_cut->Fill(MomentumMaxCut);
             }
-            if(MecProtonCounter!=0){
+            if(MecProtonCounter!=0)
+            {
                 h_2p2h_proton_counter->Fill(MecProtonCounter);
             }
-            if(MecProtonCounterCut!=0){
+            if(MecProtonCounterCut!=0)
+            {
                 h_2p2h_proton_counter_cut->Fill(MecProtonCounterCut);
             }
-            if(MecNeutronCounter!=0){
+            if(MecNeutronCounter!=0)
+            {
                 h_2p2h_neutron_counter->Fill(MecNeutronCounter);
             }
-            if(MecParticleCounter!=0){
+            if(MecParticleCounter!=0)
+            {
                 h_2p2h_particle_counter->Fill(MecParticleCounter);
             }
 
-            if(MecIfPrimSingleNeutronCounter!=0){
+            if(MecIfPrimSingleNeutronCounter!=0)
+            {
                 h_2p2h_ifsingle_neutron_counter->Fill(MecIfPrimSingleNeutronCounter);
             }
-            if(MecIfPrimSingleProtonCounter!=0){
+            if(MecIfPrimSingleProtonCounter!=0)
+            {
                 h_2p2h_ifsingle_proton_counter->Fill(MecIfPrimSingleProtonCounter);
             }
-            if(MecIfPrimDoubleProtonCounter!=0){
-                h_2p2h_ifdouble_proton_counter->Fill(MecIfPrimDoubleProtonCounter);
+            if(MecIfPrimZeroProtonCounter!=0)
+            {
+                h_2p2h_ifzero_proton_counter->Fill(MecIfPrimZeroProtonCounter);
             }
-            if(MecIfPrimDoubleNeutronCounter!=0){
-                h_2p2h_ifdouble_neutron_counter->Fill(MecIfPrimDoubleNeutronCounter);
+            if(MecIfPrimZeroNeutronCounter!=0)
+            {
+                h_2p2h_ifzero_neutron_counter->Fill(MecIfPrimZeroNeutronCounter);
+            }
+            if(MecPiPlusCounter[0]!=0)
+            {
+            h_2p2h_piplus_counter->Fill(MecPiPlusCounter[0]);
+            }
+            if(MecPiMinusCounter[0]!=0)
+            {
+            h_2p2h_piminus_counter->Fill(MecPiMinusCounter[0]);
+            }
+                    
+            ////PION CUT////
+           if(MecPiPlusCounter[1]==0 && MecPiMinusCounter[1]==0)
+            {             
+                for(int i=0; i < MecLiczbaCzastek[1] ; i++)
+                {
+                    if(pid->at(i)==2212)
+                    {
+                        h_2p2h_proton_picut->Fill( p->at(i) );
+                    }
+                }
             }
         }
 /////////////////////////RES//////////////
-        if(channel == 16 && neutrino_pid == -14){
+        if(channel == 16 && neutrino_pid == -14)
+        {
             RESLiczbaCzastek[0]=pidPrim->size();
             RESLiczbaCzastek[1]=pid->size();
         /////Primary/////
@@ -486,69 +679,94 @@ if (fChain == 0) return;
             int RESPrimPiPlusCounter=0;
             int RESPrimPiZeroCounter=0;
             int RESPrimPiMinusCounter=0;
-            for(int i=0; i < RESLiczbaCzastek[0] ; i++){
-                if(pidPrim->at(i)==2212){
+            for(int i=0; i < RESLiczbaCzastek[0] ; i++)
+            {
+                if(pidPrim->at(i)==2212)
+                {
                     h_RES_Prim_proton->Fill( pPrim->at(i) );
                     RESPrimProtonCounter++;
                 }
-                if(pidPrim->at(i) == 2112){
+                if(pidPrim->at(i) == 2112)
+                {
                     h_RES_Prim_neutron->Fill( pPrim->at(i) );
                     RESPrimNeutronCounter++;
                 }
-                if(pidPrim->at(i) == 211){
+                if(pidPrim->at(i) == 211)
+                {
                     h_RES_Prim_piplus->Fill( pPrim->at(i) );
                     RESPrimPiPlusCounter++;
                 }
-                if(pidPrim->at(i) == 111){
+                if(pidPrim->at(i) == 111)
+                {
                     h_RES_Prim_pizero->Fill( pPrim->at(i) );
                     RESPrimPiZeroCounter++;
                 }
-                if(pidPrim->at(i) == -211){
+                if(pidPrim->at(i) == -211)
+                {
                     h_RES_Prim_piminus->Fill( pPrim->at(i) );
                     RESPrimPiMinusCounter++;
                 }
-                if(pidPrim->at(i) == -11){
+                if(pidPrim->at(i) == -11)
+                {
                     RESPrimPositronCounter++;
                 }
             }
-            if(RESPrimProtonCounter!=0){
+            if(RESPrimProtonCounter!=0)
+            {
                 h_RES_Prim_proton_counter->Fill(RESPrimProtonCounter);
             }
-            if(RESPrimNeutronCounter!=0){
+            if(RESPrimNeutronCounter!=0)
+            {
                 h_RES_Prim_neutron_counter->Fill(RESPrimNeutronCounter);
             }
-            if(RESPrimPositronCounter!=0){
+            if(RESPrimPositronCounter!=0)
+            {
                 h_RES_Prim_positron_counter->Fill(RESPrimPositronCounter);
             }
 
-            if(RESPrimPiPlusCounter!=0){
+            if(RESPrimPiPlusCounter!=0)
+            {
                 h_RES_Prim_piplus_counter->Fill(RESPrimPiPlusCounter);
             }
-            if(RESPrimPiZeroCounter!=0){
+            if(RESPrimPiZeroCounter!=0)
+            {
                 h_RES_Prim_pizero_counter->Fill(RESPrimPiZeroCounter);
             }
-            if(RESPrimPiMinusCounter!=0){
+            if(RESPrimPiMinusCounter!=0)
+            {
                 h_RES_Prim_piminus_counter->Fill(RESPrimPiMinusCounter);
             }
         ///////Final///////
-            int RESProtonCounter=0;
+            int RESProtonCounter[2]; //[0] normal [1] after pion cut
             int RESProtonCounterCut=0;
             int RESNeutronCounter=0;
             int RESPositronCounter=0;
 
-            int RESPiPlusCounter=0;
-            int RESPiZeroCounter=0;
-            int RESPiMinusCounter=0;
-
+            int RESPiPlusCounter[2];
+            int RESPiZeroCounter[2];
+            int RESPiMinusCounter[2]; //[0]all counter [1] only for momentum>200
+            for(int ig=0; ig<2 ; ig++)
+            {
+                RESProtonCounter[ig]=0;
+                
+                RESPiPlusCounter[ig]=0;
+                RESPiZeroCounter[ig]=0;
+                RESPiMinusCounter[ig]=0;
+            }
+            
             int MomentumMax=0;
             int MomentumMaxCut=0;
-            for(int i=0; i < RESLiczbaCzastek[1] ; i++){
-                if(pid->at(i) == 2212){
+            for(int i=0; i < RESLiczbaCzastek[1] ; i++)
+            {
+                if(pid->at(i) == 2212)
+                {
                     h_RES_proton->Fill( p->at(i) );
-                    RESProtonCounter++;
-                    if( p->at(i) >= 450 ){
+                    RESProtonCounter[0]++;
+                    if( p->at(i) >= 450 )
+                    {
                         RESProtonCounterCut++;
-                        if(p->at(i)>=MomentumMaxCut){
+                        if(p->at(i)>=MomentumMaxCut)
+                        {
                             MomentumMaxCut=p->at(i);
                         }
                     }
@@ -556,66 +774,127 @@ if (fChain == 0) return;
                         MomentumMax=p->at(i);
                     }
                 }
-                if(pid->at(i) == 2112){
+                if(pid->at(i) == 2112)
+                {
                     h_RES_neutron->Fill( p->at(i) );
                     RESNeutronCounter++;
                 }
-                if(pid->at(i) == -11){
+                if(pid->at(i) == -11)
+                {
                     RESPositronCounter++;
                 }
-                if(pid->at(i) == 211){
+                if(pid->at(i) == 211)
+                {
                     h_RES_piplus->Fill( p->at(i) );
-                    RESPiPlusCounter++;
+                    RESPiPlusCounter[0]++;
+                    if(p->at(i)>=200)
+                    {
+                        RESPiPlusCounter[1]++;
+                    }
                 }
-                if(pid->at(i) == 111){
+                if(pid->at(i) == 111)
+                {
                     h_RES_pizero->Fill( p->at(i) );
-                    RESPiZeroCounter++;
+                    RESPiZeroCounter[0]++;
+                    if(p->at(i)>=200)
+                    {
+                        RESPiZeroCounter[1]++;
+                    }
                 }
-                if(pid->at(i) == -211){
+                if(pid->at(i) == -211)
+                {
                     h_RES_piminus->Fill( p->at(i) );
-                    RESPiMinusCounter++;
+                    RESPiMinusCounter[0]++;
+                    if(p->at(i)>=200)
+                    {
+                        RESPiMinusCounter[1]++;
+                    }
                 }
 
             }
-            if(RESProtonCounter!=0){
-                h_RES_proton_counter->Fill(RESProtonCounter);
+            if(RESProtonCounter[0]!=0)
+            {
+                h_RES_proton_counter->Fill(RESProtonCounter[0]);
             }
-            if(RESProtonCounterCut!=0){
+            if(RESProtonCounterCut!=0)
+            {
                 h_RES_proton_counter_cut->Fill(RESProtonCounterCut);
             }
-            if(RESNeutronCounter!=0){
+            if(RESNeutronCounter!=0)
+            {
                 h_RES_neutron_counter->Fill(RESNeutronCounter);
             }
-            if(RESPositronCounter!=0){
+            if(RESPositronCounter!=0)
+            {
                 h_RES_positron_counter->Fill(RESPositronCounter);
             }
 
-            if(RESPiPlusCounter!=0){
-                h_RES_piplus_counter->Fill(RESPiPlusCounter);
+            if(RESPiPlusCounter[0]!=0)
+            {
+                h_RES_piplus_counter->Fill(RESPiPlusCounter[0]);
             }
-            if(RESPiZeroCounter!=0){
-                h_RES_pizero_counter->Fill(RESPiZeroCounter);
+            if(RESPiZeroCounter[0]!=0)
+            {
+                h_RES_pizero_counter->Fill(RESPiZeroCounter[0]);
             }
-            if(RESPiMinusCounter!=0){
-                h_RES_piminus_counter->Fill(RESPiMinusCounter);
+            if(RESPiMinusCounter[0]!=0)
+            {
+                h_RES_piminus_counter->Fill(RESPiMinusCounter[0]);
             }
-            if(MomentumMax!=0){
+            if(MomentumMax!=0)
+            {
                 h_RES_proton_max->Fill(MomentumMax);
             }
-            if(MomentumMaxCut!=0){
+            if(MomentumMaxCut!=0)
+            {
                 h_RES_proton_max_cut->Fill(MomentumMaxCut);
+            }
+            ////PION CUT////
+            if(RESPiPlusCounter[1]==0 && RESPiPlusCounter[1]==0)
+            {             
+                for(int i=0; i < RESLiczbaCzastek[1] ; i++)
+                {
+                    if(pid->at(i)==2212)
+                    {
+                        h_RES_proton_picut->Fill( p->at(i) );
+                        RESProtonCounter[1]++;
+                    }
+                    if(pid->at(i)==211)
+                    {
+                        h_RES_piplus_picut->Fill( p->at(i) );
+                    }  
+                    if(pid->at(i)==-211)
+                    {
+                        h_RES_piminus_picut->Fill( p->at(i) );
+                    }  
+                    if(pid->at(i)==111)
+                    {
+                        h_RES_pizero_picut->Fill( p->at(i) );
+                    }  
+                }
+                if(RESProtonCounter[1]!=0)
+                {
+                    h_RES_proton_counter_picut->Fill(RESProtonCounter[1]);
+                }
             }
         }
 ////////////DIS////////
-        if(channel == 91 && neutrino_pid == -14){
+        if(channel == 91 && neutrino_pid == -14)
+        {
             DISLiczbaCzastek[0]=pidPrim->size();
             DISLiczbaCzastek[1]=pid->size();
             int MomentumMax=0;
             int MomentumMaxCut=0;
-            for(int i=0; i < DISLiczbaCzastek[1] ; i++){
-                if(pid->at(i)==2212){
+            
+            int DISPiPlusCounter=0;
+            int DISPiMinusCounter=0;
+            for(int i=0; i < DISLiczbaCzastek[1] ; i++)
+            {
+                if(pid->at(i)==2212)
+                {
                     h_DIS_proton->Fill( p->at(i) );
-                    if(p->at(i)>=450){
+                    if(p->at(i)>=450)
+                    {
                         if(p->at(i)>=MomentumMaxCut){
                             MomentumMaxCut=p->at(i);
                         }
@@ -624,27 +903,52 @@ if (fChain == 0) return;
                         MomentumMax=p->at(i);
                     }
                 }
+                if(pid->at(i) == 211 && p->at(i)>=200)
+                {
+                    DISPiPlusCounter++;
+                }
+                if(pid->at(i) == -211 && p->at(i)>=200)
+                {
+                    DISPiMinusCounter++;
+                }
             }
-            if(MomentumMax != 0){
+            if(MomentumMax != 0)
+            {
                 h_DIS_proton_max->Fill(MomentumMax);
             }
-            if(MomentumMaxCut != 0){
+            if(MomentumMaxCut != 0)
+            {
                 h_DIS_proton_max_cut->Fill(MomentumMaxCut);
+            }
+            ////PION CUT////
+            if(DISPiPlusCounter==0 && DISPiMinusCounter==0)
+            {
+                for(int i=0; i < DISLiczbaCzastek[1] ; i++)
+                {
+                    if(pid->at(i)==2212)
+                    {
+                        h_DIS_proton_picut->Fill( p->at(i) );
+                    }
+                }
             }
         }
 ///////////COH/////////
-        if(channel == 96 && neutrino_pid == -14){
+        if(channel == 96 && neutrino_pid == -14)
+        {
             COHLiczbaCzastek[0]=pidPrim->size();
             COHLiczbaCzastek[1]=pid->size();
 
             for(int i=0; i < COHLiczbaCzastek[1] ; i++){
-                if(pid->at(i)==2212){
+                if(pid->at(i)==2212)
+                {
                     h_COH_proton->Fill(p->at(i));
                 }
             }
         }
+/*
 /////////////////2p2h normalne neutrino TEST/////
-        if(channel == 9 && neutrino_pid == 14){
+        if(channel == 9 && neutrino_pid == 14)
+        {
             MecNuMuLiczbaCzastek[0]=pidPrim->size();
             MecNuMuLiczbaCzastek[1]=pid->size();
             /////Primary//////
@@ -655,39 +959,50 @@ if (fChain == 0) return;
             int MecNuMuTargetProtonCounter=0;
             int MecNuMuTargetNeutronCounter=0;
 
-            if(target_pid==2212){
+            if(target_pid==2212)
+            {
                     MecNuMuTargetProtonCounter++;
-                }
-            if(target_pid==2112){
+            }
+            if(target_pid==2112)
+            {
                     MecNuMuTargetNeutronCounter++;
-                }
-            for(int i=0; i < MecNuMuLiczbaCzastek[0] ; i++){
-                if(pidPrim->at(i)==2112){
+            }
+            for(int i=0; i < MecNuMuLiczbaCzastek[0] ; i++)
+            {
+                if(pidPrim->at(i)==2112)
+                {
                     h_numu_2p2h_Prim_neutron->Fill(pPrim->at(i));
                     MecNuMuPrimNeutronCounter++;
                 }
-                if(pidPrim->at(i)==2212){
+                if(pidPrim->at(i)==2212)
+                {
                     h_numu_2p2h_Prim_proton->Fill(pPrim->at(i));
                     MecNuMuPrimProtonCounter++;
                 }
-                if(pidPrim->at(i)==2212 || pidPrim->at(i)==2112){
+                if(pidPrim->at(i)==2212 || pidPrim->at(i)==2112)
+                {
                     MecNuMuPrimParticleCounter++;
                 }
             }
 
-            if(MecNuMuTargetProtonCounter!=0){
+            if(MecNuMuTargetProtonCounter!=0)
+            {
                 h_numu_2p2h_target_proton_counter->Fill(MecNuMuTargetProtonCounter);
             }
-            if(MecNuMuTargetNeutronCounter!=0){
+            if(MecNuMuTargetNeutronCounter!=0)
+            {
                 h_numu_2p2h_target_neutron_counter->Fill(MecNuMuTargetNeutronCounter);
             }
-            if(MecNuMuPrimProtonCounter!=0){
+            if(MecNuMuPrimProtonCounter!=0)
+            {
                 h_numu_2p2h_Prim_proton_counter->Fill(MecNuMuPrimProtonCounter);
             }
-            if(MecNuMuPrimNeutronCounter!=0){
+            if(MecNuMuPrimNeutronCounter!=0)
+            {
                 h_numu_2p2h_Prim_neutron_counter->Fill(MecNuMuPrimNeutronCounter);
             }
-            if(MecNuMuPrimParticleCounter!=0){
+            if(MecNuMuPrimParticleCounter!=0)
+            {
                 h_numu_2p2h_Prim_particle_counter->Fill(MecNuMuPrimParticleCounter);
             }
             //////Final/////
@@ -699,52 +1014,68 @@ if (fChain == 0) return;
             int MomentumMax=0;
             int MomentumMaxCut=0;
             int i=0;
-            for(int i=0; i < MecNuMuLiczbaCzastek[1] ; i++){
-                if(pid->at(i)==2212){
+            for(int i=0; i < MecNuMuLiczbaCzastek[1] ; i++)
+            {
+                if(pid->at(i)==2212)
+                {
                     h_numu_2p2h_proton->Fill( p->at(i) );
                     MecNuMuProtonCounter++;
-                    if(p->at(i)>=450){
+                    if(p->at(i)>=450)
+                    {
                         MecNuMuProtonCounterCut++;
-                        if(p->at(i)>=MomentumMax){
+                        if(p->at(i)>=MomentumMax)
+                        {
                             MomentumMaxCut=p->at(i);
                         }
                     }
-                    if(p->at(i)>=MomentumMax){
+                    if(p->at(i)>=MomentumMax)
+                    {
                         MomentumMax=p->at(i);
                     }
                 }
-                if(pid->at(i)==2112){
+                if(pid->at(i)==2112)
+                {
                     MecNuMuNeutronCounter++;
                 }
-                if(pid->at(i)==2212 || pid->at(i)==2112){
+                if(pid->at(i)==2212 || pid->at(i)==2112)
+                {
                     MecNuMuParticleCounter++;
                 }
             }
-            if(MomentumMax!=0){
+            if(MomentumMax!=0)
+            {
                 h_numu_2p2h_proton_max->Fill(MomentumMax);
             }
-            if(MomentumMaxCut!=0){
+            if(MomentumMaxCut!=0)
+            {
                 h_numu_2p2h_proton_max_cut->Fill(MomentumMaxCut);
             }
-            if(MecNuMuProtonCounter!=0){
+            if(MecNuMuProtonCounter!=0)
+            {
                 h_numu_2p2h_proton_counter->Fill(MecNuMuProtonCounter);
             }
-            if(MecNuMuProtonCounterCut!=0){
+            if(MecNuMuProtonCounterCut!=0)
+            {
                 h_numu_2p2h_proton_counter_cut->Fill(MecNuMuProtonCounterCut);
             }
-            if(MecNuMuNeutronCounter!=0){
+            if(MecNuMuNeutronCounter!=0)
+            {
                 h_numu_2p2h_neutron_counter->Fill(MecNuMuNeutronCounter);
             }
-            if(MecNuMuParticleCounter!=0){
+            if(MecNuMuParticleCounter!=0)
+            {
                 h_numu_2p2h_particle_counter->Fill(MecNuMuParticleCounter);
             }
         }
+    */
 /////Wypluwanie eventow///////
     if(event_num%1000==0)
+    {
     cout<<"Event= "<<event_num<<endl;
-   } // end loop
+    }
+   }
 ///////Saving to root file/////
-TFile *fout = new TFile("histograms.root","RECREATE");
+    TFile *fileout = new TFile("histograms.root","RECREATE");
 
     h_numu->Write();
     h_anti_numu->Write();
@@ -761,13 +1092,16 @@ TFile *fout = new TFile("histograms.root","RECREATE");
     h_NCdis->Write();
     h_NCcoh->Write();
 
-    h_CCQE_neutron->Write();
+    h_CCQE_Prim_proton_counter->Write();
+    h_CCQE_Prim_neutron->Write();
     h_CCQE_proton->Write();
     h_CCQE_proton_max->Write();
     h_CCQE_proton_max_cut->Write();
     h_CCQE_proton_counter->Write();
     h_CCQE_proton_counter_cut->Write();
 
+    h_CCQE_proton_picut->Write();
+    
     h_2p2h_target_neutron_counter->Write();
     h_2p2h_target_proton_counter->Write();
 
@@ -787,9 +1121,19 @@ TFile *fout = new TFile("histograms.root","RECREATE");
 
     h_2p2h_ifsingle_neutron_counter->Write();
     h_2p2h_ifsingle_proton_counter->Write();
-    h_2p2h_ifdouble_neutron_counter->Write();
-    h_2p2h_ifdouble_proton_counter->Write();
-
+    h_2p2h_ifzero_neutron_counter->Write();
+    h_2p2h_ifzero_proton_counter->Write();
+    h_2p2h_ifzero_proton_momentum->Write();
+    h_2p2h_ifsingle_proton_momentum->Write();
+    
+    h_2p2h_piplus_counter->Write();
+    h_2p2h_piminus_counter->Write();
+    
+    h_2p2h_piplus->Write();
+    h_2p2h_piminus->Write();
+    
+    h_2p2h_proton_picut->Write();
+    
     h_RES_Prim_proton->Write();
     h_RES_Prim_proton_counter->Write();
     h_RES_Prim_neutron->Write();
@@ -819,11 +1163,19 @@ TFile *fout = new TFile("histograms.root","RECREATE");
     h_RES_piminus->Write();
     h_RES_piminus_counter->Write();
 
+    h_RES_proton_picut->Write();
+    h_RES_piplus_picut->Write();
+    h_RES_pizero_picut->Write();
+    h_RES_piminus_picut->Write();
+    h_RES_proton_counter_picut->Write();
+    
     h_DIS_proton->Write();
     h_DIS_proton_max->Write();
     h_DIS_proton_max_cut->Write();
+    h_DIS_proton_picut->Write();
+    
     h_COH_proton->Write();
-
+/*
     h_numu_2p2h_target_neutron_counter->Write();
     h_numu_2p2h_target_proton_counter->Write();
 
@@ -840,8 +1192,8 @@ TFile *fout = new TFile("histograms.root","RECREATE");
     h_numu_2p2h_neutron_counter->Write();
     h_numu_2p2h_proton_counter->Write();
     h_numu_2p2h_proton_counter_cut->Write();
-
-    fout->Close();
+*/
+    fileout->Close();
 ///////saving to txt file///////
 
     fstream plik;
