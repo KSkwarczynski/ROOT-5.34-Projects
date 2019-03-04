@@ -245,12 +245,16 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     h_2p2h_ifzero_proton_momentum->SetLineColorAlpha(kBlue, 1);
     h_2p2h_ifzero_proton_momentum->SetLineWidth(1.5);
     
+    TH1F*   h_RES_ifzero_proton_momentum = (TH1F*) file->Get("h_RES_ifzero_proton_momentum");
+    h_RES_ifzero_proton_momentum->SetLineColorAlpha(kGreen, 1);
+    h_RES_ifzero_proton_momentum->SetLineWidth(1.5);
+    
     h_CCQE_proton->SetNameTitle("h_CCQE_proton","Proton momentum");
     h_CCQE_proton->GetXaxis()->SetTitle("Momentum [Mev]");
     h_CCQE_proton->GetYaxis()->SetTitle("Number of events");
     
-    long double normalizacja[2];
-    for(int i=0;i<=2;i++)
+    long double normalizacja[3];
+    for(int i=0;i<3;i++)
     {
        normalizacja[i]=0;
     }
@@ -260,21 +264,23 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     {
         normalizacja[0]+=h_CCQE_proton->GetBinContent(i);
         normalizacja[1]+=h_2p2h_ifzero_proton_momentum->GetBinContent(i);
+        normalizacja[2]+=h_RES_ifzero_proton_momentum->GetBinContent(i);
     }
     int norma=normalizacja[0];
     h_CCQE_proton->Scale(norma/normalizacja[0]);
     h_2p2h_ifzero_proton_momentum->Scale(norma/normalizacja[1]);
-    
+    h_RES_ifzero_proton_momentum->Scale(norma/normalizacja[2]);
 
     c1 = new TCanvas("c1"," ",10,10,1400,1000);
     c1->SetLogy();
     h_CCQE_proton->Draw("");
     h_2p2h_ifzero_proton_momentum->Draw("SAME");
-
+    h_RES_ifzero_proton_momentum->Draw("SAME");
     
     TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
     legend->AddEntry(h_CCQE_proton,"CCQE","l");
     legend->AddEntry(h_2p2h_ifzero_proton_momentum,"2p2h protons only from FSI","l");
+    legend->AddEntry(h_RES_ifzero_proton_momentum,"RES protons only from FSI","l");
     legend->Draw();
 
     gPad->Modified();
