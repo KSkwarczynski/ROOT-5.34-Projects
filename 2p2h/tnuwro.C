@@ -48,7 +48,7 @@ if (fChain == 0) return;
     double MuonReconstructionThreshold=300; //this value gives threshold above which muon can be detected
     TH1F *h_numu = new TH1F("h_numu", "Neutrino momentum distribution of muon neutrino", 250, 0, 5000.0);
     h_numu->GetYaxis()->SetTitle("Number of events");
-    h_numu->GetXaxis()->SetTitle("Neutrino momentum [MeV]");
+    h_numu->GetXaxis()->SetTitle("Neutrino momentum [MeV/c]");
 
     TH1F *h_anti_numu = (TH1F*)(h_numu->Clone("h_anti_numu"));
     h_anti_numu->SetNameTitle("h_anti_numu","Neutrino momentum distribution of anti muon neutrino");
@@ -84,40 +84,40 @@ if (fChain == 0) return;
     TH1F *h_CCQE_Prim_proton_counter = new TH1F("h_CCQE_Prim_proton_counter", "CCQE proton primary counter", 80, 0, 8.0);
     TH1F *h_CCQE_Prim_neutron = new TH1F("h_CCQE_Prim_neutron", "Primary neutron momentum distribution for CCQE", 150, 0, 2500.0);
     h_CCQE_Prim_neutron->GetYaxis()->SetTitle("Number of events");
-    h_CCQE_Prim_neutron->GetXaxis()->SetTitle("Neutrino momentum [MeV]");
+    h_CCQE_Prim_neutron->GetXaxis()->SetTitle("Neutrino momentum [MeV/c]");
     
     TH1F *h_CCQE_proton = new TH1F("h_CCQE_proton", "Proton final state momentum distribution for CCQE", 150, 0, 2500.0);
     h_CCQE_proton->GetYaxis()->SetTitle("Number of events");
-    h_CCQE_proton->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_CCQE_proton->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_CCQE_proton_cut = new TH1F("h_CCQE_proton_cut", "Proton final state momentum distribution for CCQE, after momentum cut", 150, 0, 2500.0);
     h_CCQE_proton_cut->GetYaxis()->SetTitle("Number of events");
     h_CCQE_proton_cut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_CCQE_muon = new TH1F("h_CCQE_muon", "Muon final state momentum distribution for CCQE", 150, 0, 2500.0);
     h_CCQE_muon->GetYaxis()->SetTitle("Number of events");
-    h_CCQE_muon->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_CCQE_muon->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_CCQE_proton_max = (TH1F*)(h_CCQE_proton->Clone("h_CCQE_proton_max"));
     h_CCQE_proton_max->SetNameTitle("h_CCQE_proton_max"," Momentum distribution for proton highest momentum, final state, CCQE");
     TH1F *h_CCQE_proton_max_cut = new TH1F("h_CCQE_proton_max_cut", "Highest momentum proton, after momentum cut, final state, CCQE", 150, 0, 2500.0);
     h_CCQE_proton_max_cut->GetYaxis()->SetTitle("Number of events");
-    h_CCQE_proton_max_cut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_CCQE_proton_max_cut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_CCQE_proton_counter = new TH1F("h_CCQE_proton_counter", "CCQE proton final state counter", 80, 0, 8.0);
     TH1F *h_CCQE_proton_counter_cut = new TH1F("h_CCQE_proton_counter_cut", "CCQE proton final state counter, after momentum cut", 80, 0, 8.0);
     
     TH1F *h_CCQE_proton_picut = new TH1F("h_CCQE_proton_picut", "Proton final state momentum distribution for CCQE after pion cut", 150, 0, 2500.0);
     h_CCQE_proton_picut->GetYaxis()->SetTitle("Number of events");
-    h_CCQE_proton_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_CCQE_proton_picut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_CCQE_proton_picut_cut = new TH1F("h_CCQE_proton_picut_cut", "Proton final state momentum distribution for CCQE after pion cut, after momentum cut", 150, 0, 2500.0);
     h_CCQE_proton_picut_cut->GetYaxis()->SetTitle("Number of events");
-    h_CCQE_proton_picut_cut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_CCQE_proton_picut_cut->GetXaxis()->SetTitle("Momentum [MeV/c]");
 ////////////////////////////2p2h///////////////////////
                     /////PRIMARY////
     TH1F *h_2p2h_Prim_neutron = new TH1F("h_2p2h_Prim_neutron", "Neutron momentum distribution for 2p2h primary neutron", 150, 0, 2500.0);
     h_2p2h_Prim_neutron->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_Prim_neutron->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_Prim_neutron->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_2p2h_Prim_proton = (TH1F*)(h_2p2h_Prim_neutron->Clone("h_2p2h_Prim_proton"));
     h_2p2h_Prim_proton->SetNameTitle("h_2p2h_Prim_proton","Primary proton momentum distribution for 2p2h");
@@ -131,7 +131,7 @@ if (fChain == 0) return;
                         //////FINAL/////
     TH1F *h_2p2h_proton = new TH1F("h_2p2h_proton", "Proton momentum distribution for 2p2h", 150, 0, 2500.0);
     h_2p2h_proton->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_proton->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_proton->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_2p2h_muon = new TH1F("h_2p2h_muon", "Muon momentum distribution for 2p2h", 150, 0, 2500.0);
     h_2p2h_muon->GetYaxis()->SetTitle("Number of events");
@@ -151,65 +151,65 @@ if (fChain == 0) return;
     TH1F *h_2p2h_ifsingle_neutron_counter = new TH1F("h_2p2h_ifsingle_neutron_counter", "2p2h neutron final state counter if one proton in primary", 80, 0, 8.0);
     TH1F *h_2p2h_ifsingle_proton_momentum = new TH1F("h_2p2h_ifsingle_proton_momentum", "2p2h proton final state momentum if one protons in primary", 150, 0, 2500.0);
     h_2p2h_ifsingle_proton_momentum->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_ifsingle_proton_momentum->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_ifsingle_proton_momentum->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_2p2h_ifsingle_proton_momentum_cut = new TH1F("h_2p2h_ifsingle_proton_momentum_cut", "2p2h proton final state momentum if one protons in primary, after momentum cut.", 150, 0, 2500.0);
     h_2p2h_ifsingle_proton_momentum_cut->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_ifsingle_proton_momentum_cut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_ifsingle_proton_momentum_cut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_2p2h_ifzero_proton_counter = new TH1F("h_2p2h_ifzero_proton_counter", "2p2h proton final state counter if zero protons in primary", 80, 0, 8.0);
     TH1F *h_2p2h_ifzero_neutron_counter = new TH1F("h_2p2h_ifzero_neutron_counter", "2p2h neutron final state counter if zero protons in primary", 80, 0, 8.0);
     TH1F *h_2p2h_ifzero_proton_momentum = new TH1F("h_2p2h_ifzero_proton_momentum", "2p2h proton final state momentum if zero protons in primary", 150, 0, 2500.0);
     h_2p2h_ifzero_proton_momentum->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_ifzero_proton_momentum->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_ifzero_proton_momentum->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_2p2h_ifzero_proton_momentum_cut = new TH1F("h_2p2h_ifzero_proton_momentum_cut", "2p2h proton final state momentum if zero protons in primary, after momentum cut", 150, 0, 2500.0);
     h_2p2h_ifzero_proton_momentum_cut->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_ifzero_proton_momentum_cut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_ifzero_proton_momentum_cut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_2p2h_piplus_counter = new TH1F("h_2p2h_piplus_counter", "2p2h pi plus final state counter", 80, 0, 8.0);
     TH1F *h_2p2h_piminus_counter = new TH1F("h_2p2h_piminus_counter", "2p2h pi minus final state counter", 80, 0, 8.0);
     
     TH1F *h_2p2h_piplus = new TH1F("h_2p2h_piplus", "2p2h pi plus final state momentum", 150, 0, 2500.0);
     h_2p2h_piplus->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_piplus->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_piplus->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_2p2h_piminus = new TH1F("h_2p2h_piminus", "2p2h pi minus final state momentum", 150, 0, 2500.0);
     h_2p2h_piminus->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_piminus->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_piminus->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_2p2h_proton_picut = new TH1F("h_2p2h_proton_picut", "Proton final state momentum distribution for 2p2h after pion cut", 150, 0, 2500.0);
     h_2p2h_proton_picut->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_proton_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_proton_picut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_2p2h_proton_picut_cut = new TH1F("h_2p2h_proton_picut_cut", "Proton final state momentum distribution for 2p2h after pion cut, after momentum cut", 150, 0, 2500.0);
     h_2p2h_proton_picut_cut->GetYaxis()->SetTitle("Number of events");
-    h_2p2h_proton_picut_cut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_2p2h_proton_picut_cut->GetXaxis()->SetTitle("Momentum [MeV/c]");
 ///////////////////////////RES////////////////
             ////PRIMARY
     TH1F *h_RES_Prim_proton = new TH1F("h_RES_Prim_proton", "Primary proton momentum distribution for RES", 150, 0, 2500.0);
     h_RES_Prim_proton->GetYaxis()->SetTitle("Number of events");
-    h_RES_Prim_proton->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_Prim_proton->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_RES_Prim_proton_counter = new TH1F("h_RES_Prim_proton_counter", "RES proton primary state counter", 80, 0, 8.0);
 
     TH1F *h_RES_Prim_neutron = new TH1F("h_RES_Prim_neutron", "Primary neutron momentum distribution for RES", 150, 0, 2500.0);
     h_RES_Prim_neutron->GetYaxis()->SetTitle("Number of events");
-    h_RES_Prim_neutron->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_Prim_neutron->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_RES_Prim_neutron_counter = new TH1F("h_RES_Prim_neutron_counter", "RES neutron primary state counter", 80, 0, 8.0);
     TH1F *h_RES_Prim_positron_counter = new TH1F("h_RES_Prim_positron_counter", "RES postiron primary interactions counter", 80, 0, 8.0);
                     //////PRIMARY PION////
     TH1F *h_RES_Prim_piplus = new TH1F("h_RES_Prim_piplus", "Primary Pi+ momentum distribution for RES", 150, 0, 2500.0);
     h_RES_Prim_piplus->GetYaxis()->SetTitle("Number of events");
-    h_RES_Prim_piplus->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_Prim_piplus->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_RES_Prim_piplus_counter = new TH1F("h_RES_Prim_piplus_counter", "RES Pi+ primary state counter", 80, 0, 8.0);
 
     TH1F *h_RES_Prim_pizero = new TH1F("h_RES_Prim_pizero", "Primary Pi0 momentum distribution for RES", 150, 0, 2500.0);
     h_RES_Prim_pizero->GetYaxis()->SetTitle("Number of events");
-    h_RES_Prim_pizero->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_Prim_pizero->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_RES_Prim_pizero_counter = new TH1F("h_RES_Prim_pizero_counter", "RES Pi0 primary state counter", 80, 0, 8.0);
 
     TH1F *h_RES_Prim_piminus = new TH1F("h_RES_Prim_piminus", "Primary Pi- momentum distribution for RES", 150, 0, 2500.0);
     h_RES_Prim_piminus->GetYaxis()->SetTitle("Number of events");
-    h_RES_Prim_piminus->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_Prim_piminus->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_RES_Prim_piminus_counter = new TH1F("h_RES_Prim_piminus_counter", "RES Pi- primary state counter", 80, 0, 8.0);
             ///////FINAL///////
     TH1F *h_RES_proton = new TH1F("h_RES_proton", "Final proton momentum distribution for RES", 150, 0, 2500.0);
@@ -229,87 +229,87 @@ if (fChain == 0) return;
 
     TH1F *h_RES_neutron = new TH1F("h_RES_neutron", "Final neutron momentum distribution for RES", 150, 0, 2500.0);
     h_RES_neutron->GetYaxis()->SetTitle("Number of events");
-    h_RES_neutron->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_neutron->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_RES_neutron_counter = new TH1F("h_RES_neutron_counter", "RES neutron final state counter", 100, 0, 10.0);
     
     TH1F *h_RES_ifzero_proton_momentum = new TH1F("h_RES_ifzero_proton_momentum", "RES proton final state momentum if zero protons in primary", 150, 0, 2500.0);
     h_RES_ifzero_proton_momentum->GetYaxis()->SetTitle("Number of events");
-    h_RES_ifzero_proton_momentum->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_ifzero_proton_momentum->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_RES_ifzero_proton_momentum_cut = new TH1F("h_RES_ifzero_proton_momentum_cut", "RES proton final state momentum if zero protons in primary, after cut", 150, 0, 2500.0);
     h_RES_ifzero_proton_momentum_cut->GetYaxis()->SetTitle("Number of events");
-    h_RES_ifzero_proton_momentum_cut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_ifzero_proton_momentum_cut->GetXaxis()->SetTitle("Momentum [MeV/c]");
                     //////FINAL PION////
     TH1F *h_RES_piplus = new TH1F("h_RES_piplus", "Final Pi+ momentum distribution for RES", 150, 0, 2500.0);
     h_RES_piplus->GetYaxis()->SetTitle("Number of events");
-    h_RES_piplus->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_piplus->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_RES_piplus_counter = new TH1F("h_RES_piplus_counter", "RES Pi+ final state counter", 80, 0, 8.0);
 
     TH1F *h_RES_pizero = new TH1F("h_RES_pizero", "Final Pi0 momentum distribution for RES", 150, 0, 2500.0);
     h_RES_pizero->GetYaxis()->SetTitle("Number of events");
-    h_RES_pizero->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_pizero->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_RES_pizero_counter = new TH1F("h_RES_pizero_counter", "RES Pi0 final state counter", 80, 0, 8.0);
 
     TH1F *h_RES_piminus = new TH1F("h_RES_piminus", "Final Pi- momentum distribution for RES", 150, 0, 2500.0);
     h_RES_piminus->GetYaxis()->SetTitle("Number of events");
-    h_RES_piminus->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_piminus->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_RES_piminus_counter = new TH1F("h_RES_piminus_counter", "RES Pi- final state counter", 80, 0, 8.0);
 
     TH1F *h_RES_proton_max_cut = new TH1F("h_RES_proton_max_cut", "Highest momentum proton, after cut final state, RES", 150, 0, 2500.0);
                     //////AFTER CUT////
     TH1F *h_RES_proton_picut = new TH1F("h_RES_proton_picut", "Proton final state momentum distribution for RES after pion cut", 150, 0, 2500.0);
     h_RES_proton_picut->GetYaxis()->SetTitle("Number of events");
-    h_RES_proton_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_proton_picut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_RES_proton_picut_cut = new TH1F("h_RES_proton_picut_cut", "Proton final state momentum distribution for RES after pion cut, after momentum cut", 150, 0, 2500.0);
     h_RES_proton_picut_cut->GetYaxis()->SetTitle("Number of events");
-    h_RES_proton_picut_cut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_proton_picut_cut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_RES_piplus_picut = new TH1F("h_RES_piplus_picut", "Final Pi+ momentum distribution for RES after pion cut", 150, 0, 2500.0);
     h_RES_piplus_picut->GetYaxis()->SetTitle("Number of events");
-    h_RES_piplus_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_piplus_picut->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_RES_pizero_picut = new TH1F("h_RES_pizero_picut", "Final Pi0 momentum distribution for RES after pion cut", 150, 0, 2500.0);
     h_RES_pizero_picut->GetYaxis()->SetTitle("Number of events");
-    h_RES_pizero_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_pizero_picut->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_RES_piminus_picut = new TH1F("h_RES_piminus_picut", "Final Pi- momentum distribution for RES after pion cut", 150, 0, 2500.0);
     h_RES_piminus_picut->GetYaxis()->SetTitle("Number of events");
-    h_RES_piminus_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_RES_piminus_picut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_RES_proton_counter_picut = new TH1F("h_RES_proton_counter_picut", "RES proton final state counter after pion cut", 80, 0, 8.0);
 /////////////////DIS/////////
     TH1F *h_DIS_proton = new TH1F("h_DIS_proton", "Final proton momentum distribution for DIS", 150, 0, 2500.0);
     h_DIS_proton->GetYaxis()->SetTitle("Number of events");
-    h_DIS_proton->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_DIS_proton->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_DIS_proton_max = new TH1F("h_DIS_proton_max", "Momentum distribution for proton highest momentum, final state, DIS", 150, 0, 2500.0);
     h_DIS_proton_max->GetYaxis()->SetTitle("Number of events");
-    h_DIS_proton_max->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_DIS_proton_max->GetXaxis()->SetTitle("Momentum [MeV/c]");
     
     TH1F *h_DIS_muon = new TH1F("h_DIS_muon", "Final proton momentum distribution for DIS", 150, 0, 2500.0);
     h_DIS_muon->GetYaxis()->SetTitle("Number of events");
-    h_DIS_muon->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_DIS_muon->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_DIS_proton_max_cut = new TH1F("h_DIS_proton_max_cut", "Highest momentum proton, after cut final state, DIS", 150, 0, 2500.0);
     
     TH1F *h_DIS_proton_picut = new TH1F("h_DIS_proton_picut", "Proton final state momentum distribution for DIS after pion cut", 150, 0, 2500.0);
     h_DIS_proton_picut->GetYaxis()->SetTitle("Number of events");
-    h_DIS_proton_picut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_DIS_proton_picut->GetXaxis()->SetTitle("Momentum [MeV/c]");
     TH1F *h_DIS_proton_picut_cut = new TH1F("h_DIS_proton_picut_cut", "Proton final state momentum distribution for DIS after pion cut, after momentum cut", 150, 0, 2500.0);
     h_DIS_proton_picut_cut->GetYaxis()->SetTitle("Number of events");
-    h_DIS_proton_picut_cut->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_DIS_proton_picut_cut->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
 ///////////////COH///////////
     TH1F *h_COH_proton = new TH1F("h_COH_proton", "Final proton momentum distribution for COH", 150, 0, 2500.0);
     h_COH_proton->GetYaxis()->SetTitle("Number of events");
-    h_COH_proton->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_COH_proton->GetXaxis()->SetTitle("Momentum [MeV/c]");
 /*
 //////////2p2h for normal neutrinos test//////
                     /////PRIMARY////
     TH1F *h_numu_2p2h_Prim_neutron = new TH1F("h_numu_2p2h_Prim_neutron", "Neutron momentum distribution for 2p2h primary neutron", 150, 0, 2500.0);
     h_numu_2p2h_Prim_neutron->GetYaxis()->SetTitle("Number of events");
-    h_numu_2p2h_Prim_neutron->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_numu_2p2h_Prim_neutron->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_numu_2p2h_Prim_proton = (TH1F*)(h_numu_2p2h_Prim_neutron->Clone("h_numu_2p2h_Prim_proton"));
     h_numu_2p2h_Prim_proton->SetNameTitle("h_numu_2p2h_Prim_proton","Primary proton momentum distribution for 2p2h");
@@ -323,10 +323,10 @@ if (fChain == 0) return;
                         //////FINAL/////
     TH1F *h_numu_2p2h_proton = new TH1F("h_numu_2p2h_proton", "Proton momentum distribution for 2p2h", 150, 0, 2500.0);
     h_numu_2p2h_proton->GetYaxis()->SetTitle("Number of events");
-    h_numu_2p2h_proton->GetXaxis()->SetTitle("Momentum [MeV]");
+    h_numu_2p2h_proton->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
     TH1F *h_numu_2p2h_proton_counter = new TH1F("h_numu_2p2h_proton_counter", "2p2h proton final state counter", 80, 0, 8.0);
-    TH1F *h_numu_2p2h_proton_counter_cut = new TH1F("h_numu_2p2h_proton_counter_cut", "2p2h proton final state counter momentum >450 MeV", 80, 0, 8.0);
+    TH1F *h_numu_2p2h_proton_counter_cut = new TH1F("h_numu_2p2h_proton_counter_cut", "2p2h proton final state counter momentum >450 MeV/c", 80, 0, 8.0);
 
     TH1F *h_numu_2p2h_particle_counter = new TH1F("h_numu_2p2h_particle_counter", "2p2h proton or neutron final state counter", 80, 0, 8.0);
     TH1F *h_numu_2p2h_neutron_counter = new TH1F("h_numu_2p2h_neutron_counter", "2p2h neutron final state counter", 80, 0, 8.0);

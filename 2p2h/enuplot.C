@@ -274,12 +274,12 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     c1->SetLogy();
     h_CCQE_proton->Draw("");
     h_2p2h_ifzero_proton_momentum->Draw("SAME");
-    h_RES_ifzero_proton_momentum->Draw("SAME");
+    //h_RES_ifzero_proton_momentum->Draw("SAME");
     
     TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
     legend->AddEntry(h_CCQE_proton,"CCQE","l");
     legend->AddEntry(h_2p2h_ifzero_proton_momentum,"2p2h protons only from FSI","l");
-    legend->AddEntry(h_RES_ifzero_proton_momentum,"RES protons only from FSI","l");
+    //legend->AddEntry(h_RES_ifzero_proton_momentum,"RES protons only from FSI","l");
     legend->Draw();
 
     gPad->Modified();
@@ -333,7 +333,7 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     delete c1;
     delete legend;
     delete stackHisto;
-///////////////////
+///////////////////Comparison of two 2p2h channels
     TH1F*   h_2p2h_ifsingle_proton_momentum = (TH1F*) file->Get("h_2p2h_ifsingle_proton_momentum");
     h_2p2h_ifsingle_proton_momentum->SetLineColorAlpha(kBlue, 1);
     h_2p2h_ifsingle_proton_momentum->SetLineWidth(1.5);
@@ -373,9 +373,46 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     
     delete c1;
     delete legend;
+    ///////////////
+    TH1F*   h_CCQE_muon = (TH1F*) file->Get("h_CCQE_muon");
+    h_CCQE_muon->SetLineColorAlpha(kRed, 1);
+    h_CCQE_muon->SetLineWidth(1.5);
+
+    TH1F*   h_2p2h_muon = (TH1F*) file->Get("h_2p2h_muon");
+    h_2p2h_muon->SetLineColorAlpha(kBlue, 1);
+    h_2p2h_muon->SetLineWidth(1.5);
+
+    TH1F*   h_RES_muon = (TH1F*) file->Get("h_RES_muon");
+    h_RES_muon->SetLineColorAlpha(kGreen, 1 );
+    h_RES_muon->SetLineWidth(1.5);
+
+    TH1F*   h_DIS_muon = (TH1F*) file->Get("h_DIS_muon");
+    h_DIS_muon->SetLineColorAlpha(kOrange, 1);
+    h_DIS_muon->SetLineWidth(1.5);
+
+    h_CCQE_muon->SetNameTitle("h_CCQE_muon","Muon momentum distribution");
+    h_CCQE_muon->GetXaxis()->SetTitle("Momentum [MeV/c]");
+    h_CCQE_muon->GetYaxis()->SetTitle("Number of events");
+    h_CCQE_muon->GetYaxis()->SetTitleOffset(1.4);
+
+    c1 = new TCanvas("c1"," ",10,10,1400,1000);
+    gPad->Modified();
+    h_CCQE_muon->Draw("HIST");
+    h_RES_muon->Draw("HIST SAME");
+    h_DIS_muon->Draw("HIST SAME");;
+    h_2p2h_muon->Draw("HIST SAME");
+
+    TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
+    legend->AddEntry(h_RES_muon,"RES","l");
+    legend->AddEntry(h_2p2h_muon,"2p2h","l");
+    legend->AddEntry(h_CCQE_muon,"CCQE","l");
+    legend->AddEntry(h_DIS_muon,"DIS","l");
+    legend->Draw();
     
+    gPad->Modified();
+    c1->Print("/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/output/MuonMomentumComparison.pdf");
     
-    
-    
+    delete c1;
+    delete legend;
     file->Close();
 }
