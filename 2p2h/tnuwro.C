@@ -291,6 +291,14 @@ if (fChain == 0) return;
     h_DIS_muon->GetYaxis()->SetTitle("Number of events");
     h_DIS_muon->GetXaxis()->SetTitle("Momentum [MeV/c]");
 
+    TH1F *h_DIS_piplus = new TH1F("h_DIS_piplus", "Final Pi+ momentum distribution for DIS", 150, 0, 2500.0);
+    h_DIS_piplus->GetYaxis()->SetTitle("Number of events");
+    h_DIS_piplus->GetXaxis()->SetTitle("Momentum [MeV/c]");
+
+    TH1F *h_DIS_piminus = new TH1F("h_DIS_piminus", "Final Pi- momentum distribution for DIS", 150, 0, 2500.0);
+    h_DIS_piminus->GetYaxis()->SetTitle("Number of events");
+    h_DIS_piminus->GetXaxis()->SetTitle("Momentum [MeV/c]");
+    
     TH1F *h_DIS_proton_max_cut = new TH1F("h_DIS_proton_max_cut", "Highest momentum proton, after cut final state, DIS", 150, 0, 2500.0);
     
     TH1F *h_DIS_proton_picut = new TH1F("h_DIS_proton_picut", "Proton final state momentum distribution for DIS after pion cut", 150, 0, 2500.0);
@@ -1013,13 +1021,21 @@ if (fChain == 0) return;
                         MomentumMax=p->at(i);
                     }
                 }
-                if(pid->at(i) == 211 && p->at(i)>=PionReconstructionThreshold)
+                if(pid->at(i) == 211)
                 {
-                    DISPiPlusCounter++;
+                    h_DIS_piplus->Fill( p->at(i) );
+                    if(p->at(i)>=PionReconstructionThreshold)
+                    {
+                        DISPiPlusCounter++;
+                    }
                 }
-                if(pid->at(i) == -211 && p->at(i)>=PionReconstructionThreshold)
+                if(pid->at(i) == -211)
                 {
-                    DISPiMinusCounter++;
+                    h_DIS_piminus->Fill( p->at(i) );
+                    if(p->at(i)>=PionReconstructionThreshold)
+                    {
+                        DISPiMinusCounter++;
+                    }
                 }
                 if(pid->at(i)==-13)
                 {
@@ -1306,6 +1322,8 @@ if (fChain == 0) return;
     h_DIS_proton->Write();
     h_DIS_proton_max->Write();
     h_DIS_muon->Write();
+    h_DIS_piplus->Write();
+    h_DIS_piminus->Write();
     h_DIS_proton_max_cut->Write();
     h_DIS_proton_picut->Write();
     h_DIS_proton_picut_cut->Write();

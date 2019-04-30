@@ -1,3 +1,6 @@
+#include <TLatex.h>
+
+
 void enuplot(){
 
     //gROOT->SetStyle("T2K");
@@ -223,10 +226,10 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     h_anti_nue->Draw("SAME");
 
     TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
-    legend->AddEntry(h_anti_numu,"anti numu","l");
-    legend->AddEntry(h_numu,"numu","l");
-    legend->AddEntry(h_nue,"nue","l");
-    legend->AddEntry(h_anti_nue,"anti nue","l");
+    legend->AddEntry(h_anti_numu,"#bar{#nu}_{#mu}","l");
+    legend->AddEntry(h_numu,"#nu_{#mu}","l");
+    legend->AddEntry(h_nue,"#nu_{e}","l");
+    legend->AddEntry(h_anti_nue,"#bar{#nu}_{e}","l");
     legend->Draw();
 
     gPad->Modified();
