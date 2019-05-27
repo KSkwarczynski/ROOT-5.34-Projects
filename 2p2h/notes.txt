@@ -1,0 +1,22 @@
+pidPrim     - particle code for particles comming from Primary interaction
+
+pid         - particle code for particles leaving the nucleus after Final State Interaction
+
+Particle codes are summarized here:
+http://pdg.lbl.gov/2002/montecarlorpp.pdf
+
+channel     
+- code of the interaction type
+           
+1  CCQE ||
+ 16 CC resonanses
+ ||  91 CC Deep Inelastic Scattering
+  
+96 CC coherent  || 9  CC Meson Exchange Current (MEC, 2p2h)
+
+            
+2  NCQE
+ || 17 NC RES || 
+ 92 NC DIS ||
+ 97 NC COH
+
