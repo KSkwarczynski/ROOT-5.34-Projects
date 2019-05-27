@@ -9,7 +9,7 @@ void enuplot(){
     gStyle->SetPalette(1,0);
     gStyle->SetPadColor(0);
     gStyle->SetCanvasColor(0);
-
+    
 // MC NEUT
     char filename[200];
     sprintf(filename,"/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/histograms.root");
@@ -43,7 +43,9 @@ void enuplot(){
     stackHisto->Draw("");
     stackHisto->GetXaxis()->SetTitle("Momentum [MeV/c]");
     stackHisto->GetYaxis()->SetTitle("Number of events");
-    stackHisto->GetYaxis()->SetTitleOffset(1.4);
+    stackHisto->GetYaxis()->SetTitleOffset(1.0);
+    stackHisto->GetXaxis()->SetTitleSize(0.05);
+    stackHisto->GetYaxis()->SetTitleSize(0.05);
     gPad->Modified();
 
     TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
@@ -93,7 +95,9 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     stackHisto->Draw("");
     stackHisto->GetXaxis()->SetTitle("Momentum [MeV/c]");
     stackHisto->GetYaxis()->SetTitle("Number of events");
-    stackHisto->GetYaxis()->SetTitleOffset(1.4);
+    stackHisto->GetYaxis()->SetTitleOffset(1.0);
+    stackHisto->GetXaxis()->SetTitleSize(0.05);
+    stackHisto->GetYaxis()->SetTitleSize(0.05);
     gPad->Modified();
 
     TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
@@ -124,8 +128,10 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     h_CCQE_proton_max_2->SetNameTitle("h_CCQE_proton_max_2","Anti numu max proton momentum distribution");
     h_CCQE_proton_max_2->GetXaxis()->SetTitle("Momentum [MeV/c]");
     h_CCQE_proton_max_2->GetYaxis()->SetTitle("Number of events");
-    h_CCQE_proton_max_2->GetYaxis()->SetTitleOffset(1.4);
-
+    h_CCQE_proton_max_2->GetYaxis()->SetTitleOffset(1.0);
+    h_CCQE_proton_max_2->GetXaxis()->SetTitleSize(0.05);
+    h_CCQE_proton_max_2->GetYaxis()->SetTitleSize(0.05);
+    
     c1 = new TCanvas("c1"," ",10,10,1400,1000);
     gPad->Modified();
     h_CCQE_proton_max_2->Draw("HIST");
@@ -170,8 +176,10 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     h_CCQE->SetNameTitle("h_CCQE","Anti numu momentum distribution");
     h_CCQE->GetXaxis()->SetTitle("Momentum [MeV/c]");
     h_CCQE->GetYaxis()->SetTitle("Number of events");
-    h_CCQE->GetYaxis()->SetTitleOffset(1.4);
-
+    h_CCQE->GetYaxis()->SetTitleOffset(1.0);
+    h_CCQE->GetXaxis()->SetTitleSize(0.05);
+    h_CCQE->GetYaxis()->SetTitleSize(0.05);
+    
     c1 = new TCanvas("c1"," ",10,10,1400,1000);
     c1->SetLogy();
     h_CCQE->Draw("");
@@ -216,8 +224,10 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     h_anti_numu->SetNameTitle("h_numu","Neutrino momentum distribution for anti numu beam");
     h_anti_numu->GetXaxis()->SetTitle("Momentum [MeV/c]");
     h_anti_numu->GetYaxis()->SetTitle("Number of events");
-    h_anti_numu->GetYaxis()->SetTitleOffset(1.4);
-
+    h_anti_numu->GetYaxis()->SetTitleOffset(1.0);
+    h_anti_numu->GetXaxis()->SetTitleSize(0.05);
+    h_anti_numu->GetYaxis()->SetTitleSize(0.05);
+    
     c1 = new TCanvas("c1"," ",10,10,1400,1000);
     c1->SetLogy();
     h_anti_numu->Draw("");
@@ -254,6 +264,9 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     h_CCQE_proton->SetNameTitle("h_CCQE_proton","Proton momentum");
     h_CCQE_proton->GetXaxis()->SetTitle("Momentum [MeV/c]");
     h_CCQE_proton->GetYaxis()->SetTitle("Number of events");
+    h_CCQE_proton->GetYaxis()->SetTitleOffset(1.0);
+    h_CCQE_proton->GetXaxis()->SetTitleSize(0.05);
+    h_CCQE_proton->GetYaxis()->SetTitleSize(0.05);
     
     long double normalizacja[3];
     for(int i=0;i<3;i++)
@@ -279,12 +292,13 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     h_2p2h_ifzero_proton_momentum->Draw("SAME");
     //h_RES_ifzero_proton_momentum->Draw("SAME");
     
-    TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
+    TLegend *legend = new TLegend(0.64,0.68,0.98,0.94);
     legend->AddEntry(h_CCQE_proton,"CCQE","l");
     legend->AddEntry(h_2p2h_ifzero_proton_momentum,"2p2h protons only from FSI","l");
     //legend->AddEntry(h_RES_ifzero_proton_momentum,"RES protons only from FSI","l");
+    //legend->SetTextSize(0.04);
     legend->Draw();
-
+    
     gPad->Modified();
     c1->Print("/Users/kolos/Desktop/root_v5.34.36/1.Programy/2p2h/output/FSIprotonComparison.pdf");
 
@@ -320,7 +334,9 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     stackHisto->Draw("");
     stackHisto->GetXaxis()->SetTitle("Momentum [MeV/c]");
     stackHisto->GetYaxis()->SetTitle("Number of events");
-    stackHisto->GetYaxis()->SetTitleOffset(1.4);
+    stackHisto->GetYaxis()->SetTitleOffset(1.0);
+    stackHisto->GetXaxis()->SetTitleSize(0.05);
+    stackHisto->GetYaxis()->SetTitleSize(0.05);
     gPad->Modified();
 
     TLegend *legend = new TLegend(0.7482117,0.6940452,0.9799714,0.9353183);
@@ -344,6 +360,10 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     TH1F*   h_2p2h_ifzero_proton_momentum = (TH1F*) file->Get("h_2p2h_ifzero_proton_momentum");
     h_2p2h_ifzero_proton_momentum->SetLineColorAlpha(kGreen, 1);
     h_2p2h_ifzero_proton_momentum->SetLineWidth(1.5);
+    
+    h_2p2h_ifsingle_proton_momentum->GetYaxis()->SetTitleOffset(1.0);
+    h_2p2h_ifsingle_proton_momentum->GetXaxis()->SetTitleSize(0.05);
+    h_2p2h_ifsingle_proton_momentum->GetYaxis()->SetTitleSize(0.05);
     
     long double normalizacja[2];
     for(int i=0;i<2;i++)
@@ -396,7 +416,7 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     h_CCQE_muon->SetNameTitle("h_CCQE_muon","Muon momentum distribution");
     h_CCQE_muon->GetXaxis()->SetTitle("Momentum [MeV/c]");
     h_CCQE_muon->GetYaxis()->SetTitle("Number of events");
-    h_CCQE_muon->GetYaxis()->SetTitleOffset(1.4);
+    h_CCQE_muon->GetYaxis()->SetTitleOffset(1.0);
 
     c1 = new TCanvas("c1"," ",10,10,1400,1000);
     gPad->Modified();
@@ -417,5 +437,28 @@ TH1F*   h_2p2h_proton_max = (TH1F*) file->Get("h_2p2h_proton_max");
     
     delete c1;
     delete legend;
+////////////////////////  
+    
+    
+    TH1F*   h_RES_piplus = (TH1F*) file->Get("h_RES_piplus");
+    double PionEntries = h_RES_piplus->GetEntries();
+    double PionNumber = h_RES_piplus->Integral(h_RES_piplus->FindBin(300.), h_RES_piplus->FindBin(2500.));
+    cout<<PionNumber/PionEntries<<endl;
+    
+    TH1F*   h_RES_piminus = (TH1F*) file->Get("h_RES_piminus");
+    PionNumber = h_RES_piminus->Integral(h_RES_piminus->FindBin(300.), h_RES_piminus->FindBin(2500.));
+    PionEntries = h_RES_piminus->GetEntries();
+    cout<<PionNumber/PionEntries<<endl;
+    
+    TH1F*   h_DIS_piplus = (TH1F*) file->Get("h_DIS_piplus");
+    PionEntries = h_DIS_piplus->GetEntries();
+    PionNumber = h_DIS_piplus->Integral(h_DIS_piplus->FindBin(0.), h_DIS_piplus->FindBin(300.));
+    cout<<(PionEntries-PionNumber)/PionEntries<<endl;
+    
+    TH1F*   h_DIS_piminus = (TH1F*) file->Get("h_DIS_piminus");
+    PionEntries = h_DIS_piminus->GetEntries();
+    PionNumber = h_DIS_piminus->Integral(h_DIS_piminus->FindBin(0), h_DIS_piminus->FindBin(300.));
+    cout<<(PionEntries-PionNumber)/PionEntries<<endl;
+    
     file->Close();
 }
