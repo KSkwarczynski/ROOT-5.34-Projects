@@ -10,8 +10,8 @@ void Example()
     
     TString scut[3]={"accum_level[0][0]>5","accum_level[0][0]>6","accum_level[0][0]>7."}; //string of cuts
     TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/";
-    TString FileNames[7]={"KtoToWidzial.pdf","BrakPomyslowNaTytul.pdf","NieWiemCoSieDzieje.pdf", "CosDziwnego.pdf", "xD.pdf", "TEST.pdf","xDDDD.pdf"};
-    TString PrintName[7];
+    TString FileNames[8]={"KtoToWidzial.pdf","BrakPomyslowNaTytul.pdf","NieWiemCoSieDzieje.pdf", "CosDziwnego.pdf", "CosDziwnego2.pdf",  "xD.pdf", "TEST.pdf","xDDDD.pdf"};
+    TString PrintName[8];
     for(int i=0; i<7; i++)
     {
         PrintName[i]=PathName+FileNames[i];
@@ -25,12 +25,12 @@ void Example()
     draw.SetTitleY("Events-test");
 
     draw.SetLegendPos("tr"); //tr for right or tl for left
-    draw.Draw(*data,"selmu_mom",20,0., 5000.,"reaction",scut[2].Data());
+    draw.Draw(*data,"selmu_mom",20,0., 5000.,"reaction",scut[2].Data()); //selmu_mom -> muon momentum
     c1->Print(PrintName[0]);
     
     draw.SetTitleX("Muon costheta");
     draw.SetLegendPos("tl");
-    draw.Draw(*data,"selmu_costheta",40,0.0,1.0,"topology",scut[0].Data());
+    draw.Draw(*data,"selmu_costheta",40,0.0,1.0,"topology",scut[0].Data()); //selmu_costheta -> muon costheta
     c1->Print(PrintName[1]);
     
     draw.SetTitleX("Muon likelihood");
@@ -39,23 +39,29 @@ void Example()
     
     draw.SetTitle("Nie wiem co to jest");
     draw.SetTitleX("cos z TPC");
-    draw.Draw(*data,"TPCSecMom[0]",30,0.0,3000.0,"all",scut[1].Data(),"","SYS E2");
-    c1->Print(PrintName[3]);
+    draw.Draw(*data,"TPCSecMom[0]",30,0.0,3000.0,"all",scut[1].Data(),"","SYS E2"); //SYS E2- systematic error 2
+    c1->Print(PrintName[3]);                                                       //TPCSecMom-momentum in TPC [0] for TPC2 and [1] for TPC3
     
+    draw.SetTitle("Nie wiem co to jest 2");
+    draw.SetTitleX("cos z TPC");
+    draw.Draw(*data,"TPCSecMom[1]",30,0.0,3000.0,"all",scut[1].Data(),"","SYS E2");
+    c1->Print(PrintName[4]);
+    
+    draw.SetTitle("muon momentum");
     draw.SetLegendPos("tr"); //tr for right or tl for left
     draw.Draw(*data,"selmu_mom",20,0., 5000.,"detector",scut[2].Data());
-    c1->Print(PrintName[4]);
+    c1->Print(PrintName[5]);
     
     draw.SetTitle("#mu^{#pm}");
     draw.SetTitleX("Muon costheta");
     draw.SetLegendPos("tl");
     draw.Draw(*data,"selmu_costheta",40,0.0,1.0,"primary",scut[0].Data());
-    c1->Print(PrintName[5]);
+    c1->Print(PrintName[6]);
     
     draw.SetLegendPos("tl");
     draw.Draw(*data,"selmu_costheta",40,0.0,1.0,"particle",scut[0].Data());
     isniwg->DrawTextNDC(0.1,0.2,"Probny TextNDC"); //first is x axis second y axis from bottom to top
-    c1->Print(PrintName[6]);
+    c1->Print(PrintName[7]);
     
     draw.PrintPurities(*data,"reaction","accum_level[0][0]>8");
     
