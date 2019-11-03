@@ -2,7 +2,7 @@
 #include <iostream>
 #include "TMath.h"
 
-void AntiMuMultiPiAnalysis()
+void EfficiencyAnalysis()
 {
     //gROOT->SetStyle("T2K");
     gStyle->SetOptStat(0);
@@ -11,15 +11,6 @@ void AntiMuMultiPiAnalysis()
 
     DrawingTools draw("AntiNumuMultiPiAccum5_00.root",false);    
 
-    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/EfficiencyPlots";
-    TString FileNames0[8];
-    TString PrintName0[8];
-    
-    for(int i=0; i<8; i++)
-    {
-        FileNames0[i]=Form("EffciencyAccum%d",i);
-        PrintName0[i]=PathName+FileNames0[i];
-    }
     Experiment exp("nd280");
     
     DataSample* mc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/AntiNumuMultiPiAccum0_00.root");
@@ -38,13 +29,28 @@ void AntiMuMultiPiAnalysis()
     exp.AddSampleGroup("run5",run5);
     
     c1 = new TCanvas("c1"," ",10,10,800,600);
-    draw.SetTitleX("tue #mu^{+} cos#theta");
-    for(int ik=0; ik<8; ik++)
+    
+    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/EfficiencyPlots/";
+    TString FileNames0;
+    TString PrintName0;
+    
+    for(int ik=0; ik<9; ik++)
     {
-        draw.SetTitle(Form("accum[0][1]>%d Z distance difference",ik));
-        draw.DrawEff(exp,false,"truelepton_costheta",20,0.,5000.,Form("accum_level[0][1]>%d",ik),"1==1","","","");
-        c1->Print(PrintName0[ik]);
+        FileNames0=Form("EffciencyLeptonAccum%d.pdf",ik);
+        PrintName0=PathName+FileNames0;
+        
+        draw.SetTitle(Form("accum[1]>%d for #mu^{+}",ik));
+        draw.SetTitleX("true #mu^{+} cos#theta");
+        draw.DrawEff(exp,false,"truelepton_costheta",40,0.,1.,Form("accum_level[1]>%d",ik),"topology==1","","","");
+        c1->Print(PrintName0);
+        
+        FileNames0=Form("EffciencyPiAccum%d.pdf",ik);
+        PrintName0=PathName+FileNames0;
+        
+        draw.SetTitle(Form("accum[1]>%d #pi^{-}",ik));
+        draw.SetTitleX("true #pi^{-} cos#theta");
+        draw.DrawEff(exp,false,"truepi_costheta",40,0.,1.,Form("accum_level[1]>%d",ik),"topology==1","","","");
+        c1->Print(PrintName0);
     }
- 
 
 }

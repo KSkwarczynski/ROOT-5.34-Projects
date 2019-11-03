@@ -37,7 +37,7 @@ void AntiMuMultiPiAnalysis()
         PrintName8[i]=PathName+FileNames8[i];
     }
     c1 = new TCanvas("c1"," ",10,10,800,600);
-    /*
+   
     draw.SetTitle("accum[0][1]>8 #mu^{+} moementum");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetLegendPos("tr");
@@ -73,7 +73,7 @@ void AntiMuMultiPiAnalysis()
     draw.SetLegendPos("tr");
     draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>8 && NNegPion==1 && NME==1");
     c1->Print(PrintName8[5]);
-*/
+
     draw.SetTitle("accum[0][1]>7 Z distance difference");
     draw.SetTitleX("Distance");
     draw.SetLegendPos("tl");

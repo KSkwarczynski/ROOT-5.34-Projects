@@ -8,9 +8,7 @@ void AntiMuMultiPiAnalysis()
     gStyle->SetOptStat(0);
     gStyle->SetPadColor(0);
     gStyle->SetCanvasColor(0);
-
-    DrawingTools draw("AntiNumuMultiPiAccum5_00.root",false);    
-
+    
     TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/";
     TString FileNames0[6]={"Accum0MuonMom.pdf","Accum0MuonCosT.pdf","Accum0PiMinMom.pdf","Accum0PiMinCosT.pdf", "Accum0PiMinMom0ME.pdf", "Accum0PiMinMom1ME.pdf"};
     TString PrintName0[6];
@@ -18,7 +16,10 @@ void AntiMuMultiPiAnalysis()
     for(int i=0; i<6; i++)
     {
         PrintName0[i]=PathName+FileNames0[i];
-        
+    }
+    
+    DrawingTools draw("AntiNumuMultiPiAccum5_00.root",false);
+    
     Experiment exp("nd280");
     
     DataSample* mc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/AntiNumuMultiPiAccum0_00.root");
