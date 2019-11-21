@@ -4,91 +4,271 @@
 
 void AntiMuMultiPiAnalysis()
 {
-    //gROOT->SetStyle("T2K");
     gStyle->SetOptStat(0);
     gStyle->SetPadColor(0);
     gStyle->SetCanvasColor(0);
 
-    DrawingTools draw("AntiNumuMultiPiAccum5_00.root",false);    
+    DrawingTools draw("Run5AntiNumuMultiPiAccum0_00.root",false);
     
     Experiment exp("nd280");
     
-    DataSample* mc500 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/AntiNumuMultiPiAccum5_00.root");
-    DataSample* mc501 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/AntiNumuMultiPiAccum5_01.root");
-    DataSample* mc502 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/AntiNumuMultiPiAccum5_02.root");
-    DataSample* mc503 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/AntiNumuMultiPiAccum5_03.root");
-    DataSample* mc504 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/AntiNumuMultiPiAccum5_04.root");
+    DataSample* R5mc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_00.root");
+    DataSample* R5mc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_01.root");
+    DataSample* R5mc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_02.root");
+    DataSample* R5mc003 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_03.root");
+    DataSample* R5mc004 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_04.root");
     
     SampleGroup run5("run5");
-    run5.AddMCSample("mc500", mc500);
-    run5.AddMCSample("mc501", mc501);
-    run5.AddMCSample("mc502", mc502);
-    run5.AddMCSample("mc503", mc503);
-    run5.AddMCSample("mc504", mc504);
-    
+    run5.AddMCSample("R5mc000", R5mc000);
+    run5.AddMCSample("R5mc001", R5mc001);
+    run5.AddMCSample("R5mc002", R5mc002);
+    run5.AddMCSample("R5mc003", R5mc003);
+    run5.AddMCSample("R5mc004", R5mc004);
+
     exp.AddSampleGroup("run5",run5);
     
-    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/";
-    TString FileNames8[7]={"Accum8MuonMom.pdf","Accum8MuonCosT.pdf","Accum8PiMinMom.pdf","Accum8PiMinCosT.pdf", "Accum8PiMinMom0ME.pdf", "Accum8PiMinMom1ME.pdf", "Accum5ZdistanceCut.pdf"};
-    TString PrintName8[7];
+    DataSample* R6bmc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_00.root");
+    DataSample* R6bmc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_01.root");
+    DataSample* R6bmc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_02.root");
+    DataSample* R6bmc003 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_03.root");
+    DataSample* R6bmc004 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_04.root");
+    DataSample* R6bmc005 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_05.root");
+    DataSample* R6bmc006 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_06.root");
+    DataSample* R6bmc007 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_07.root");
     
-    for(int i=0; i<7; i++)
+    SampleGroup run6b("run6b");
+    run6b.AddMCSample("R6bmc000", R6bmc000);
+    run6b.AddMCSample("R6bmc001", R6bmc001);
+    run6b.AddMCSample("R6bmc002", R6bmc002);
+    run6b.AddMCSample("R6bmc003", R6bmc003);
+    run6b.AddMCSample("R6bmc004", R6bmc004);
+    run6b.AddMCSample("R6bmc005", R6bmc005);
+    run6b.AddMCSample("R6bmc006", R6bmc006);
+    run6b.AddMCSample("R6bmc007", R6bmc007);
+    
+    exp.AddSampleGroup("run6b",run6b);
+    
+    DataSample* R6cmc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6cAntiNumuMultiPiAccum0_00.root");
+    DataSample* R6cmc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6cAntiNumuMultiPiAccum0_01.root");
+    DataSample* R6cmc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6cAntiNumuMultiPiAccum0_02.root");
+    
+    SampleGroup run6c("run6c");
+    run6c.AddMCSample("R6cmc000", R6cmc000);
+    run6c.AddMCSample("R6cmc001", R6cmc001);
+    run6c.AddMCSample("R6cmc002", R6cmc002);
+    
+    exp.AddSampleGroup("run6c",run6c);
+    
+    DataSample* R6dmc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6dAntiNumuMultiPiAccum0_00.root");
+    DataSample* R6dmc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6dAntiNumuMultiPiAccum0_01.root");
+    DataSample* R6dmc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6dAntiNumuMultiPiAccum0_02.root");
+    DataSample* R6dmc003 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6dAntiNumuMultiPiAccum0_03.root");
+    
+    SampleGroup run6d("run6d");
+    run6d.AddMCSample("R6dmc000", R6dmc000);
+    run6d.AddMCSample("R6dmc001", R6dmc001);
+    run6d.AddMCSample("R6dmc002", R6dmc002);
+    run6d.AddMCSample("R6dmc003", R6dmc003);
+    
+    exp.AddSampleGroup("run6d",run6d);
+    
+    DataSample* R6emc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_00.root");
+    DataSample* R6emc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_01.root");
+    DataSample* R6emc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_02.root");
+    DataSample* R6emc003 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_03.root");
+    DataSample* R6emc004 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_04.root");
+    
+    SampleGroup run6e("run6e");
+    run6e.AddMCSample("R6emc000", R6emc000);
+    run6e.AddMCSample("R6emc001", R6emc001);
+    run6e.AddMCSample("R6emc002", R6emc002);
+    run6e.AddMCSample("R6emc003", R6emc003);
+    run6e.AddMCSample("R6emc004", R6emc004);
+    
+    exp.AddSampleGroup("run6e",run6e);
+
+    DataSample* R7mc0 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run7AntiNumuMultiPiAccum0.root");
+    
+    SampleGroup run7("run7");
+    run7.AddMCSample("R7mc0", R7mc0);
+    
+    exp.AddSampleGroup("run7",run7);
+    
+    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/";
+    TString FileNames8[19]={"Accum8MuonMom.pdf","Accum8MuonMomClear.pdf","Accum8MuonCosT.pdf","Accum8PiMinMom.pdf","Accum8PiMinCosT.pdf", "Accum8PiMinMom0ME.pdf", "Accum8PiMinMom1ME.pdf", "Accum8PiMinMom>1ME.pdf", "Accum6ZdistanceCut.pdf", "Accum7ZdistanceCut.pdf", "TH2Fmu.pdf", "TH2Fpi.pdf", "TH2FmuRangeXmom.pdf", "TH2FpiNegRangeXmom.pdf", "TH2FpiPosRangeXmom.pdf", "TH2FmuTrueTopAccum0.pdf", "TH2FmuTrueTopAccum8.pdf", "TH2FpiNegTrueTopAccum0.pdf", "TH2FpiNegTrueTopAccum8.pdf" };
+    TString PrintName8[19];
+    
+    for(int i=0; i<19; i++)
     {
         PrintName8[i]=PathName+FileNames8[i];
     }
     c1 = new TCanvas("c1"," ",10,10,800,600);
    
-    draw.SetTitle("accum[0][1]>8 #mu^{+} moementum");
+    draw.SetTitle("accum[0][1]>8 #mu^{+} momentum");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetLegendPos("tr");
     draw.Draw(exp,"selmu_mom",20,0., 5000.,"particle","accum_level[0][1]>8");
     c1->Print(PrintName8[0]);
     
+    draw.SetTitle("accum[0][1]>8 #mu^{+} true momentum");
+    draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"selmu_mom",20,0., 5000.,"particle","accum_level[0][1]>8 && particle == -13");
+    c1->Print(PrintName8[1]);
+    
     draw.SetTitle("accum[0][1]>8 #mu^{+} cos#theta");
     draw.SetTitleX("#mu^{+} candidate cos#theta");
     draw.SetLegendPos("tl");
-    draw.Draw(exp,"selmu_costheta",40,0.0,1.0,"particle","accum_level[0][1]>8");
-    c1->Print(PrintName8[1]);
+    draw.Draw(exp,"selmu_costheta",40,0.0,1.0,"topology","accum_level[0][1]>8");
+    c1->Print(PrintName8[2]);
 
     draw.SetTitle("accum[0][1]>8 #pi^{-} momentum");
     draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
     draw.SetLegendPos("tr");
     draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>8 && NNegPion==1");
-    c1->Print(PrintName8[2]);
+    c1->Print(PrintName8[3]);
     
     draw.SetTitle("accum[0][1]>8 #pi^{-} cos#theta");
     draw.SetTitleX("TPC #pi^{-} candidate cos#theta");
     draw.SetLegendPos("tl");
-    draw.Draw(exp,"cos(NegPionTheta[0][0])",40,0.0,1.0,"particle","accum_level[0][1]>8 && NNegPion==1");
-    c1->Print(PrintName8[3]);
-
-    draw.SetTitle("accum[0][1]>8 #pi^{-} if 1 Michel Electrons");
-    draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
-    draw.SetLegendPos("tr");
-    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>8 && NNegPion==1 && NME==0");
+    draw.Draw(exp,"cos(NegPionTheta[0][0])",40,0.0,1.0,"topology","accum_level[0][1]>8 && NNegPion==1");
     c1->Print(PrintName8[4]);
 
     draw.SetTitle("accum[0][1]>8 #pi^{-} if 0 Michel Electrons");
     draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
     draw.SetLegendPos("tr");
-    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>8 && NNegPion==1 && NME==1");
+    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>8 && NNegPion==1 && NME==0");
     c1->Print(PrintName8[5]);
 
+    draw.SetTitle("accum[0][1]>8 #pi^{-} if 1 Michel Electrons");
+    draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>8 && NNegPion==1 && NME==1");
+    c1->Print(PrintName8[6]);
+    
+    draw.SetTitle("accum[0][1]>8 #pi^{-} if >1 Michel Electrons");
+    draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>8 && NNegPion==1 && NME>1");
+    c1->Print(PrintName8[7]);
+    
+    draw.SetTitle("accum[0][1]>6 Z distance difference");
+    draw.SetTitleX("Distance");
+    draw.SetLegendPos("tl");
+    draw.Draw(exp,"selmu_endpos[2]-NegPionPosEnd[0][2]",50,-3500., 3500.,"topology","accum_level[0][1]>6");  //[2] means Z rest is for X and Y
+    c1->Print(PrintName8[8]);
+    
     draw.SetTitle("accum[0][1]>7 Z distance difference");
     draw.SetTitleX("Distance");
     draw.SetLegendPos("tl");
-    draw.Draw(exp,"selmu_endpos[2]-NegPionPosEnd[0][2]",50,-3000., 3000.,"topology","accum_level[0][1]>7");  //[2] means Z rest is for X and Y
-    c1->Print(PrintName8[6]);
-    draw.PrintPurities(exp,"topology", "accum_level[0][1]>7 && selmu_endpos[2]-NegPionPosEnd[0][2]>-500");
-
+    draw.Draw(exp,"selmu_endpos[2]-NegPionPosEnd[0][2]",50,-3500., 3500.,"topology","accum_level[0][1]>7");  //[2] means Z rest is for X and Y
+    c1->Print(PrintName8[9]);
     
-    //Dla >5   61.10383 % (764.94737 events) 
-    //Dla >-5  59.583405 % (799.59239 events)
-    //Dla >-10 59.56251 % (800.61084 events)
-    //Dla >-15 59.437125 % (800.61084 events)
-    //Dla >-20 59.385815 % (800.61084 events)
-    //Dla >-30 59.10334 % (800.61084 events)
-    //Dla >-100 58.336437 % (806.90315 events)
-    //Dla >-200 57.237717 % (817.05121 events)
-    //Dla >-500 54.617006 % (828.18823 events)
+    draw.SetTitle("#mu^{+} accum[0][1]>8 momXcos_theta");
+    draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
+    draw.SetTitleY("#mu^{+} candidate cos#theta");
+    draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>8","colz");
+    //draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>0 && topology==1","colz");
+    c1->Print(PrintName8[10]);
+    
+    draw.SetTitle("#pi^{-} accum[0][1]>8 momXcos_theta");
+    draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
+    draw.SetTitleY("#pi^{-} candidate cos#theta");
+    draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>8","colz");
+    c1->Print(PrintName8[11]);
+    
+    draw.SetTitle("#mu^{+} accum[0][1]>8 momXrange");
+    draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
+    draw.SetTitleY("#mu^{+} candidate Z range");
+    draw.Draw(exp,"selmu_endpos[2]:NegPionMom[0][0]", 50,0., 3000., 40,0.0, 3500, "all","accum_level[0][1]>8 && particle == -13","colz");
+    c1->Print(PrintName8[12]);
+    
+    draw.SetTitle("#pi^{-} accum[0][1]>8 momXrange");
+    draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
+    draw.SetTitleY("#pi^{-} candidate Z range");
+    draw.Draw(exp,"NegPionPosEnd[0][2]:NegPionMom[0][0]", 50,0. 3000., 40,0.0, 3500,, "all","accum_level[0][1]>8 && particle == -211","colz");
+    c1->Print(PrintName8[13]);
+    
+    draw.SetTitle("#pi^{+} accum[0][1]>8 momXrange");
+    draw.SetTitleX("#pi^{+} candidate momentum [MeV/c]");
+    draw.SetTitleY("#pi^{+} candidate Z range");
+    draw.Draw(exp,"PosPionPosEnd[0][2]:PosPionMom[0][0]", 50,0., 3000., 40,0.0,, 3500,, "all","accum_level[0][1]>8 && particle == +211","colz");
+    c1->Print(PrintName8[14]);
+           
+    draw.SetTitle("#mu^{+} accum[0][1]>0 momXcos_theta true topology");
+    draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
+    draw.SetTitleY("#mu^{+} candidate cos#theta");
+    draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>0 && topology==1","colz");
+    c1->Print(PrintName8[15]);
+    
+    draw.SetTitle("#mu^{+} accum[0][1]>8 momXcos_theta true topology");
+    draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
+    draw.SetTitleY("#mu^{+} candidate cos#theta");
+    draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>8 && topology==1","colz");
+    c1->Print(PrintName8[16]);
+    
+    draw.SetTitle("#pi^{-} accum[0][1]>0 momXcos_theta true topology");
+    draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
+    draw.SetTitleY("#pi^{-} candidate cos#theta");
+    draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>0 && topology==1","colz");
+    c1->Print(PrintName8[17]);
+    
+    draw.SetTitle("#pi^{-} accum[0][1]>8 momXcos_theta true topology");
+    draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
+    draw.SetTitleY("#pi^{-} candidate cos#theta");
+    draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>8 && topology==1","colz");
+    c1->Print(PrintName8[18]);
+    
+    TString FileNames0[7]={"Accum0MuonMom.pdf","Accum0MuonCosT.pdf","Accum0PiMinMom.pdf","Accum0PiMinCosT.pdf", "Accum0PiMinMom0ME.pdf", "Accum0PiMinMom1ME.pdf", "Accum0PiMinMom1ME.pdf"};
+    TString PrintName0[7];
+    
+    for(int i=0; i<7; i++)
+    {
+        PrintName0[i]=PathName+FileNames0[i];
+    }
+    
+    c1 = new TCanvas("c1"," ",10,10,800,600);
+    draw.SetTitle("#mu^{+} momentum [MeV/c] accum[0][1]>=0");
+    draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"selmu_mom",20,0., 5000.,"particle","accum_level[0][1]>=0");
+    c1->Print(PrintName0[0]);
+    
+    draw.SetTitle("#mu^{+} cos#theta accum[0][1]>=0");
+    draw.SetTitleX("#mu^{+} candidate cos#theta");
+    draw.SetLegendPos("tl");
+    draw.Draw(exp,"selmu_costheta",40,0.0,1.0,"particle","accum_level[0][1]>=0");
+    c1->Print(PrintName0[1]);
+    
+    draw.SetTitle("#pi^{-} momentum [MeV/c] accum[0][1]>=0");
+    draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>=0 && NNegPion==1");
+    c1->Print(PrintName0[2]);
+    
+    draw.SetTitle("#pi^{-} cos#theta accum[0][1]>=0");
+    draw.SetTitleX("TPC #pi^{-} candidate cos#theta");
+    draw.SetLegendPos("tl");
+    draw.Draw(exp,"NegPionTheta[0][0]",40,0.0,1.0,"particle","accum_level[0][1]>=0 && NNegPion==1");
+    c1->Print(PrintName0[3]);
+
+    draw.SetTitle("#pi^{-} if 0 Michel Electrons");
+    draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>0 && NNegPion==1 && NME==0");
+    c1->Print(PrintName0[4]);
+
+    draw.SetTitle("#pi^{-} if 1 Michel Electrons");
+    draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>0 && NNegPion==1 && NME==1");
+    c1->Print(PrintName0[5]);
+    
+    draw.SetTitle("#pi^{-} if >1 Michel Electrons");
+    draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>0 && NNegPion==1 && NME>1");
+    c1->Print(PrintName0[6]);
+    
+    draw->SetAxisRange(0, 3000, "Y");
 }
