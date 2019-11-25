@@ -65,7 +65,8 @@ void Example()
     
     draw.PrintPurities(*data,"reaction","accum_level[0][0]>8");
     
-    //draw.DumpCategories();  \\diferent drawing options  
-    //draw.DumpCuts();         \\Cuts explanation 
+    //draw.DumpCategories();   \\diferent drawing options  
+    //draw.DumpCuts();          \\Cuts explanation 
+    //draw.DumpPOT(exp, "run7"); \\Gives POT number 
 
 }
