@@ -78,22 +78,22 @@ void CC1PiXsecAnalysis()
     exp.AddSampleGroup("run7",run7);
     
     TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/CC1piXsec/";
-    TString FileNames8[19]={"Accum8XMuonMom.pdf", "Accum8XMuonMomClear.pdf", "Accum8XMuonCosT.pdf","Accum8XPiMinMom.pdf","Accum8XPiMinCosT.pdf", "Accum8XPiMinMom0ME.pdf", "Accum8XPiMinMom1ME.pdf", "Accum8XPiMinMom>1ME.pdf", "Accum6XZdistanceCut.pdf", "Accum7XZdistanceCut.pdf", "TH2FmuX.pdf", "TH2FpiX.pdf", "TH2FmuRangeXmomX.pdf", "TH2FpiMinRangeXmomX.pdf", "TH2FpiPosRangeXmomX", "TH2FmuTrueTopAccum0X.pdf", "TH2FmuTrueTopAccum8X.pdf", "TH2FpiNegTrueTopAccum0X.pdf", "TH2FpiNegTrueTopAccum8X.pdf" };
-    TString PrintName8[19];
+    TString FileNames8[22]={"Accum8XMuonMom.pdf", "Accum8XMuonMomClear.pdf", "Accum8XMuonCosT.pdf","Accum8XPiMinMom.pdf","Accum8XPiMinCosT.pdf", "Accum8XPiMinMom0ME.pdf", "Accum8XPiMinMom1ME.pdf", "Accum8XPiMinMom>1ME.pdf", "Accum6XZdistanceCut.pdf", "Accum7XZdistanceCut.pdf", "TH2FmuX.pdf", "TH2FpiX.pdf", "TH2FmuRangeXmomX.pdf", "TH2FpiMinRangeXmomX.pdf", "TH2FpiPosRangeXmomX.pdf", "TH2FmuTrueTopAccum0X.pdf", "TH2FmuTrueTopAccum8X.pdf", "TH2FpiNegTrueTopAccum0X.pdf", "TH2FpiNegTrueTopAccum8X.pdf" , "Accum7XMuonEndPos.pdf","Accum7XPiEndPos.pdf", "Accum8XNuEnergy.pdf" };
+    TString PrintName8[22];
     
-    for(int i=0; i<19; i++)
+    for(int i=0; i<22; i++)
     {
         PrintName8[i]=PathName+FileNames8[i];
     }
     c1 = new TCanvas("c1"," ",10,10,800,600);
-
+    
     draw.SetTitle("accum[0][0]>8 #mu^{+} momentum");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetLegendPos("tr");
     draw.Draw(exp,"selmu_mom",20,0., 5000.,"particle","accum_level[0][0]>8");
     c1->Print(PrintName8[0]);
     
-    draw.SetTitle("accum[0][0]>8 #mu^{+} true momentum");
+    draw.SetTitle("accum[0][0]>8 true #mu^{+} momentum");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetLegendPos("tr");
     draw.Draw(exp,"selmu_mom",20,0., 5000.,"particle","accum_level[0][0]>8 && particle == -13");
@@ -102,13 +102,13 @@ void CC1PiXsecAnalysis()
     draw.SetTitle("accum[0][0]>8 #mu^{+} cos#theta");
     draw.SetTitleX("#mu^{+} candidate cos#theta");
     draw.SetLegendPos("tl");
-    draw.Draw(exp,"selmu_costheta",40,0.0,1.0,"topology","accum_level[0][0]>8");
+    draw.Draw(exp,"selmu_costheta",40,0.0,1.0,"particle","accum_level[0][0]>8");
     c1->Print(PrintName8[2]);
 
     draw.SetTitle("accum[0][0]>8 #pi^{-} momentum");
     draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
     draw.SetLegendPos("tr");
-    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][0]>8 && NNegPion==1");
+    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"topology","accum_level[0][0]>8 && NNegPion==1");
     c1->Print(PrintName8[3]);
     
     draw.SetTitle("accum[0][0]>8 #pi^{-} cos#theta");
@@ -144,63 +144,83 @@ void CC1PiXsecAnalysis()
     draw.SetTitle("accum[0][0]>7 Z distance difference");
     draw.SetTitleX("Distance");
     draw.SetLegendPos("tl");
+    //draw.SetRangeY(0, 1400);
     draw.Draw(exp,"selmu_endpos[2]-NegPionPosEnd[0][2]",50,-3500., 3500.,"topology","accum_level[0][0]>7");  //[2] means Z rest is for X and Y
     c1->Print(PrintName8[9]);
-
-    draw.SetTitle("#mu^{+} accum[0][0]>8 momXcos_theta");
+    
+    draw.SetTitle("#mu^{+} accum[0][0]>8 momXcos#theta");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#mu^{+} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>8","colz");
     c1->Print(PrintName8[10]);
     
-    draw.SetTitle("#pi^{-} accum[0][0]>8 momXcos_theta");
+    draw.SetTitle("#pi^{-} accum[0][0]>8 momXcos#theta");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>8","colz");
     //draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>0 && topology==1","colz");
     c1->Print(PrintName8[11]);
     
-    draw.SetTitle("#mu^{+} accum[0][0]>8 momXrange");
+    draw.SetTitle("#mu^{+} accum[0][0]>8 momXrange true particle");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#mu^{+} candidate range");
     draw.Draw(exp,"selmu_endpos[2]:NegPionMom[0][0]", 50,0., 3000., 40,0.0, 3500, "all","accum_level[0][0]>8 && particle == -13","colz");
     c1->Print(PrintName8[12]);
     
-    draw.SetTitle("#pi^{-} accum[0][0]>8 momXrange");
+    draw.SetTitle("#pi^{-} accum[0][0]>8 momXrange true particle");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate range");
-    draw.Draw(exp,"NegPionPosEnd[0][2]:NegPionMom[0][0]", 50,0., 3000., 40,0.0, 3500,, "all","accum_level[0][0]>8 && particle == -211","colz");
+    draw.Draw(exp,"NegPionPosEnd[0][2]:NegPionMom[0][0]", 50, 0., 3000., 40, 0.0, 3500, "all","accum_level[0][0]>8 && NegPionTId == -211","colz");
     c1->Print(PrintName8[13]);
     
-    draw.SetTitle("#pi^{+} accum[0][0]>8 momXrange");
+    draw.SetTitle("#pi^{+} accum[0][0]>8 momXrange true particle");
     draw.SetTitleX("#pi^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{+} candidate Z range");
-    draw.Draw(exp,"PosPionPosEnd[0][2]:PosPionMom[0][0]", 50,0., 3000., 40,0.0, 3500,, "all","accum_level[0][0]>8 && particle == +211","colz");
+    draw.Draw(exp,"PosPionPosEnd[0][2]:PosPionMom[0][0]", 50,0., 3000., 40,0.0, 3500, "all","accum_level[0][0]>8 && PosPionTId == +211","colz");
     c1->Print(PrintName8[14]);
     
-    draw.SetTitle("#mu^{+} accum[0][0]>0 momXcos_theta true topology");
+    draw.SetTitle("#mu^{+} accum[0][0]>0 momXcos#theta true topology");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#mu^{+} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>0 && topology==1","colz");
     c1->Print(PrintName8[15]);
     
-    draw.SetTitle("#mu^{+} accum[0][0]>8 momXcos_theta true topology");
+    draw.SetTitle("#mu^{+} accum[0][0]>8 momXcos#theta true topology");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#mu^{+} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>8 && topology==1","colz");
     c1->Print(PrintName8[16]);
     
-    draw.SetTitle("#pi^{-} accum[0][0]>0 momXcos_theta true topology");
+    draw.SetTitle("#pi^{-} accum[0][0]>0 momXcos#theta true topology");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>0 && topology==1","colz");
     c1->Print(PrintName8[17]);
     
-    draw.SetTitle("#pi^{-} accum[0][0]>8 momXcos_theta true topology");
+    draw.SetTitle("#pi^{-} accum[0][0]>8 momXcos#theta true topology");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>8 && topology==1","colz");
     c1->Print(PrintName8[18]);
+    
+    draw.SetTitle("#mu^{+} end pos accum[0][0]>7");
+    draw.SetTitleX("#mu^{+} ending pos");
+    draw.SetLegendPos("tc");
+    draw.Draw(exp,"selmu_endpos[2]",40,-0., 3500.,"topology","accum_level[0][0]>7");  //[2] means Z rest is for X and Y
+    c1->Print(PrintName8[19]);
+    
+    draw.SetTitle("#pi^{-} end pos accum[0][0]>7");
+    draw.SetTitleX("#pi^{-} ending pos");
+    draw.SetLegendPos("tc");
+    draw.Draw(exp,"NegPionPosEnd[0][2]",40, 0., 3500.,"topology","accum_level[0][0]>7");  //[2] means Z rest is for X and Y
+    c1->Print(PrintName8[20]);
+    
+    draw.SetTitle("accum[0][0]>8 #bar{#nu} true energy");
+    draw.SetTitleX("#bar{#nu} energy [MeV]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"nu_trueE",20,0., 5000.,"topology","accum_level[0][0]>8");
+    c1->Print(PrintName8[21]);
+    
     
     /////////////////////DODATKOWE FUNKCJONALNOSCI!!!!!!!!!
     //topology_bkg_split

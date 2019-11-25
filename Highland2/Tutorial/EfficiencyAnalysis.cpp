@@ -97,7 +97,7 @@ void EfficiencyAnalysis()
 
     c1 = new TCanvas("c1"," ",10,10,800,600);
     
-    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/EfficiencyPlots/";
+    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/WynikiOld/EfficiencyPlots/";
     TString FileNames0;
     TString PrintName0;
     
@@ -105,7 +105,8 @@ void EfficiencyAnalysis()
     {
         FileNames0=Form("EffciencyLeptonThetaAccum%d.pdf",ik);
         PrintName0=PathName+FileNames0;
-        
+
+    
         draw.SetTitle(Form("accum[1]>%d for #mu^{+} cos#theta",ik));
         draw.SetTitleX("true #mu^{+} cos#theta");
         draw.DrawEff(exp,false,"truelepton_costheta",40,0.,1.,Form("accum_level[1]>%d",ik),"topology==1","","","");

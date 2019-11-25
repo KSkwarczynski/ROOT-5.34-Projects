@@ -71,22 +71,14 @@ void AntiMuMultiPiAnalysis()
     run6d.AddMCSample("R6dmc003", R6dmc003);
     
     exp.AddSampleGroup("run6d",run6d);
-    
-    DataSample* R6emc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_00.root");
-    DataSample* R6emc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_01.root");
-    DataSample* R6emc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_02.root");
-    DataSample* R6emc003 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_03.root");
-    DataSample* R6emc004 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0_04.root");
+
+    DataSample* R6emc0 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0.root");
     
     SampleGroup run6e("run6e");
-    run6e.AddMCSample("R6emc000", R6emc000);
-    run6e.AddMCSample("R6emc001", R6emc001);
-    run6e.AddMCSample("R6emc002", R6emc002);
-    run6e.AddMCSample("R6emc003", R6emc003);
-    run6e.AddMCSample("R6emc004", R6emc004);
+    run6e.AddMCSample("R6emc0", R6emc0);
     
     exp.AddSampleGroup("run6e",run6e);
-
+    
     DataSample* R7mc0 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run7AntiNumuMultiPiAccum0.root");
     
     SampleGroup run7("run7");
@@ -94,11 +86,11 @@ void AntiMuMultiPiAnalysis()
     
     exp.AddSampleGroup("run7",run7);
     
-    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/";
-    TString FileNames8[19]={"Accum8MuonMom.pdf","Accum8MuonMomClear.pdf","Accum8MuonCosT.pdf","Accum8PiMinMom.pdf","Accum8PiMinCosT.pdf", "Accum8PiMinMom0ME.pdf", "Accum8PiMinMom1ME.pdf", "Accum8PiMinMom>1ME.pdf", "Accum6ZdistanceCut.pdf", "Accum7ZdistanceCut.pdf", "TH2Fmu.pdf", "TH2Fpi.pdf", "TH2FmuRangeXmom.pdf", "TH2FpiNegRangeXmom.pdf", "TH2FpiPosRangeXmom.pdf", "TH2FmuTrueTopAccum0.pdf", "TH2FmuTrueTopAccum8.pdf", "TH2FpiNegTrueTopAccum0.pdf", "TH2FpiNegTrueTopAccum8.pdf" };
-    TString PrintName8[19];
+    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/WynikiOld/";
+    TString FileNames8[22]={"Accum8MuonMom.pdf","Accum8MuonMomClear.pdf","Accum8MuonCosT.pdf","Accum8PiMinMom.pdf","Accum8PiMinCosT.pdf", "Accum8PiMinMom0ME.pdf", "Accum8PiMinMom1ME.pdf", "Accum8PiMinMom>1ME.pdf", "Accum6ZdistanceCut.pdf", "Accum7ZdistanceCut.pdf", "TH2Fmu.pdf", "TH2Fpi.pdf", "TH2FmuRangeXmom.pdf", "TH2FpiNegRangeXmom.pdf", "TH2FpiPosRangeXmom.pdf", "TH2FmuTrueTopAccum0.pdf", "TH2FmuTrueTopAccum8.pdf", "TH2FpiNegTrueTopAccum0.pdf", "TH2FpiNegTrueTopAccum8.pdf", "Accum7MuonEndPos.pdf","Accum7PiEndPos.pdf", "Accum8NuEnergy.pdf" };
+    TString PrintName8[22];
     
-    for(int i=0; i<19; i++)
+    for(int i=0; i<22; i++)
     {
         PrintName8[i]=PathName+FileNames8[i];
     }
@@ -110,7 +102,7 @@ void AntiMuMultiPiAnalysis()
     draw.Draw(exp,"selmu_mom",20,0., 5000.,"particle","accum_level[0][1]>8");
     c1->Print(PrintName8[0]);
     
-    draw.SetTitle("accum[0][1]>8 #mu^{+} true momentum");
+    draw.SetTitle("accum[0][1]>8 true #mu^{+} momentum");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetLegendPos("tr");
     draw.Draw(exp,"selmu_mom",20,0., 5000.,"particle","accum_level[0][1]>8 && particle == -13");
@@ -119,13 +111,13 @@ void AntiMuMultiPiAnalysis()
     draw.SetTitle("accum[0][1]>8 #mu^{+} cos#theta");
     draw.SetTitleX("#mu^{+} candidate cos#theta");
     draw.SetLegendPos("tl");
-    draw.Draw(exp,"selmu_costheta",40,0.0,1.0,"topology","accum_level[0][1]>8");
+    draw.Draw(exp,"selmu_costheta",40,0.0,1.0,"particle","accum_level[0][1]>8");
     c1->Print(PrintName8[2]);
 
     draw.SetTitle("accum[0][1]>8 #pi^{-} momentum");
     draw.SetTitleX("TPC #pi^{-} candidate momentum [MeV/c]");
     draw.SetLegendPos("tr");
-    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>8 && NNegPion==1");
+    draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"topology","accum_level[0][1]>8 && NNegPion==1");
     c1->Print(PrintName8[3]);
     
     draw.SetTitle("accum[0][1]>8 #pi^{-} cos#theta");
@@ -161,63 +153,82 @@ void AntiMuMultiPiAnalysis()
     draw.SetTitle("accum[0][1]>7 Z distance difference");
     draw.SetTitleX("Distance");
     draw.SetLegendPos("tl");
+    //draw.SetRangeY(0, 1400);
     draw.Draw(exp,"selmu_endpos[2]-NegPionPosEnd[0][2]",50,-3500., 3500.,"topology","accum_level[0][1]>7");  //[2] means Z rest is for X and Y
     c1->Print(PrintName8[9]);
     
-    draw.SetTitle("#mu^{+} accum[0][1]>8 momXcos_theta");
+    draw.SetTitle("#mu^{+} accum[0][1]>8 momXcos#theta");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#mu^{+} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>8","colz");
     //draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>0 && topology==1","colz");
     c1->Print(PrintName8[10]);
-    
-    draw.SetTitle("#pi^{-} accum[0][1]>8 momXcos_theta");
+
+    draw.SetTitle("#pi^{-} accum[0][1]>8 momXcos#theta");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>8","colz");
     c1->Print(PrintName8[11]);
     
-    draw.SetTitle("#mu^{+} accum[0][1]>8 momXrange");
+    draw.SetTitle("#mu^{+} accum[0][1]>8 momXrange true particle");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#mu^{+} candidate Z range");
     draw.Draw(exp,"selmu_endpos[2]:NegPionMom[0][0]", 50,0., 3000., 40,0.0, 3500, "all","accum_level[0][1]>8 && particle == -13","colz");
     c1->Print(PrintName8[12]);
     
-    draw.SetTitle("#pi^{-} accum[0][1]>8 momXrange");
+    draw.SetTitle("#pi^{-} accum[0][1]>8 momXrange true particle");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate Z range");
-    draw.Draw(exp,"NegPionPosEnd[0][2]:NegPionMom[0][0]", 50,0. 3000., 40,0.0, 3500,, "all","accum_level[0][1]>8 && particle == -211","colz");
+    draw.Draw(exp,"NegPionPosEnd[0][2]:NegPionMom[0][0]", 50, 0., 3000., 40, 0.0, 3500, "all","accum_level[0][1]>8 && NegPionTId== -211","colz");
     c1->Print(PrintName8[13]);
     
-    draw.SetTitle("#pi^{+} accum[0][1]>8 momXrange");
+    draw.SetTitle("#pi^{+} accum[0][1]>8 momXrange true particle");
     draw.SetTitleX("#pi^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{+} candidate Z range");
-    draw.Draw(exp,"PosPionPosEnd[0][2]:PosPionMom[0][0]", 50,0., 3000., 40,0.0,, 3500,, "all","accum_level[0][1]>8 && particle == +211","colz");
+    draw.Draw(exp,"PosPionPosEnd[0][2]:PosPionMom[0][0]", 50,0., 3000., 40,0.0,3500, "all","accum_level[0][1]>8 && PosPionTId==211","colz");
     c1->Print(PrintName8[14]);
-           
-    draw.SetTitle("#mu^{+} accum[0][1]>0 momXcos_theta true topology");
+    
+    draw.SetTitle("#mu^{+} accum[0][1]>0 momXcos#theta true topology");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#mu^{+} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>0 && topology==1","colz");
     c1->Print(PrintName8[15]);
     
-    draw.SetTitle("#mu^{+} accum[0][1]>8 momXcos_theta true topology");
+    draw.SetTitle("#mu^{+} accum[0][1]>8 momXcos#theta true topology");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#mu^{+} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>8 && topology==1","colz");
     c1->Print(PrintName8[16]);
     
-    draw.SetTitle("#pi^{-} accum[0][1]>0 momXcos_theta true topology");
+    draw.SetTitle("#pi^{-} accum[0][1]>0 momXcos#theta true topology");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>0 && topology==1","colz");
     c1->Print(PrintName8[17]);
     
-    draw.SetTitle("#pi^{-} accum[0][1]>8 momXcos_theta true topology");
+    draw.SetTitle("#pi^{-} accum[0][1]>8 momXcos#theta true topology");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate cos#theta");
     draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][1]>8 && topology==1","colz");
     c1->Print(PrintName8[18]);
+     
+    draw.SetTitle("#mu^{+} end pos accum[0][1]>7");
+    draw.SetTitleX("#mu^{+} ending pos");
+    draw.SetLegendPos("tc");
+    draw.Draw(exp,"selmu_endpos[2]",40,-0., 3500.,"topology","accum_level[0][1]>7");  //[2] means Z rest is for X and Y
+    c1->Print(PrintName8[19]);
+    
+    draw.SetTitle("#pi^{-} end pos accum[0][1]>7");
+    draw.SetTitleX("#pi^{-} ending pos");
+    draw.SetLegendPos("tc");
+    draw.Draw(exp,"NegPionPosEnd[0][2]",40, 0., 3500.,"topology","accum_level[0][1]>7");  //[2] means Z rest is for X and Y
+    c1->Print(PrintName8[20]);
+    
+    draw.SetTitle("accum[0][1]>8 #bar{#nu} true energy");
+    draw.SetTitleX("#bar{#nu} energy [MeV]");
+    draw.SetLegendPos("tr");
+    draw.Draw(exp,"nu_trueE",20,0., 5000.,"topology","accum_level[0][1]>8");
+    c1->Print(PrintName8[21]);
     
     TString FileNames0[7]={"Accum0MuonMom.pdf","Accum0MuonCosT.pdf","Accum0PiMinMom.pdf","Accum0PiMinCosT.pdf", "Accum0PiMinMom0ME.pdf", "Accum0PiMinMom1ME.pdf", "Accum0PiMinMom1ME.pdf"};
     TString PrintName0[7];
@@ -270,5 +281,4 @@ void AntiMuMultiPiAnalysis()
     draw.Draw(exp,"NegPionMom[0][0]",20,0., 5000.,"particle","accum_level[0][1]>0 && NNegPion==1 && NME>1");
     c1->Print(PrintName0[6]);
     
-    draw->SetAxisRange(0, 3000, "Y");
 }
