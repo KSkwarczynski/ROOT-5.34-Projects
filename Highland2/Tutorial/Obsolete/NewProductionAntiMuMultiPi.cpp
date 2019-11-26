@@ -43,7 +43,7 @@ void NewProductionAntiMuMultiPi()
     
     c1 = new TCanvas("c1"," ",10,10,800,600);
     
-    TString PathName0="/mnt/home/kskwarczynski/T2K/PlotOutputs/NewProduction/EfficiencyPlots/";
+    TString PathName0="/mnt/home/kskwarczynski/T2K/PlotOutputs/FirstCrosscheck/NewProduction/EfficiencyPlots/";
     TString FileNames;
     TString PrintName;
     
@@ -84,7 +84,7 @@ void NewProductionAntiMuMultiPi()
 
     ///////////
         
-    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/NewProduction/";
+    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/FirstCrosscheck/NewProduction/";
     TString FileNames0[7]={"Accum0MuonMomNew.pdf","Accum0MuonCosTNew.pdf","Accum0PiMinMomNew.pdf","Accum0PiMinCosTNew.pdf", "Accum0PiMinMom0MENew.pdf", "Accum0PiMinMom1MENew.pdf", "Accum0PiMinMom1MENew.pdf"};
     TString PrintName0[7];
     
