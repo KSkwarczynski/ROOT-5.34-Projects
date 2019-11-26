@@ -26,7 +26,7 @@ void OaAnalysisMultiPi()
     
     c1 = new TCanvas("c1"," ",10,10,800,600);
     
-    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/OaPlots/";
+    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/FirstCrosscheck/OaPlots/";
     
     TString FileNames[2]={"Accum8MuonMomOa.pdf", "Accum8MuonThetaOa.pdf"};
     TString PrintName[2];
