@@ -77,7 +77,7 @@ void CC1PiXsecAnalysis()
     
     exp.AddSampleGroup("run7",run7);
     
-    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/CC1piXsec/";
+    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/FirstCrosscheck/CC1piXsec/";
     TString FileNames8[22]={"Accum8XMuonMom.pdf", "Accum8XMuonMomClear.pdf", "Accum8XMuonCosT.pdf","Accum8XPiMinMom.pdf","Accum8XPiMinCosT.pdf", "Accum8XPiMinMom0ME.pdf", "Accum8XPiMinMom1ME.pdf", "Accum8XPiMinMom>1ME.pdf", "Accum6XZdistanceCut.pdf", "Accum7XZdistanceCut.pdf", "TH2FmuX.pdf", "TH2FpiX.pdf", "TH2FmuRangeXmomX.pdf", "TH2FpiMinRangeXmomX.pdf", "TH2FpiPosRangeXmomX.pdf", "TH2FmuTrueTopAccum0X.pdf", "TH2FmuTrueTopAccum8X.pdf", "TH2FpiNegTrueTopAccum0X.pdf", "TH2FpiNegTrueTopAccum8X.pdf" , "Accum7XMuonEndPos.pdf","Accum7XPiEndPos.pdf", "Accum8XNuEnergy.pdf" };
     TString PrintName8[22];
     

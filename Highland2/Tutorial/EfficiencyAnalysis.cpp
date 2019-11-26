@@ -97,7 +97,7 @@ void EfficiencyAnalysis()
 
     c1 = new TCanvas("c1"," ",10,10,800,600);
     
-    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/WynikiOld/EfficiencyPlots/";
+    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/FirstCrosscheck/WynikiOld/EfficiencyPlots/";
     TString FileNames0;
     TString PrintName0;
     

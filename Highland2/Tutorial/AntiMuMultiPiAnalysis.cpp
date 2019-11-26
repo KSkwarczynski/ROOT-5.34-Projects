@@ -86,7 +86,7 @@ void AntiMuMultiPiAnalysis()
     
     exp.AddSampleGroup("run7",run7);
     
-    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/WynikiOld/";
+    TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/FirstCrosscheck/WynikiOld/";
     TString FileNames8[22]={"Accum8MuonMom.pdf","Accum8MuonMomClear.pdf","Accum8MuonCosT.pdf","Accum8PiMinMom.pdf","Accum8PiMinCosT.pdf", "Accum8PiMinMom0ME.pdf", "Accum8PiMinMom1ME.pdf", "Accum8PiMinMom>1ME.pdf", "Accum6ZdistanceCut.pdf", "Accum7ZdistanceCut.pdf", "TH2Fmu.pdf", "TH2Fpi.pdf", "TH2FmuRangeXmom.pdf", "TH2FpiNegRangeXmom.pdf", "TH2FpiPosRangeXmom.pdf", "TH2FmuTrueTopAccum0.pdf", "TH2FmuTrueTopAccum8.pdf", "TH2FpiNegTrueTopAccum0.pdf", "TH2FpiNegTrueTopAccum8.pdf", "Accum7MuonEndPos.pdf","Accum7PiEndPos.pdf", "Accum8NuEnergy.pdf" };
     TString PrintName8[22];
     
