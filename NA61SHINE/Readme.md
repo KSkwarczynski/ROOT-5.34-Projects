@@ -4,4 +4,4 @@ First using LED (Leading Edge Discriminator) and CFD (Constant Fraction Discrimi
 draw.C is basic program creating output from data <br/>
 Fitowanie.cpp searches for best values from output file <br/>
 
-is to read data
+drawMultiGraph.C is to read data.
