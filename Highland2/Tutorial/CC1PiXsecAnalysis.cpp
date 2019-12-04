@@ -68,7 +68,6 @@ void CC1PiXsecAnalysis()
     run6e.AddMCSample("R6emc5", R6emc5);
     
     exp.AddSampleGroup("run6e",run6e);
-
     
     DataSample* R7mc5 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun7AntiNumuMultiPiAccum5.root");
     
@@ -151,14 +150,14 @@ void CC1PiXsecAnalysis()
     draw.SetTitle("#mu^{+} accum[0][0]>8 momXcos#theta");
     draw.SetTitleX("#mu^{+} candidate momentum [MeV/c]");
     draw.SetTitleY("#mu^{+} candidate cos#theta");
-    draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>8","colz");
+    draw.Draw(exp,"selmu_costheta:selmu_mom", 50,0., 3000., 50, 0.0, 1.0, "all","accum_level[0][0]>8","colz");
     c1->Print(PrintName8[10]);
     
     draw.SetTitle("#pi^{-} accum[0][0]>8 momXcos#theta");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate cos#theta");
-    draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>8","colz");
-    //draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>0 && topology==1","colz");
+    draw.Draw(exp,"cos(NegPionTheta[0][0]):NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>8","colz");
+    //draw.Draw(exp,"cos(NegPionTheta[0][0]):NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>0 && topology==1","colz");
     c1->Print(PrintName8[11]);
     
     draw.SetTitle("#mu^{+} accum[0][0]>8 momXrange true particle");
@@ -194,13 +193,13 @@ void CC1PiXsecAnalysis()
     draw.SetTitle("#pi^{-} accum[0][0]>0 momXcos#theta true topology");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate cos#theta");
-    draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>0 && topology==1","colz");
+    draw.Draw(exp,"cos(NegPionTheta[0][0]):NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>0 && topology==1","colz");
     c1->Print(PrintName8[17]);
     
     draw.SetTitle("#pi^{-} accum[0][0]>8 momXcos#theta true topology");
     draw.SetTitleX("#pi^{-} candidate momentum [MeV/c]");
     draw.SetTitleY("#pi^{-} candidate cos#theta");
-    draw.Draw(exp,"selmu_costheta:NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>8 && topology==1","colz");
+    draw.Draw(exp,"cos(NegPionTheta[0][0]):NegPionMom[0][0]", 50,0., 3000., 50,0.0, 1.0, "all","accum_level[0][0]>8 && topology==1","colz");
     c1->Print(PrintName8[18]);
     
     draw.SetTitle("#mu^{+} end pos accum[0][0]>7");
