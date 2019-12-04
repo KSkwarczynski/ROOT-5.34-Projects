@@ -21,11 +21,12 @@ void HistogramProjection()
     TTree *tree=(TTree*) R7mc0->GetTree("default");
     
     TH1F *Hselmu = new TH1F("Hselmu", "CC1pi tittle", 20, 0., 5000);
-    
     tree->Project(Hselmu->GetName(),"selmu_mom", "accum_level[0][1]>8");
-    
     Hselmu->Draw();
     
+    TH2F *Hselmu2 = new TH2F("Hselmu2", "CC1pi tittle", 50,0., 3000., 50, 0.0, 1.0);
+    tree->Project(Hselmu2->GetName(),"selmu_costheta:selmu_mom", "accum_level[0][1]>8");
+    Hselmu->Draw("COLZ");
     
     //float nnomi=Hselmu->GetBinContent(i+1);
     //TString nn[4]={"CC","CC0pi","CC1pi","CCOth"}; 
