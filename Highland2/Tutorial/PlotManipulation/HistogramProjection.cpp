@@ -31,7 +31,7 @@ void HistogramProjection()
     //float nnomi=Hselmu->GetBinContent(i+1);
     //TString nn[4]={"CC","CC0pi","CC1pi","CCOth"}; 
     //int ih=1;
-    //Hselmu->SetName(Form("mom_h1_%s",nn[ih]));
-    //Hselmu->SetNameTitle(Hselmu->GetName(),Form("mom_h1_%s",nn[ih]));
+    //Hselmu->SetName(Form("mom_h1_%s",nn[ih].Data()));
+    //Hselmu->SetNameTitle(Hselmu->GetName(),Form("mom_h1_%s",nn[ih].Data()));
 
 }
