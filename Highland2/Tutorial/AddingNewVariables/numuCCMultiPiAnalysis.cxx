@@ -704,10 +704,11 @@ void numuCCMultiPiAnalysis::FillMicroTrees(bool addBase){
   float leptonMass=105.658;
   float leptonMomentum=box().MainTrack->Momentum;
   float leptonEnergy= sqrt(leptonMomentum*leptonMomentum + leptonMass*leptonMass);
-  float neutronMass=939.565;
+  float TargetMass=939.565;
+  float DetaMass=1232;
   float leptonCosTheta=(Float_t)(anaUtils::ArrayToTVector3(box().MainTrack->DirectionStart).CosTheta());
   
-  neutrinoEnergy=(neutronMass*leptonEnergy-leptonMass*leptonMass/2)/(neutronMass-leptonEnergy+leptonMomentum*leptonCosTheta);
+  neutrinoEnergy=(DetaMass*DetaMass-TargetMass*TargetMass-leptonMass*leptonMass+2*TargetMass*leptonEnergy)/(2*(TargetMass-leptonEnergy+leptonMomentum*leptonCosTheta) );
   
   output().FillVar(nuEnergy, neutrinoEnergy);
   
