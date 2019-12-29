@@ -8,7 +8,7 @@ void AntiMuMultiPiAnalysis()
     gStyle->SetPadColor(0);
     gStyle->SetCanvasColor(0);
 
-    DrawingTools draw("Run5AntiNumuMultiPiAccum0_00.root",false);
+    DrawingTools draw("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_00.root",false);
     
     Experiment exp("nd280");
     
