@@ -9,7 +9,7 @@ void CC1PiXsecEfficiencyAnalysis()
     gStyle->SetPadColor(0);
     gStyle->SetCanvasColor(0);
 
-    DrawingTools draw("XsecRun5AntiNumuMultiPiAccum0_00.root",false);
+    DrawingTools draw("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum0_00.root",false);
     
     Experiment exp("nd280");
 
