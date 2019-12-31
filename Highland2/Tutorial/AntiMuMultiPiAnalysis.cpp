@@ -8,70 +8,38 @@ void AntiMuMultiPiAnalysis()
     gStyle->SetPadColor(0);
     gStyle->SetCanvasColor(0);
 
-    DrawingTools draw("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_00.root",false);
-    
+  DrawingTools draw("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0.root",false);    
+
     Experiment exp("nd280");
     
-    DataSample* R5mc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_00.root");
-    DataSample* R5mc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_01.root");
-    DataSample* R5mc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_02.root");
-    DataSample* R5mc003 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_03.root");
-    DataSample* R5mc004 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0_04.root");
+    DataSample* R5mc0 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run5AntiNumuMultiPiAccum0.root");
     
     SampleGroup run5("run5");
-    run5.AddMCSample("R5mc000", R5mc000);
-    run5.AddMCSample("R5mc001", R5mc001);
-    run5.AddMCSample("R5mc002", R5mc002);
-    run5.AddMCSample("R5mc003", R5mc003);
-    run5.AddMCSample("R5mc004", R5mc004);
+    run5.AddMCSample("R5mc0", R5mc0);
 
     exp.AddSampleGroup("run5",run5);
     
-    DataSample* R6bmc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_00.root");
-    DataSample* R6bmc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_01.root");
-    DataSample* R6bmc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_02.root");
-    DataSample* R6bmc003 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_03.root");
-    DataSample* R6bmc004 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_04.root");
-    DataSample* R6bmc005 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_05.root");
-    DataSample* R6bmc006 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_06.root");
-    DataSample* R6bmc007 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0_07.root");
-    
+    DataSample* R6bmc0 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6bAntiNumuMultiPiAccum0.root");
+     
     SampleGroup run6b("run6b");
-    run6b.AddMCSample("R6bmc000", R6bmc000);
-    run6b.AddMCSample("R6bmc001", R6bmc001);
-    run6b.AddMCSample("R6bmc002", R6bmc002);
-    run6b.AddMCSample("R6bmc003", R6bmc003);
-    run6b.AddMCSample("R6bmc004", R6bmc004);
-    run6b.AddMCSample("R6bmc005", R6bmc005);
-    run6b.AddMCSample("R6bmc006", R6bmc006);
-    run6b.AddMCSample("R6bmc007", R6bmc007);
+    run6b.AddMCSample("R6bmc0", R6bmc0);
     
     exp.AddSampleGroup("run6b",run6b);
     
-    DataSample* R6cmc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6cAntiNumuMultiPiAccum0_00.root");
-    DataSample* R6cmc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6cAntiNumuMultiPiAccum0_01.root");
-    DataSample* R6cmc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6cAntiNumuMultiPiAccum0_02.root");
+    DataSample* R6cmc0 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6cAntiNumuMultiPiAccum0.root");
     
     SampleGroup run6c("run6c");
-    run6c.AddMCSample("R6cmc000", R6cmc000);
-    run6c.AddMCSample("R6cmc001", R6cmc001);
-    run6c.AddMCSample("R6cmc002", R6cmc002);
+    run6c.AddMCSample("R6cmc0", R6cmc0);
     
     exp.AddSampleGroup("run6c",run6c);
     
-    DataSample* R6dmc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6dAntiNumuMultiPiAccum0_00.root");
-    DataSample* R6dmc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6dAntiNumuMultiPiAccum0_01.root");
-    DataSample* R6dmc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6dAntiNumuMultiPiAccum0_02.root");
-    DataSample* R6dmc003 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6dAntiNumuMultiPiAccum0_03.root");
+    DataSample* R6dmc0 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6dAntiNumuMultiPiAccum0.root");
     
     SampleGroup run6d("run6d");
-    run6d.AddMCSample("R6dmc000", R6dmc000);
-    run6d.AddMCSample("R6dmc001", R6dmc001);
-    run6d.AddMCSample("R6dmc002", R6dmc002);
-    run6d.AddMCSample("R6dmc003", R6dmc003);
+    run6d.AddMCSample("R6dmc0", R6dmc0);
     
     exp.AddSampleGroup("run6d",run6d);
-
+    
     DataSample* R6emc0 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCCMultiPiAnalysis/v2r6/Linux-x86_64/Run6eAntiNumuMultiPiAccum0.root");
     
     SampleGroup run6e("run6e");
@@ -85,7 +53,7 @@ void AntiMuMultiPiAnalysis()
     run7.AddMCSample("R7mc0", R7mc0);
     
     exp.AddSampleGroup("run7",run7);
-    
+
     TString PathName="/mnt/home/kskwarczynski/T2K/PlotOutputs/FirstCrosscheck/WynikiOld/";
     TString FileNames8[22]={"Accum8MuonMom.pdf","Accum8MuonMomClear.pdf","Accum8MuonCosT.pdf","Accum8PiMinMom.pdf","Accum8PiMinCosT.pdf", "Accum8PiMinMom0ME.pdf", "Accum8PiMinMom1ME.pdf", "Accum8PiMinMom>1ME.pdf", "Accum6ZdistanceCut.pdf", "Accum7ZdistanceCut.pdf", "TH2Fmu.pdf", "TH2Fpi.pdf", "TH2FmuRangeXmom.pdf", "TH2FpiNegRangeXmom.pdf", "TH2FpiPosRangeXmom.pdf", "TH2FmuTrueTopAccum0.pdf", "TH2FmuTrueTopAccum8.pdf", "TH2FpiNegTrueTopAccum0.pdf", "TH2FpiNegTrueTopAccum8.pdf", "Accum7MuonEndPos.pdf","Accum7PiEndPos.pdf", "Accum8NuEnergy.pdf" };
     TString PrintName8[22];

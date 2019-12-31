@@ -8,43 +8,21 @@ void CC1PiXsecAnalysis()
     gStyle->SetPadColor(0);
     gStyle->SetCanvasColor(0);
 
-    DrawingTools draw("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum5_00.root",false);
+    DrawingTools draw("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum5.root",false);
     
     Experiment exp("nd280");
 
-    DataSample* R5mc500 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum5_00.root");
-    DataSample* R5mc501 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum5_01.root");
-    DataSample* R5mc502 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum5_02.root");
-    DataSample* R5mc503 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum5_03.root");
-    DataSample* R5mc504 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum5_04.root");
+    DataSample* R5mc5 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum5.root");
     
     SampleGroup run5("run5");
-    run5.AddMCSample("R5mc500", R5mc500);
-    run5.AddMCSample("R5mc501", R5mc501);
-    run5.AddMCSample("R5mc502", R5mc502);
-    run5.AddMCSample("R5mc503", R5mc503);
-    run5.AddMCSample("R5mc504", R5mc504);
+    run5.AddMCSample("R5mc5", R5mc5);
 
     exp.AddSampleGroup("run5",run5);
     
-    DataSample* R6bmc500 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum5_00.root");
-    DataSample* R6bmc501 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum5_01.root");
-    DataSample* R6bmc502 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum5_02.root");
-    DataSample* R6bmc503 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum5_03.root");
-    DataSample* R6bmc504 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum5_04.root");
-    DataSample* R6bmc505 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum5_05.root");
-    DataSample* R6bmc506 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum5_06.root");
-    DataSample* R6bmc507 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum5_07.root");
+    DataSample* R6bmc5 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum5.root");
     
     SampleGroup run6b("run6b");
-    run6b.AddMCSample("R6bmc500", R6bmc500);
-    run6b.AddMCSample("R6bmc501", R6bmc501);
-    run6b.AddMCSample("R6bmc502", R6bmc502);
-    run6b.AddMCSample("R6bmc503", R6bmc503);
-    run6b.AddMCSample("R6bmc504", R6bmc504);
-    run6b.AddMCSample("R6bmc505", R6bmc505);
-    run6b.AddMCSample("R6bmc506", R6bmc506);
-    run6b.AddMCSample("R6bmc507", R6bmc507);
+    run6b.AddMCSample("R6bmc5", R6bmc5);
     
     exp.AddSampleGroup("run6b",run6b);
     

@@ -9,7 +9,7 @@ void CC1PiXsecEfficiencyAnalysis()
     gStyle->SetPadColor(0);
     gStyle->SetCanvasColor(0);
 
-    DrawingTools draw("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum0_00.root",false);
+    DrawingTools draw("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun5AntiNumuMultiPiAccum0.root",false);
     
     Experiment exp("nd280");
 
@@ -20,24 +20,10 @@ void CC1PiXsecEfficiencyAnalysis()
     
     exp.AddSampleGroup("run5",run5);
     
-    DataSample* R6bmc000 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum0_00.root");
-    DataSample* R6bmc001 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum0_01.root");
-    DataSample* R6bmc002 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum0_02.root");
-    DataSample* R6bmc003 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum0_03.root");
-    DataSample* R6bmc004 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum0_04.root");
-    DataSample* R6bmc005 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum0_05.root");
-    DataSample* R6bmc006 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum0_06.root");
-    DataSample* R6bmc007 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum0_07.root");
+    DataSample* R6bmc0 = new DataSample("/mnt/home/kskwarczynski/T2K/work/v11r31/highland2/antiNumuCC1piXsecAnalysis/v0r2/Linux-x86_64/XsecRun6bAntiNumuMultiPiAccum0.root");
     
     SampleGroup run6b("run6b");
-    run6b.AddMCSample("R6bmc000", R6bmc000);
-    run6b.AddMCSample("R6bmc001", R6bmc001);
-    run6b.AddMCSample("R6bmc002", R6bmc002);
-    run6b.AddMCSample("R6bmc003", R6bmc003);
-    run6b.AddMCSample("R6bmc004", R6bmc004);
-    run6b.AddMCSample("R6bmc005", R6bmc005);
-    run6b.AddMCSample("R6bmc006", R6bmc006);
-    run6b.AddMCSample("R6bmc007", R6bmc007);
+    run6b.AddMCSample("R6bmc0", R6bmc0);
     
     exp.AddSampleGroup("run6b",run6b);
     
