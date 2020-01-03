@@ -1,4 +1,4 @@
-Example how to add new variables in Highland2 </br>
+Example how to add new variables to Highland2 </br>
 
 In hxx file look for line 156
 
