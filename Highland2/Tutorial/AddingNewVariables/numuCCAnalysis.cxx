@@ -473,7 +473,7 @@ void numuCCAnalysis::FillMicroTrees(bool addBase){
     
     TVector3 nuDirVec = anaUtils::GetNuDirRec(box().MainTrack->PositionStart);
     TVector3 muDirVec = anaUtils::ArrayToTVector3(box().MainTrack->DirectionStart);
-    float leptonCosTheta=nuDirVec.Dot(muDirVec);
+    float leptonCosTheta= nuDirVec.Dot(muDirVec);
     
     
     neutrinoEnergy=(DetaMass*DetaMass-TargetMass*TargetMass-leptonMass*leptonMass+2*TargetMass*leptonEnergy)/(2*(TargetMass-leptonEnergy+leptonMomentum*leptonCosTheta) );
