@@ -183,7 +183,7 @@ void AntiMuMultiPiAnalysis()
     draw.SetTitle("#mu^{+} end pos accum[0][1]>7");
     draw.SetTitleX("#mu^{+} ending pos");
     draw.SetLegendPos("tc");
-    draw.Draw(exp,"selmu_endpos[2]",40,-0., 3500.,"topology","accum_level[0][1]>7");  //[2] means Z rest is for X and Y
+    draw.Draw(exp,"selmu_endpos[2]",40, 0., 3500.,"topology","accum_level[0][1]>7");  //[2] means Z rest is for X and Y
     c1->Print(PrintName8[19]);
     
     draw.SetTitle("#pi^{-} end pos accum[0][1]>7");
