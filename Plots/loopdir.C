@@ -8,14 +8,14 @@ void loopdir(TString fname) {
    TIter next(f1->GetListOfKeys());
    TKey *key;
    TCanvas c1;
-   c1.Print(Form("%s.pdf",fname.Data()));
+   c1.Print(Form("%s.pdf(",fname.Data()), "pdf");
    while ((key = (TKey*)next())) {
       TClass *cl = gROOT->GetClass(key->GetClassName());
       if (!cl->InheritsFrom("TH1")) continue;
       TH1 *h = (TH1*)key->ReadObj();
       h->Draw();
-      c1.Print(Form("%s.pdf",fname.Data()));
+      c1.Print(Form("%s.pdf",fname.Data()), "pdf");
    }
-   c1.Print(Form("%s.pdf",fname.Data()));
+   c1.Print(Form("%s.pdf)",fname.Data()), "pdf");
    
 }
