@@ -1,7 +1,8 @@
-void HybridsSystematic()
+void HybridsSystematic(TString Path, TString FileName)
 {
-    TString Path="/mnt/home/share/t2k/kskwarczynski/hybrid_analysis/hybridRun7/systematicError/FGD2/";
-    TString FileName="Run7MCprod6T-FGD2-antinu_PI-";
+    
+    //TString Path="/mnt/home/share/t2k/kskwarczynski/hybrid_analysis/hybridRun4/systematicError/FGD1/";
+    //TString FileName="Run4MCprod6T-FGD1-nu_DEFAULT";
     DrawingTools* draw = new DrawingTools(Form("%s%s.root",Path.Data(), FileName.Data()), 4);
 
     //draw->SetStackFillStyle(3254);
@@ -18,13 +19,27 @@ void HybridsSystematic()
     string syst_name = "fgdhybridtrackeff_syst"; 
     
     Float_t Ntoys = 500.;
+    
+    streambuf *psbuf, *backup;
+    ofstream file_output;
+    file_output.open(Form("%s_ERRORS.txt",FileName.Data()));
+    backup = cout.rdbuf();       // back up cout's streambuf
+    psbuf = file_output.rdbuf(); // get file's streambuf
+    cout.rdbuf(psbuf);           // assign streambuf to cout
+    
 
     exp.GetMCSample("run" , "magnet")->SetCurrentTree(syst_name);
-            
+    cout<<"CC-0Pi below"<<endl;
     draw->DrawRelativeErrors(exp,"0.",1,-1,1,"accum_level[0][0]>7 && weight_syst_total<10 && weight_syst_total > 0", "", "SYS");
+    cout<<"CC-1Pi below"<<endl;
     draw->DrawRelativeErrors(exp,"0.",1,-1,1,"accum_level[0][1]>7 && weight_syst_total<10 && weight_syst_total > 0", "", "SYS");
+    cout<<"CC-Other below"<<endl;
     draw->DrawRelativeErrors(exp,"0.",1,-1,1,"accum_level[0][2]>7 && weight_syst_total<10 && weight_syst_total > 0", "", "SYS");
     //draw->DrawRelativeErrors(exp,"0.",1,-1,1,"accum_level[0][2]>6 && weight_syst_total<10 && weight_syst_total > 0", "", "SYS"); //WARNING for neutrino
+    
+        
+    cout.rdbuf(backup);// restore cout's original streambuf
+    file_output.close();
     
     TFile *fileout = new TFile(Form("%s_plots.root",FileName.Data()),"RECREATE");
     
@@ -39,8 +54,8 @@ void HybridsSystematic()
     delete CC1Pi;
     
     TCanvas* CCOther = new TCanvas("CCOther","CCOther",0, 0, 800,630);
-    draw->DrawRelativeErrors(exp,"selmu_mom",20, 0., 5000., "accum_level[0][2]>7 && weight_syst_total<10 && weight_syst_total > 0" , "", "SYS");
-    //draw->DrawRelativeErrors(exp,"selmu_mom",20, 0., 5000., "accum_level[0][2]>7 && weight_syst_total<10 && weight_syst_total > 0" , "", "SYS"); //WARNING for neutrino
+    //draw->DrawRelativeErrors(exp,"selmu_mom",20, 0., 5000., "accum_level[0][2]>7 && weight_syst_total<10 && weight_syst_total > 0" , "", "SYS");
+    draw->DrawRelativeErrors(exp,"selmu_mom",20, 0., 5000., "accum_level[0][2]>7 && weight_syst_total<10 && weight_syst_total > 0" , "", "SYS"); //WARNING for neutrino
     CCOther->Write();
     delete CCOther;
     
