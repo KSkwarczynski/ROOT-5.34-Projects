@@ -295,6 +295,57 @@ void ProtonSelection()
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
+        /// \VA_DLA_CC0Pi
+        draw.SetTitle("(accum[0][0]>7 && no protons) selmu_fgd_V11[0]");
+        draw.SetLegendPos("tr");
+        draw.SetTitleX("selmu_fgd_V11[0]");
+        draw.Draw(exp,"selmu_fgd_V11[0]",30,0., 1600.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && no protons) selmu_fgd_V33[0]");
+        draw.SetLegendPos("tr");
+        draw.SetTitleX("selmu_fgd_V33[0]");
+        draw.Draw(exp,"selmu_fgd_V33[0]",30,0., 1600.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+
+        draw.SetTitle("(accum[0][0]>7 && no protons) selmu_fgd_V55[0]");
+        draw.SetLegendPos("tr");
+        draw.SetTitleX("selmu_fgd_V55[0]");
+        draw.Draw(exp,"selmu_fgd_V55[0]",30,0., 1600.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && no protons) selmu_fgd_V77[0]");
+        draw.SetLegendPos("tr");
+        draw.SetTitleX("selmu_fgd_V77[0]");
+        draw.Draw(exp,"selmu_fgd_V77[0]",30,0., 1600.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        /// \VA_SHELL_0PROTONS
+        draw.SetTitle("(accum[0][0]>7 && no protons) shell VA33");
+        draw.SetLegendPos("tr");
+        draw.SetTitleX("shell VA33");
+        draw.Draw(exp,"selmu_fgd_V33[0]-selmu_fgd_V11[0]",30,0., 1600.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && no protons) shell VA55");
+        draw.SetLegendPos("tr");
+        draw.SetTitleX("shell VA55");
+        draw.Draw(exp,"selmu_fgd_V55[0]-selmu_fgd_V33[0]",30,0., 1600.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && no protons) shell VA77");
+        draw.SetLegendPos("tr");
+        draw.SetTitleX("shell VA77");
+        draw.Draw(exp,"selmu_fgd_V77[0]-selmu_fgd_V55[0]",30,0., 1600.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
         /// \ATI
         draw.SetTitle("(accum[0][0]>7 && Prot) Angular Transvere Imbalance");
         draw.SetLegendPos("tl");
@@ -431,6 +482,13 @@ void ProtonSelection()
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
+        draw.SetTitle("(accum[0][1]>7 && prot) #Delta invariant mass");
+        draw.SetLegendPos("tr");
+        draw.SetTitleX("#Delta invariant mass");
+        draw.Draw(exp,"TMath::Sqrt( (sel_prot_mom_vertex+PosPionMom[0])*(sel_prot_mom_vertex+PosPionMom[0])+(939.565+139.57061)*(939.565+139.57061) )",50,0., 6000.,Type[ik].Data(),"accum_level[0][1]>7 && sel_prot_mom_vertex>0 && NPosPion>0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
         draw.SetTitle("(accum[0][1]>7) nProtonsFGD");
         draw.SetTitleX("nProtonsFGD");
         draw.SetLegendPos("tr");
@@ -557,7 +615,7 @@ void ProtonSelection()
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
-        /// \VA_DLA_CC0Pi
+        /// \VA_DLA_CC1Pi
         draw.SetTitle("(accum[0][1]>7) selmu_fgd_V11[0]");
         draw.SetLegendPos("tr");
         draw.SetTitleX("selmu_fgd_V11[0]");

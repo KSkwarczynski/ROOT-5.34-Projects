@@ -255,7 +255,7 @@ void numuCCMultiPiAnalysis::DefineMicroTrees(bool addBase){
   AddVarI(   output(), truepi_id,       "true pion id");
   AddVarI(   output(), truepi_pdg,      "true pion pdg");
 
-  //WARNING 
+  //TODO
     //AddVarI(  output(), nProtonsTPC,      "nProtonsTPC");
     AddVarMF(output(), protTPC_pos," starting pos of proton TPC track", nProtonsTPC,-NMAXTPCSEC,3);
     AddVarF(output(), CUTprotTPC_pos,    "tarting pos of proton TPC track for CUT");
@@ -266,7 +266,8 @@ void numuCCMultiPiAnalysis::DefineMicroTrees(bool addBase){
     AddVarF(   output(), trueHMprot_mom,      "true HM proton momentum");
   //--- kinematics to vertex vars -------
 
-  if (_storeRecoPionProtVtx){
+  //if (_storeRecoPionProtVtx){
+  if (true){ //WARNING
     AddToyVarF( output(), sel_pi_mom_vertex,   "");
     AddToyVarF( output(), sel_prot_mom_vertex, "");
     AddToyVarF( output(), sel_pi_truemom,      "");
@@ -277,13 +278,12 @@ void numuCCMultiPiAnalysis::DefineMicroTrees(bool addBase){
     AddToyVar3VF( output(), sel_pi_truedir,      "");
     AddToyVar3VF( output(), sel_prot_truedir,    "");
     
-    AddToyVarF( output(), sel_prot_costheta,    ""); //WARNING
+    AddToyVarF( output(), sel_prot_costheta,    "");
     
 
     AddToyVarI( output(), sel_pi_topo,         "");
     AddToyVarI( output(), sel_prot_topo,       "");
 
-    //WARNING
     //TODO zamien na toy vairable
     AddVar4VF(output(), sel_prot_pos,        "proton candidate reconstructed position");
     AddVar4VF(output(), sel_prot_endpos,        "proton candidate reconstructed end position");
@@ -850,7 +850,8 @@ void numuCCMultiPiAnalysis::FillToyVarsInMicroTrees(bool addBase){
   }
 
 
-  if (_storeRecoPionProtVtx){
+  //if (_storeRecoPionProtVtx){
+    if (true){
 
     // Fill proton and pion vars to the vertex 
     Float_t mom_pion_tmp   = -999;
