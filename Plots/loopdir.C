@@ -1,3 +1,7 @@
+//WARNING This program has hardcoded use of TH1, if you are interested in doing this for MaCh3 you have to replace it for TH2Poly
+//Furthmore "COLZ" option for draw
+//TODO add T2Kstyle() or setStyle()
+
 void loopdir(TString fname) {
    // example of script to loop on all the objects of a ROOT file directory
    // and print on Postscript all TH1 derived objects
