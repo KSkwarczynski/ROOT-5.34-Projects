@@ -22,8 +22,12 @@ class numuCCMultiPiAnalysis: public baseTrackerAnalysis {
   void DefineMicroTrees(bool addBase=false);
   void DefineTruthTree();
 
-  void FillCategories(){_numuCCAnalysis->FillCategories();}
+  void FillCategories(); //WARNING
 
+  void AddCategories();
+  int GetTopologyProtonOA(AnaTrackB* track);
+  int GetTopologyProtonOAinTruth(const AnaTrueVertex& vtx);
+   
   void FillMicroTrees(bool addBase=false);
   void FillToyVarsInMicroTrees(bool addBase=false);
 
@@ -237,7 +241,7 @@ public:
     
     true_nprotons,
     trueHMprot_mom,
-
+    trueHMprot_costheta,
     
     sel_pi_mom_vertex, 
     sel_prot_mom_vertex,

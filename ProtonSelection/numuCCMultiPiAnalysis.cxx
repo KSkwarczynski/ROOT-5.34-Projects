@@ -59,6 +59,9 @@ bool numuCCMultiPiAnalysis::Initialize(){
   _storeRecoPionProtVtx = (bool)ND::params().GetParameterI("numuCCMultiPiAnalysis.MicroTrees.StoreRecoPionProtVtxConst");
 
   _pionSIManager = new PionSIManager(); 
+  
+  //TODO: add categories
+  numuCCMultiPiAnalysis::AddCategories();
 
   return true;
 }
@@ -264,6 +267,7 @@ void numuCCMultiPiAnalysis::DefineMicroTrees(bool addBase){
     
     AddVarI(  output(), true_nprotons,      "true_nprotons");
     AddVarF(   output(), trueHMprot_mom,      "true HM proton momentum");
+    AddVarF(   output(), trueHMprot_costheta,      "true HM proton costheta");
   //--- kinematics to vertex vars -------
 
   //if (_storeRecoPionProtVtx){
@@ -472,20 +476,26 @@ void numuCCMultiPiAnalysis::FillMicroTrees(bool addBase){
     
     int nprotons = 0;
     Float_t trueHMprotMom = -999;
-    AnaTrueVertex *vtxProt = static_cast<AnaTrueVertex*>(mybox().MainTrack->GetTrueParticle()->TrueVertex);
-    for(int i = 0; i<vtxProt->nTrueParticles; i++)
+    double costheta_trueHMprot = -999; 
+    if (GetVertex() && GetVertex()->TrueVertex)
     {
-        if( vtxProt->TrueParticles[i]->PDG == 2212 && vtxProt->TrueParticles[i]->ParentPDG == 0 ) 
+        AnaTrueVertex *vtxProt = static_cast<AnaTrueVertex*>(mybox().MainTrack->GetTrueParticle()->TrueVertex);
+        for(int i = 0; i<vtxProt->nTrueParticles; i++)
         {
-            nprotons++; 
-            if(vtxProt->TrueParticles[i]->Momentum>trueHMprotMom)
+            if( vtxProt->TrueParticles[i]->PDG == 2212 && vtxProt->TrueParticles[i]->ParentPDG == 0 ) 
             {
-                trueHMprotMom=vtxProt->TrueParticles[i]->Momentum;
+                nprotons++; 
+                if(vtxProt->TrueParticles[i]->Momentum>trueHMprotMom)
+                {
+                    trueHMprotMom=vtxProt->TrueParticles[i]->Momentum;
+                    costheta_trueHMprot = cos(anaUtils::ArrayToTVector3(vtxProt->TrueParticles[i]->Direction).Angle(anaUtils::ArrayToTVector3(vtxProt->NuDir)));
+                }
             }
         }
     }
     output().FillVar(true_nprotons,nprotons);
     output().FillVar(trueHMprot_mom, trueHMprotMom);
+    output().FillVar(trueHMprot_costheta, (Float_t)costheta_trueHMprot);
     //delete vtxProt;
 
   // Selected pi0 electron tracks 
@@ -991,7 +1001,9 @@ void numuCCMultiPiAnalysis::FillTruthTree(const AnaTrueVertex& vtx){
   else if (anaUtils::GetTopology(vtx, SubDetId::kFGD2) == 1) ts = 21;
   else if (anaUtils::GetTopology(vtx, SubDetId::kFGD2) == 2) ts = 22;
   output().FillVar(true_signal, ts);
-
+  //WARNING
+  std::string prefix = "";
+  anaUtils::_categ->SetCode(prefix + "TopologyProtonOA", GetTopologyProtonOAinTruth(vtx));
 }
 //********************************************************************
 void numuCCMultiPiAnalysis::FillTruePionInfo(const AnaTrueVertex& vtx){
@@ -1089,5 +1101,104 @@ void numuCCMultiPiAnalysis::FillTruePionInfo(const AnaTrueVertex& vtx){
       output().IncrementCounterForVar(TruePosPionMom);
     }  
   }
+
+}
+
+//WARNING
+//********************************************************************
+void numuCCMultiPiAnalysis::FillCategories(){
+//********************************************************************
+    AnaTrackB *track = static_cast<AnaTrack*>(box().MainTrack);
+    std::string prefix = "";
+    
+    _numuCCAnalysis->FillCategories();
+    
+    anaUtils::_categ->SetCode(prefix + "TopologyProtonOA", GetTopologyProtonOA(track));
+}
+
+//WARNING
+//********************************************************************
+int numuCCMultiPiAnalysis::GetTopologyProtonOA(AnaTrackB* track){
+//************************
+if (!track) return -1;
+if (!track->GetTrueParticle()) return -1;
+                            
+    AnaTrueVertex* trueVertex = static_cast<AnaTrueVertex*> (track->GetTrueParticle()->TrueVertex);
+    if (!trueVertex) return -1; //no truth
+    
+    // out of FGD1 FV
+    if ( ! anaUtils::InFiducialVolume(SubDetId::kFGD1,trueVertex->Position)) return 5;
+                                        
+    Int_t nutype = trueVertex->NuPDG;
+                        
+    if (abs(nutype) == 14) { //AntiNumu or NuMu
+      Int_t Nmeson  =   trueVertex->NPrimaryParticles[ParticleId::kMesons];
+      Int_t Npipos  =   trueVertex->NPrimaryParticles[ParticleId::kPiPos];
+      Int_t Nproton =   trueVertex->NPrimaryParticles[ParticleId::kProton];
+
+      if (Nmeson == 0 && Nproton==0){
+        if (nutype == 14)  return 0; //Numu CC-0pi-0p
+      }
+      
+      if (Nmeson == 0 && Nproton>0){
+        if (nutype == 14)  return 1; //Numu CC-0pi-Np
+      }
+      
+      if (Nmeson == 1){
+        if (nutype == 14 && Npipos == 1)  return 2; //Numu CC-1pi
+      } 
+
+      if (nutype == 14) return 3;
+
+    }                                     
+
+  return 4; //any other background
+            //it's empty
+}
+//********************************************************************
+int numuCCMultiPiAnalysis::GetTopologyProtonOAinTruth(const AnaTrueVertex& trueVertex){
+//************************                        
+        
+    // out of FGD1 FV
+    if ( ! anaUtils::InFiducialVolume(SubDetId::kFGD1,trueVertex.Position)) return 5;
+                                        
+    Int_t nutype = trueVertex.NuPDG;
+                        
+    if (abs(nutype) == 14) { //AntiNumu or NuMu
+      Int_t Nmeson  =   trueVertex.NPrimaryParticles[ParticleId::kMesons];
+      Int_t Npipos  =   trueVertex.NPrimaryParticles[ParticleId::kPiPos];
+      Int_t Nproton =   trueVertex.NPrimaryParticles[ParticleId::kProton];
+
+      if (Nmeson == 0 && Nproton==0){
+        if (nutype == 14)  return 0; //Numu CC-0pi-0p
+      }
+      
+      if (Nmeson == 0 && Nproton>0){
+        if (nutype == 14)  return 1; //Numu CC-0pi-Np
+      }
+      
+      if (Nmeson == 1){
+        if (nutype == 14 && Npipos == 1)  return 2; //Numu CC-1pi
+      } 
+
+      if (nutype == 14) return 3;
+
+    }                                     
+
+  return 4; //any other background
+            //it's empty
+}
+
+
+//WARNING
+//********************************************************************
+void numuCCMultiPiAnalysis::AddCategories(){
+//********************************************************************  
+const int NTOPOLOGYOA = 6;
+std::string TopologyProtonOA_types[NTOPOLOGYOA] = {"CC-0#pi0p", "CC-0#piNp", "CC-1#pi^{+}", "CC-other", "BKG", "out FV"};
+int TopologyProtonOA_codes[NTOPOLOGYOA] =         {0          ,     1      ,      2       ,      3    , 4    ,    5};
+int TopologyProtonOA_colors[NTOPOLOGYOA] =        {2          ,     3      ,      4       ,      7    , 6    ,    1};
+anaUtils::_categ->AddCategory("TopologyProtonOA", NTOPOLOGYOA, TopologyProtonOA_types, TopologyProtonOA_codes, TopologyProtonOA_colors);
+
 
 }
