@@ -666,27 +666,27 @@ void ProtonSelection()
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
-        /// \Muon_Kinematics
+        /// \Muon_Kinematics_0pi
         const double MomentumEdges[9] = {0., 300., 1000., 1250., 1500., 2000., 3000., 5000., 30000.};
         const double CosEdges[9] = {-1.0, 0.6, 0.8, 0.85, 0.9, 0.92, 0.98, 0.99, 1.0};
         gPad->SetGrid();
         gStyle->SetPalette(51);
         
-        draw.SetTitle("(accum[0][0]>7) mommentum vs cos#theta");
+        draw.SetTitle("(accum[0][0]>7) momentum vs cos#theta");
         draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
         draw.SetTitleY("#mu^{-} candidate cos#theta");
         draw.Draw(exp,"selmu_costheta:selmu_mom", 8 ,MomentumEdges, 8, CosEdges, "all","accum_level[0][0]>7","colz");
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
-        draw.SetTitle("(accum[0][0]>7 && 0 protons) mommentum vs cos#theta");
+        draw.SetTitle("(accum[0][0]>7 && 0 protons) momentum vs cos#theta");
         draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
         draw.SetTitleY("#mu^{-} candidate cos#theta");
         draw.Draw(exp,"selmu_costheta:selmu_mom", 8 ,MomentumEdges, 8, CosEdges, "all","accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0","colz");
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
-        draw.SetTitle("(accum[0][0]>7 && N protons) mommentum vs cos#theta");
+        draw.SetTitle("(accum[0][0]>7 && N protons) momentum vs cos#theta");
         draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
         draw.SetTitleY("#mu^{-} candidate cos#theta");
         draw.Draw(exp,"selmu_costheta:selmu_mom", 8 ,MomentumEdges, 8, CosEdges, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0","colz");
@@ -820,6 +820,37 @@ void ProtonSelection()
         draw.Draw(exp,"selmu_costheta",40,-1., 1.,Type[ik].Data(),"accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0");   
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        /// \Muon_Kinematics_1pi
+        const double MomentumEdges1Pi[10] = {0., 300., 400., 700., 800., 1000., 1500., 2000., 5000., 30000.};
+        const double CosEdges1Pi[10] = {-1.0, 0.6, 0.8, 0.9, 0.92, 0.94, 0.96, 0.98, 0.99, 1.0};
+        gPad->SetGrid();
+        gStyle->SetPalette(51);
+        
+        draw.SetTitle("(accum[0][1]>7) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", 9 ,MomentumEdges1Pi, 9, CosEdges1Pi, "all","accum_level[0][1]>7","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", 9, MomentumEdges1Pi, 9, CosEdges1Pi, "all","accum_level[0][1]>7 && nProtonsTPC==0 && nProtonsFGD==0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", 9 ,MomentumEdges1Pi, 9, CosEdges1Pi, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        gPad->SetGrid(0,0);
+        
         /// \BEFORE_SPLIT_SELECTION
         draw.SetTitle("(accum[0][0]>5) nProtonsFGD");
         draw.SetTitleX("nProtonsFGD");
@@ -985,6 +1016,69 @@ void ProtonSelection()
         draw.Draw(exp,"sel_prot_costheta",40,-1., 1.,Type[ik].Data(),"accum_level[0][2]>6 && sel_prot_mom_vertex>0");
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        //////////////
+        /// \ZERO_PI_COMPARISON
+        
+        draw.SetTitle("CC0Pi+pFGD");
+        draw.SetTitleX("proton candidate momentum [MeV/c]");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"sel_prot_mom_vertex",40,0., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsFGD==1 && nProtonsTPC==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("CC0Pi+pFGD");
+        draw.SetTitleX("proton cos#theta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"sel_prot_costheta",40,-1., 1.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsFGD==1 && nProtonsTPC==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("CC0Pi+pFGD");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"selmu_mom",40,0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsFGD==1 && nProtonsTPC==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("CC0Pi+pFGD");
+        draw.SetTitleX("#mu^{-} cos#theta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"selmu_costheta",40,-1., 1.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsFGD==1 && nProtonsTPC==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        
+        draw.SetTitle("CC0Pi+pTPC");
+        draw.SetTitleX("proton candidate momentum [MeV/c]");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"sel_prot_mom_vertex",40,0., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsFGD==0 && nProtonsTPC==1");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("CC0Pi+pTPC");
+        draw.SetTitleX("proton cos#theta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"sel_prot_costheta",40,-1., 1.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsFGD==0 && nProtonsTPC==1");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("CC0Pi+pTPC");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"selmu_mom",40,0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsFGD==0 && nProtonsTPC==1");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("CC0Pi+pTPC");
+        draw.SetTitleX("#mu^{-} cos#theta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"selmu_costheta",40,-1., 1.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsFGD==0 && nProtonsTPC==1");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
         
     //////////////
         /// \OTHER_STUFF_FOR_CC0PI

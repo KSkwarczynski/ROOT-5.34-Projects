@@ -776,21 +776,21 @@ void RHCProtonSelection()
         
         draw.SetTitle("(accum[0][2]>7) selmu mom");
         draw.SetLegendPos("tr");
-        draw.SetTitleX("proton candidate momentum [MeV/c]");
+        draw.SetTitleX("muon candidate momentum [MeV/c]");
         draw.Draw(exp,"selmu_mom",40,0., 5000.,Type[ik].Data(),"accum_level[0][2]>7");
         
         c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
         
         draw.SetTitle("(accum[0][2]>7 && 0 protons) selmu mom");
         draw.SetLegendPos("tr");
-        draw.SetTitleX("proton candidate momentum [MeV/c]");
+        draw.SetTitleX("muon candidate momentum [MeV/c]");
         draw.Draw(exp,"selmu_mom",40,0., 5000.,Type[ik].Data(),"accum_level[0][2]>7 && nProtonsTPC==0 && nProtonsFGD==0");
         
         c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
         
         draw.SetTitle("(accum[0][2]>7 && N protons) selmu mom");
         draw.SetLegendPos("tr");
-        draw.SetTitleX("proton candidate momentum [MeV/c]");
+        draw.SetTitleX("muon candidate momentum [MeV/c]");
         draw.Draw(exp,"selmu_mom",40,0., 5000.,Type[ik].Data(),"accum_level[0][2]>7 && (nProtonsTPC + nProtonsFGD)>0");
         
         c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
@@ -880,28 +880,28 @@ void RHCProtonSelection()
         draw.SetTitle("accum[0][2]>7 HM proton true momentum");
         draw.SetTitleX("HM proton true momentum [MeV/c]");
         draw.SetLegendPos("tr");
-        draw.Draw(exp,"trueHMprot_mom",40,0., 2500.,Type[ik].Data(),"accum_level[0][2]>7");
+        draw.Draw(exp,"trueHMprot_mom",20,0., 2500.,Type[ik].Data(),"accum_level[0][2]>7");
 
         c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
         
         draw.SetTitle("(accum[0][2]>7 && nProtonsTPC==0) HM proton true momentum");
         draw.SetTitleX("HM proton true momentum [MeV/c]");
         draw.SetLegendPos("tr");
-        draw.Draw(exp,"trueHMprot_mom",40,0., 2500.,Type[ik].Data(),"accum_level[0][2]>7 && nProtonsTPC==0");
+        draw.Draw(exp,"trueHMprot_mom",20,0., 2500.,Type[ik].Data(),"accum_level[0][2]>7 && nProtonsTPC==0");
         
         c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
         
         draw.SetTitle("accum[0][2]>7 proton momentum");
         draw.SetTitleX("proton candidate momentum [MeV/c]");
         draw.SetLegendPos("tr");
-        draw.Draw(exp,"sel_prot_mom_vertex",40,0., 2500.,Type[ik].Data(),"accum_level[0][2]>7");
+        draw.Draw(exp,"sel_prot_mom_vertex",20,0., 2500.,Type[ik].Data(),"accum_level[0][2]>7");
         
         c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
         
         draw.SetTitle("accum[0][2]>7 protoncandidate True momentum");
         draw.SetTitleX("proton candidate True momentum [MeV/c]");
         draw.SetLegendPos("tr");
-        draw.Draw(exp,"sel_prot_truemom",40,0., 2500.,Type[ik].Data(),"accum_level[0][2]>7");
+        draw.Draw(exp,"sel_prot_truemom",20,0., 2500.,Type[ik].Data(),"accum_level[0][2]>7");
         
         c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
         
