@@ -82,13 +82,13 @@ void numuCCMultiPiSelection::DefineSteps(){
   
   //Add a split to the trunk with 3 branches.
   AddSplit(4);
-
+  //TODO Narazie ten podzial moze zostac ale w przyszlosci dodac kolejny split
   //First branch is for CC-0pi
   AddStep(0, StepBase::kCut, "CC-0pi",        new NoPionCut());
 
   AddStep(0, StepBase::kCut, "ECal Pi0 veto", new EcalPi0VetoCut());
   
-  AddStep(0, StepBase::kCut, "n Protons",     new ZeroProtonCut()); //WARNING
+  AddStep(0, StepBase::kCut, "zero Protons",  new ZeroProtonCut()); //WARNING
   
    //First branch is for CC-0piNp
   AddStep(1, StepBase::kCut, "CC-0pi",        new NoPionCut());
@@ -264,8 +264,11 @@ bool FindProtonsAction::Apply(AnaEventC& event, ToyBoxB& box) const{
 
   ToyBoxCCMultiPi* ccmultipibox = static_cast<ToyBoxCCMultiPi*>(&box);
 
-  protonSelParams.refTracks[0] = ccmultipibox->MainTrack;
-  protonSelParams.nRefTracks++;
+  //WARNING taki patch aby to naprawic
+  //protonSelParams.refTracks[0] = ccmultipibox->MainTrack;
+  //protonSelParams.nRefTracks++;
+    protonSelParams.nRefTracks=1;
+    protonSelParams.refTracks[0] = ccmultipibox->MainTrack;
 
   ccmultipibox->pionBox.Detector = (SubDetId::SubDetEnum)box.DetectorFV;
 
@@ -314,8 +317,12 @@ bool numuCCMultiPiSelection::IsRelevantRecObjectForSystematicInToy(const AnaEven
     case SystId::kTpcFgdMatchEff:
 
       // Use the APPLY_SYST_FINE_TUNING concept as well,  since we worry about the "main" track that defines the topology
-      //WARNING
-      if (branch == 2){
+      //WARNING To jest mocno robocze i pewnie zle ale jako pierwszy krok ok
+      if (branch == 1)
+      {
+          if (ccmultipibox->pionBox.nProtonTPCtracks==1 && track==ccmultipibox->pionBox.ProtonTPCtracks[0]) return true;
+      }
+      else if (branch == 2){
         // For CC-1pi also the positive Pion in the TPC matters
         if (ccmultipibox->pionBox.nPositivePionTPCtracks==1 && track==ccmultipibox->pionBox.PositivePionTPCtracks[0]) return true; 
       }
@@ -381,6 +388,7 @@ bool numuCCMultiPiSelection::IsRelevantTrueObjectForSystematicInToy(const AnaEve
       if (ccmultipibox->pionBox.nNegativePionTPCtracks+ccmultipibox->pionBox.nPositivePionTPCtracks > 2 ||
           ccmultipibox->pionBox.nNegativePionTPCtracks > 1) return false; 
       
+      //TODO tego nie rozumiem ale trzeba rozbudowac
       // If the are few TPC pions consider them, muons and electrons 
       if (abs(trueTrack->PDG)==211 || abs(trueTrack->PDG)==13 || abs(trueTrack->PDG)==11) return true;  
       
@@ -401,10 +409,11 @@ bool numuCCMultiPiSelection::IsRelevantTrueObjectForSystematicInToy(const AnaEve
       // Main track is done by numuCC
       // If there are  many pions, i.e. topology cannot change, then do not use
       // the systematic
+      //WARNING tego w pelni nie rozumiem ale dla poczialu CC0Pi nie powinno miec to wplywu wiec zostawie jak jest
       if (ccmultipibox->pionBox.nOtherPions >1 || ccmultipibox->pionBox.nPosPions > 2 ) return false; 
       // Otherwise check that a pion contributes to any of the objects in the
       // box
-      
+      //WARNING rozbudowalem aby uwzglednic protony
       return cutUtils::numuCCTrkMultiPi::CheckTrueCausesBoxSimple(*trueTrack, ccmultipibox->pionBox);
       break; 
   
@@ -415,7 +424,7 @@ bool numuCCMultiPiSelection::IsRelevantTrueObjectForSystematicInToy(const AnaEve
       return anaUtils::InFiducialVolume(static_cast<SubDetId::SubDetEnum>(GetDetectorFV(branch)), 
           trueTrack->Position); 
       break;
-    
+
     case SystId::kECalTrackEff:
       
       // Have to check an object is from a real pi0 corresponding to the vertex
@@ -460,7 +469,7 @@ bool numuCCMultiPiSelection::IsRelevantSystematic(const AnaEventC& event, const 
 
   
         // Apply for first two branches
-        //WARNING
+        //WARNING dodalem takze do nowego brancha bo tam korzystam z z Pi0veto
         if (branch == 0 || branch == 1 || branch == 2){
           return true;
         }

@@ -777,14 +777,22 @@ void cutUtils::FindGoodQualityTPCProtonsInFGDFV(const AnaEventC& event, multipar
 
     // Check that at track is not within the reference ones
     bool found = false;
+    //WARNING
+    /*
     for (int j = 0; j < params.nRefTracks; j++){
       if (ptrack == params.refTracks[j]){
         found = true;
         break;
       }
     }
-
-    if (found){
+    */
+    if (ptrack == params.refTracks[0])
+    {
+        std::cout<<" DEBUG FOUND YOU TPC" <<std::endl;
+        found = true;
+    }
+    if (found)
+    {
       continue;
     }
 
@@ -819,14 +827,22 @@ void cutUtils::FindIsoFGDProtons(const AnaEventC& event, multipart::MultiParticl
 
     // Check that at track is not within the reference ones
     bool found = false;
+    //WARNING naprawilem aby uniknac
+    /*
     for (int j = 0; j < params.nRefTracks; j++){
       if (ptrack == params.refTracks[j]){
         found = true;
         break;
       }
     }
-
-    if (found){
+    */
+    if (ptrack == params.refTracks[0])
+    {
+        std::cout<<" DEBUG FOUND YOU FGD" <<std::endl;
+        found = true;
+    }
+    if (found)
+    {
       continue;
     }
 
@@ -942,6 +958,18 @@ bool cutUtils::numuCCTrkMultiPi::CheckTrueCausesBoxSimple(const AnaTrueParticleB
     if (anaUtils::CheckTrueCausesRecoSimple(trueTrack, *box.ElPi0TPCtracks[i]))
       return true;
   }
+  //WARNING
+  for (int i = 0; i < box.nProtonTPCtracks; i++){
+    if (box.ProtonTPCtracks[i]) continue;
+    if (anaUtils::CheckTrueCausesRecoSimple(trueTrack, *box.ProtonTPCtracks[i]))
+      return true;
+  }
+  for (int i = 0; i < box.nProtonFGDtracks; i++){
+    if (box.ProtonFGDtracks[i]) continue;
+    if (anaUtils::CheckTrueCausesRecoSimple(trueTrack, *box.ProtonFGDtracks[i]))
+      return true;
+  }
+  
   return false;
 }
 
