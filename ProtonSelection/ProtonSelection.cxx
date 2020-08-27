@@ -24,18 +24,16 @@
 
 void ProtonSelection()
 {
-    //TODO dodaj te zabawy z ECAL aby rozroznic od mionu
-    //TODO ped pionu dla SI aby zobaczyc z czego to wynika
     gStyle->SetOptStat(0);
     gStyle->SetPadColor(0);
     gStyle->SetCanvasColor(0);
 
     //TODO hardocoded value
-    DrawingTools draw("/mnt/home/share/t2k/kskwarczynski/BANFF/NewSelection/Output/Run4Prod6TPlayground.root",false);
+    DrawingTools draw("/mnt/home/share/t2k/kskwarczynski/BANFF/NewSelection/Output/Run4Prod6T.root",false);
     
     Experiment exp("nd280");
 
-    DataSample* R4mP6T = new DataSample("/mnt/home/share/t2k/kskwarczynski/BANFF/NewSelection/Output/Run4Prod6TPlayground.root");
+    DataSample* R4mP6T = new DataSample("/mnt/home/share/t2k/kskwarczynski/BANFF/NewSelection/Output/Run4Prod6T.root");
     
     SampleGroup run4("run4");
     run4.AddMCSample("R4mP6T", R4mP6T);
@@ -122,7 +120,7 @@ void ProtonSelection()
         draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0");
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
+        /*
         draw.SetTitle("(accum[0][0]>7 && nProtonsTPC>0) TPC proton starting positon");
         draw.SetTitleX("TPC proton starting positon");
         draw.SetLegendPos("tr");
@@ -193,7 +191,7 @@ void ProtonSelection()
         draw.Draw(exp,"TMath::Sqrt( selmu_mom*selmu_mom+sel_prot_mom_vertex*sel_prot_mom_vertex)",40,0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && sel_prot_mom_vertex>0");
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
+        */
     //////////////////////////////////////////
         /*
         draw.SetTitle("(accum[0][0]>7) nprotonsTPCvsSelmuMom");
@@ -350,6 +348,7 @@ void ProtonSelection()
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         */
         /// \ATI
+        /*
         draw.SetTitle("(accum[0][0]>7 && Prot) Angular Transvere Imbalance");
         draw.SetLegendPos("tl");
         draw.SetTitleX("Angular Transvere Imbalance");
@@ -461,7 +460,7 @@ void ProtonSelection()
         draw.Draw(exp,"true_nprotons",5, 0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && sel_prot_mom_vertex>0 && ((sel_prot_dir_vertex[0][0]*(-selmu_dir[0]))+(sel_prot_dir_vertex[0][1]*(-selmu_dir[1]))>0.3)");   
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
+        */
 //////////////////////////////////////////////////////////////////////////////////////////////////////
         /// \CC1Pi
         draw.SetTitle("accum[0][1]>7 HM proton true momentum");
@@ -554,7 +553,7 @@ void ProtonSelection()
         draw.Draw(exp,"nu_trueE",40,0., 5000.,Type[ik].Data(),"accum_level[0][1]>7 && nProtonsTPC==0");
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
+        /*
         draw.SetTitle("(accum[0][1]>7 && prot) muon proton momentum scalar sum");
         draw.SetLegendPos("tr");
         draw.SetTitleX("muXp mom scalar sum");
@@ -568,7 +567,7 @@ void ProtonSelection()
         draw.Draw(exp,"TMath::Sqrt( (selmu_mom*selmu_dir[0])*(selmu_mom*selmu_dir[0])+(selmu_mom*selmu_dir[1])*(selmu_mom*selmu_dir[1])+(selmu_mom*selmu_dir[2])*(selmu_mom*selmu_dir[2])+(sel_prot_mom_vertex*sel_prot_dir_vertex[0][0])*(sel_prot_mom_vertex*sel_prot_dir_vertex[0][0])+(sel_prot_mom_vertex*sel_prot_dir_vertex[0][1])*(sel_prot_mom_vertex*sel_prot_dir_vertex[0][1])+(sel_prot_mom_vertex*sel_prot_dir_vertex[0][2])*(sel_prot_mom_vertex*sel_prot_dir_vertex[0][2]) )",40,0., 5000.,Type[ik].Data(),"accum_level[0][1]>7 && sel_prot_mom_vertex>0");
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
+       
         draw.SetTitle("(accum[0][1]>7) nuEnergyRES");
         draw.SetLegendPos("tr");
         draw.SetTitleX("nuEnergyRES");
@@ -589,7 +588,7 @@ void ProtonSelection()
         draw.Draw(exp,"(sel_prot_dir_vertex[0][0]*(-selmu_dir[0]))+(sel_prot_dir_vertex[0][1]*(-selmu_dir[1]))",40,-1., 1.,Type[ik].Data(),"accum_level[0][1]>7 && sel_prot_mom_vertex>0");   
     
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
+        */
         draw.SetTitle("(accum[0][1]>7) NNegPion");
         draw.SetLegendPos("tr");
         draw.SetTitleX("NNegPion");
@@ -860,6 +859,7 @@ void ProtonSelection()
         gPad->SetGrid(0,0);
         
         /// \BEFORE_SPLIT_SELECTION
+        /*
         draw.SetTitle("(accum[0][0]>5) nProtonsFGD");
         draw.SetTitleX("nProtonsFGD");
         draw.SetLegendPos("tr");
@@ -915,7 +915,7 @@ void ProtonSelection()
         draw.Draw(exp,"sel_prot_costheta",40,-1., 1.,Type[ik].Data(),"accum_level[0][0]>5 && sel_prot_mom_vertex>0");
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
+        */
         
 ///////////////////////////////////////////////////////////////
         
@@ -1559,13 +1559,6 @@ void ProtonSelection()
 
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
-        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+) PionMom");
-        draw.SetTitleX("Pion momentum");
-        draw.SetLegendPos("tr");
-        draw.Draw(exp,"PionMom",40,0., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType>=0");
-
-        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
         draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+ && only ABS) PionMom");
         draw.SetTitleX("Pion momentum");
         draw.SetLegendPos("tr");
@@ -1580,10 +1573,31 @@ void ProtonSelection()
 
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
-        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+");
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+");
         draw.SetTitleX("Pion momentum[MeV/c]");
         draw.SetTitleY("Pion interaction type");
         draw.Draw(exp,"IntType:PionMom",40,0., 2500., 5., 0, 5., "all","accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+");
+        draw.SetTitleX("Pion momentum[MeV/c]");
+        draw.SetTitleY("Pion interaction type");
+        draw.Draw(exp,"IntType:PionMom",40,0., 2500., 5., 0, 5., "all","accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1 && IntType==0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+");
+        draw.SetTitleX("Pion momentum[MeV/c]");
+        draw.SetTitleY("Pion interaction type");
+        draw.Draw(exp,"IntType:PionMom",40,0., 2500., 5., 0, 5., "all","accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1 && IntType==1","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+");
+        draw.SetTitleX("Pion momentum[MeV/c]");
+        draw.SetTitleY("Pion interaction type");
+        draw.Draw(exp,"IntType:PionMom",40,0., 2500., 5., 0, 5., "all","accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1 && IntType==2","colz");
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
@@ -1594,6 +1608,26 @@ void ProtonSelection()
         
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
+        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+");
+        draw.SetTitleX("Pion momentum[MeV/c]");
+        draw.SetTitleY("Pion interaction type");
+        draw.Draw(exp,"IntType:PionMom",40,0., 2500., 5., 0, 5., "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType==0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+");
+        draw.SetTitleX("Pion momentum[MeV/c]");
+        draw.SetTitleY("Pion interaction type");
+        draw.Draw(exp,"IntType:PionMom",40,0., 2500., 5., 0, 5., "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType==1","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+");
+        draw.SetTitleX("Pion momentum[MeV/c]");
+        draw.SetTitleY("Pion interaction type");
+        draw.Draw(exp,"IntType:PionMom",40,0., 2500., 5., 0, 5., "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType==2","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
         draw.SetTitle("(accum[0][0]>7 && #pi^-) IntType");
         draw.SetTitleX("Pion interaction type");
@@ -1628,6 +1662,91 @@ void ProtonSelection()
         draw.SetLegendPos("tr");
         draw.Draw(exp,"PionMom",40,0., 2500,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==0 && IntType>=0");
 
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+");
+        draw.SetTitleX("Pion TRUE momentum");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_PosPion_mom",40,0., 2500., Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1 && IntType>=0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+");
+        draw.SetTitleX("Pion TRUE momentum");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_PosPion_mom",40,0., 2500., Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType>=0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+                
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+");
+        draw.SetTitleX("Pion TRUE cosTheta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"true_PosPion_cosTheta",20,-1., 1., Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1 && IntType>=0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+");
+        draw.SetTitleX("Pion TRUE cosTheta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"true_PosPion_cosTheta",20,-1., 1., Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType>=0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+ && ABS");
+        draw.SetTitleX("Pion TRUE momentum");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_PosPion_mom",40,0., 2500., Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1 && IntType==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+ && ABS");
+        draw.SetTitleX("Pion TRUE momentum");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_PosPion_mom",40,0., 2500., Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+                
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+ && ABS");
+        draw.SetTitleX("Pion TRUE cosTheta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"true_PosPion_cosTheta",20,-1., 1., Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1 && IntType==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+ && ABS");
+        draw.SetTitleX("Pion TRUE cosTheta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"true_PosPion_cosTheta",20,-1., 1., Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+                   
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+ && QE");
+        draw.SetTitleX("Pion TRUE momentum");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_PosPion_mom",40,0., 2500., Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1 && IntType==2");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+ && QE");
+        draw.SetTitleX("Pion TRUE momentum");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_PosPion_mom",40,0., 2500., Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType==2");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+                
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && #pi^+ && QE");
+        draw.SetTitleX("Pion TRUE cosTheta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"true_PosPion_cosTheta",20,-1., 1., Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && PionType==1 && IntType==2");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && #pi^+ && QE");
+        draw.SetTitleX("Pion TRUE cosTheta");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"true_PosPion_cosTheta",20,-1., 1., Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && PionType==1 && IntType==2");
+        
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
         /// \Study_ofPionSI_CC1PI
@@ -1857,7 +1976,8 @@ void ProtonSelection()
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
         
         /// \ECAL_VARAIBLES_CC0PI
-///////////////////////////////////////////////////////////////////////////////////////        
+///////////////////////////////////////////////////////////////////////////////////////
+        /*        
         draw.SetTitle("(accum[0][0]>7) TPCProton_ecalemene");
         draw.SetTitleX("TPC proton energy deposit in ECAL");
         draw.SetLegendPos("tr");
@@ -1899,7 +2019,9 @@ void ProtonSelection()
         draw.Draw(exp,"TPCProton_ecalnhits",40,0., 200.,Type[ik].Data(),"accum_level[0][0]>7");
 
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        */
         /// /\selmu
+        /*
         draw.SetTitle("(accum[0][0]>7) selmu_ecalemene");
         draw.SetTitleX("muon candidate energy deposit in ECAL");
         draw.SetLegendPos("tr");
@@ -1941,11 +2063,12 @@ void ProtonSelection()
         draw.Draw(exp,"selmu_ecalnhits",40,0., 200.,Type[ik].Data(),"accum_level[0][0]>7");
 
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-
+        */
         
         
         /// \ECAL_VARAIBLES_CC1PI
 ///////////////////////////////////////////////////////////////
+        /*
         draw.SetTitle("(accum[0][1]>7) TPCProton_ecalemene");
         draw.SetTitleX("TPC proton energy deposit in ECAL");
         draw.SetLegendPos("tr");
@@ -1987,8 +2110,9 @@ void ProtonSelection()
         draw.Draw(exp,"TPCProton_ecalnhits",40,0., 200.,Type[ik].Data(),"accum_level[0][1]>7");
 
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        */
         /// \selmu
-            
+        /*
         draw.SetTitle("(accum[0][1]>7) selmu_ecalemene");
         draw.SetTitleX("muon candidate energy deposit in ECAL");
         draw.SetLegendPos("tr");
@@ -2030,10 +2154,11 @@ void ProtonSelection()
         draw.Draw(exp,"selmu_ecalnhits",40,0., 200.,Type[ik].Data(),"accum_level[0][1]>7");
 
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
+        */
 
         /// \ECAL_VARAIBLES_CCOther
 ///////////////////////////////////////////////////////////////
+        /*
         draw.SetTitle("(accum[0][2]>6) TPCProton_ecalemene");
         draw.SetTitleX("TPC proton energy deposit in ECAL");
         draw.SetLegendPos("tr");
@@ -2075,8 +2200,9 @@ void ProtonSelection()
         draw.Draw(exp,"TPCProton_ecalnhits",40,0., 200.,Type[ik].Data(),"accum_level[0][2]>6");
 
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        */
         /// \selmu
-        
+        /*
         draw.SetTitle("(accum[0][2]>6) selmu_ecalemene");
         draw.SetTitleX("muon candidate energy deposit in ECAL");
         draw.SetLegendPos("tr");
@@ -2118,7 +2244,7 @@ void ProtonSelection()
         draw.Draw(exp,"selmu_ecalnhits",40,0., 200.,Type[ik].Data(),"accum_level[0][2]>6");
 
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
-        
+        */
         /// \Pion_reconstruction_CC1Pi
 //////////////////////////////////////////////////////////////
         draw.SetTitle("(accum[0][1]>7) PosPionTId");
@@ -2286,6 +2412,693 @@ void ProtonSelection()
         draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology!=0 && (nProtonsTPC + nProtonsFGD)>0");
 
         c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && true toplogy && only CCQE) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==0");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && true toplogy && only CCQE) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)>0 && reaction==0");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && true toplogy && only CCQE) true_nNeutrons");
+        draw.SetTitleX("true_nNeutrons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nNeutrons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==0");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && true toplogy && only CCQE) true_nNeutrons");
+        draw.SetTitleX("true_nNeutrons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nNeutrons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)>0 && reaction==0");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && true toplogy && only RES) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==1");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && true toplogy && only RES) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)>0 && reaction==1");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only 2p2h) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only 2p2h) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+                
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only 2p2h) true_nNeutrons");
+        draw.SetTitleX("true_nNeutrons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nNeutrons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only 2p2h) true_nNeutrons");
+        draw.SetTitleX("true_nNeutrons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nNeutrons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only 2p2h) nu_trueE");
+        draw.SetTitleX("true neutrino energy");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"nu_trueE",40,0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only 2p2h) nu_trueE");
+        draw.SetTitleX("true neutrino energy");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"nu_trueE",40,0., 5000,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        /// \True_Q2_i_inne
+        draw.SetTitle("(accum[0][0]>7 && 0 protons) true_Q2");
+        draw.SetTitleX("true_Q2 [GeV]");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_Q2/1000000",60, 0., 1.5.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons) true_Q2");
+        draw.SetTitleX("true_Q2 [GeV]");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_Q2/1000000",60, 0., 1.5.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        /// \More_than_one_prot
+        
+        draw.SetTitle("(accum[0][0]>7 && > 1 protons) selmu_mom");
+        draw.SetTitleX("Momentum of muon candidate");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"selmu_mom",40., 0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>1");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && only true toplogy && > 1 protons) selmu_mom");
+        draw.SetTitleX("Momentum of muon candidate");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"selmu_mom",40., 0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)>1");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && only flase toplogy && > 1 protons) selmu_mom");
+        draw.SetTitleX("Momentum of muon candidate");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"selmu_mom",40., 0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && topology!=0 && (nProtonsTPC + nProtonsFGD)>1");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+         /// \Number_of_Tracks_CUT
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && track constrain) selmu_mom");
+        draw.SetTitleX("Momentum of muon candidate");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"selmu_mom",40., 0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0 && (nProtonsTPC + nProtonsFGD)==(NTPCSec+NFGDSec)");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && track constrain) selmu_mom");
+        draw.SetTitleX("Momentum of muon candidate");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"selmu_mom",40., 0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && (nProtonsTPC + nProtonsFGD)==(NTPCSec+NFGDSec)");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons) TPCSecTId");
+        draw.SetTitleX("TPCSecTId");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"TPCSecTId",100., -2000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && ANTI track constrain) TPCSecTId");
+        draw.SetTitleX("TPCSecTId");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"TPCSecTId",100., -2000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0 && (NTPCSec+NFGDSec)>0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons) FGDSecTId");
+        draw.SetTitleX("FGDSecTId");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"FGDSecTId",100., -2000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && ANTI track constrain) FGDSecTId");
+        draw.SetTitleX("FGDSecTId");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"FGDSecTId",100., -2000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0 && (NTPCSec+NFGDSec)>0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons) TPCSecTId");
+        draw.SetTitleX("TPCSecTId");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"TPCSecTId",100., -2000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && ANTI track constrain) TPCSecTId");
+        draw.SetTitleX("TPCSecTId");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"TPCSecTId",100., -2000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && (nProtonsTPC + nProtonsFGD)!=(NTPCSec+NFGDSec)");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons) FGDSecTId");
+        draw.SetTitleX("FGDSecTId");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"FGDSecTId",100., -2000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && ANTI track constrain) selmu_mom");
+        draw.SetTitleX("FGDSecTId");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"FGDSecTId",100., -2000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && (nProtonsTPC + nProtonsFGD)!=(NTPCSec+NFGDSec)");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only true topologies && track constrain) selmu_mom");
+        draw.SetTitleX("Momentum of muon candidate");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"selmu_mom",40., 0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)==0 && (nProtonsTPC + nProtonsFGD)==(NTPCSec+NFGDSec)");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only true topologies && track constrain) selmu_mom");
+        draw.SetTitleX("Momentum of muon candidate");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"selmu_mom",40., 0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)>0 && (nProtonsTPC + nProtonsFGD)==(NTPCSec+NFGDSec)");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][0]>7 && track constrain) TPCProtonTId");
+        draw.SetTitleX("True PDG of reco TPC proton");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"TPCProtonTId",100, -1000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC>0 && (nProtonsTPC + nProtonsFGD)==(NTPCSec+NFGDSec)");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && track constrain) FGDProtonTId");
+        draw.SetTitleX("True PDG of rec FGD proton");
+        draw.SetLegendPos("tl");
+        draw.Draw(exp,"FGDProtonTId",100, -1000., 2500.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsFGD>0 & (nProtonsTPC + nProtonsFGD)==(NTPCSec+NFGDSec)");
+
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+    
+        /// \reconstuction_efficiency
+        
+        const int BIN0PIV2 = 10;
+        const double MomentumEdgesSplit[BIN0PIV2] = {0., 300., 500., 700., 1000., 1250., 1500., 2000., 3000., 5000.};
+        const double CosEdgesSplit[BIN0PIV2] = {0.5, 0.6, 0.7., 0.8, 0.85, 0.9, 0.92, 0.98, 0.99, 1.0};
+        
+        gPad->SetGrid();
+        gStyle->SetPalette(51);
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only CCQE) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0 && reaction==0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only CCQE) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only 2p2p) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0 && reaction==9","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only 2p2p) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==9","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only RES) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0 && reaction==1","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only RES) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==1","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate momentum [MeV/c]");
+        draw.SetTitleY("muon candidate TRUE momentum [MeV/c]");
+        draw.Draw(exp,"selmu_truemom:selmu_mom", 100,0., 8000., 100, 0., 8000., "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0" ,"colz");
+        gPad->SetLogz();
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons)");
+        draw.SetTitleX("muon candidate momentum [MeV/c]");
+        draw.SetTitleY("muon candidate TRUE momentum [MeV/c]");
+        draw.Draw(exp,"selmu_truemom:selmu_mom", 100,0., 8000., 100, 0., 8000., "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0" ,"colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate TRUE momentum [MeV/c]");
+        draw.SetTitleY("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"((selmu_truemom-selmu_mom)/selmu_truemom):selmu_truemom",100,0., 8000., 40, -0.8, 0.8, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons)");
+        draw.SetTitleX("muon candidate TRUE momentum [MeV/c]");
+        draw.SetTitleY("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"((selmu_truemom-selmu_mom)/selmu_truemom):selmu_truemom",100,0., 8000., 40, -0.8, 0.8, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate TRUE cosTheta");
+        draw.SetTitleY("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"((selmu_truemom-selmu_mom)/selmu_truemom):selmu_truecosTheta",100,-1., 1., 40, -0.8, 0.8, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons)");
+        draw.SetTitleX("muon candidate TRUE cosTheta");
+        draw.SetTitleY("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"((selmu_truemom-selmu_mom)/selmu_truemom):selmu_truecosTheta",100,-1., 1., 40, -0.8, 0.8, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate cosTheta");
+        draw.SetTitleY("muon candidate TRUE cosTheta");
+        draw.Draw(exp,"selmu_truecosTheta:selmu_costheta", 100,-1., 1., 100, -1., 1., "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0" ,"colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons)");
+        draw.SetTitleX("muon candidate cosTheta");
+        draw.SetTitleY("muon candidate TRUE cosTheta");
+        draw.Draw(exp,"selmu_truecosTheta:selmu_costheta", 100,-1., 1., 100, -1., 1., "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0" ,"colz");
+        gPad->SetLogz();
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate TRUE cosTheta");
+        draw.SetTitleY("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"((selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta):selmu_truecosTheta",100, -1., 1., 40, -0.15, 0.15, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons)");
+        draw.SetTitleX("muon candidate TRUE cosTheta");
+        draw.SetTitleY("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"((selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta):selmu_truecosTheta",100, -1., 1., 40, -0.15, 0.15, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate TRUE momentum [MeV/c]");
+        draw.SetTitleY("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"((selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta):selmu_truemom",100,0., 8000., 40, -0.15, 0.15, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons)");
+        draw.SetTitleX("muon candidate TRUE momentum [MeV/c]");
+        draw.SetTitleY("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"((selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta):selmu_truemom",100,0., 8000., 40, -0.15, 0.15, "all","accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        gPad->SetGrid(0,0);
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"(selmu_truemom-selmu_mom)/selmu_truemom", 40, -0.8, 0.8, Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons)");
+        draw.SetTitleX("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"(selmu_truemom-selmu_mom)/selmu_truemom", 40, -0.8, 0.8, Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"(selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta", 40, -0.15, 0.15, Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)==0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons)");
+        draw.SetTitleX("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"(selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta", 40, -0.15, 0.15, Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+    
+        
+        
+        
+        
+        gPad->SetGrid();
+        gStyle->SetPalette(51);
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons && only CCQE) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)==0 && reaction==0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons && only CCQE) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons && only 2p2p) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)==0 && reaction==9","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons && only 2p2p) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==9","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons && only RES) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)==0 && reaction==1","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons && only RES) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==1","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate momentum [MeV/c]");
+        draw.SetTitleY("muon candidate TRUE momentum [MeV/c]");
+        draw.Draw(exp,"selmu_truemom:selmu_mom", 100,0., 8000., 100, 0., 8000., "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)==0" ,"colz");
+        gPad->SetLogz();
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons)");
+        draw.SetTitleX("muon candidate momentum [MeV/c]");
+        draw.SetTitleY("muon candidate TRUE momentum [MeV/c]");
+        draw.Draw(exp,"selmu_truemom:selmu_mom", 100,0., 8000., 100, 0., 8000., "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0" ,"colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate TRUE momentum [MeV/c]");
+        draw.SetTitleY("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"((selmu_truemom-selmu_mom)/selmu_truemom):selmu_truemom",100,0., 8000., 40, -0.8, 0.8, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)==0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons)");
+        draw.SetTitleX("muon candidate TRUE momentum [MeV/c]");
+        draw.SetTitleY("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"((selmu_truemom-selmu_mom)/selmu_truemom):selmu_truemom",100,0., 8000., 40, -0.8, 0.8, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate cosTheta");
+        draw.SetTitleY("muon candidate TRUE cosTheta");
+        draw.Draw(exp,"selmu_truecosTheta:selmu_costheta", 100,-1., 1., 100, -1., 1., "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)==0" ,"colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons)");
+        draw.SetTitleX("muon candidate cosTheta");
+        draw.SetTitleY("muon candidate TRUE cosTheta");
+        draw.Draw(exp,"selmu_truecosTheta:selmu_costheta", 100,-1., 1., 100, -1., 1., "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0" ,"colz");
+        gPad->SetLogz();
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate TRUE cosTheta");
+        draw.SetTitleY("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"((selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta):selmu_truecosTheta",100, -1., 1., 40, -0.15, 0.15, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)==0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons)");
+        draw.SetTitleX("muon candidate TRUE cosTheta");
+        draw.SetTitleY("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"((selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta):selmu_truecosTheta",100, -1., 1., 40, -0.15, 0.15, "all","accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        gPad->SetGrid(0,0);
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"(selmu_truemom-selmu_mom)/selmu_truemom", 40, -0.8, 0.8, Type[ik].Data(),"accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)==0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons)");
+        draw.SetTitleX("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"(selmu_truemom-selmu_mom)/selmu_truemom", 40, -0.8, 0.8, Type[ik].Data(),"accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && 0 protons)");
+        draw.SetTitleX("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"(selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta", 40, -0.15, 0.15, Type[ik].Data(),"accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)==0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][1]>7 && N protons)");
+        draw.SetTitleX("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"(selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta", 40, -0.15, 0.15, Type[ik].Data(),"accum_level[0][1]>7 && (nProtonsTPC + nProtonsFGD)>0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+    
+        
+        
+        
+        gPad->SetGrid();
+        gStyle->SetPalette(51);
+        
+        draw.SetTitle("(accum[0][2]>6 && 0 protons && only CCQE) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)==0 && reaction==0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && N protons && only CCQE) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0 && reaction==0","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][2]>6 && 0 protons && only 2p2p) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)==0 && reaction==9","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && N protons && only 2p2p) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0 && reaction==9","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && 0 protons && only RES) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)==0 && reaction==1","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && N protons && only RES) momentum vs cos#theta");
+        draw.SetTitleX("#mu^{-} candidate momentum [MeV/c]");
+        draw.SetTitleY("#mu^{-} candidate cos#theta");
+        draw.Draw(exp,"selmu_costheta:selmu_mom", BIN0PIV2-1 ,MomentumEdgesSplit, BIN0PIV2-1, CosEdgesSplit, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0 && reaction==1","colz");
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && 0 protons)");
+        draw.SetTitleX("muon candidate momentum [MeV/c]");
+        draw.SetTitleY("muon candidate TRUE momentum [MeV/c]");
+        draw.Draw(exp,"selmu_truemom:selmu_mom", 100,0., 8000., 100, 0., 8000., "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)==0" ,"colz");
+        gPad->SetLogz();
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && N protons)");
+        draw.SetTitleX("muon candidate momentum [MeV/c]");
+        draw.SetTitleY("muon candidate TRUE momentum [MeV/c]");
+        draw.Draw(exp,"selmu_truemom:selmu_mom", 100,0., 8000., 100, 0., 8000., "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0" ,"colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && 0 protons)");
+        draw.SetTitleX("muon candidate TRUE momentum [MeV/c]");
+        draw.SetTitleY("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"((selmu_truemom-selmu_mom)/selmu_truemom):selmu_truemom",100,0., 8000., 40, -0.8, 0.8, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)==0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && N protons)");
+        draw.SetTitleX("muon candidate TRUE momentum [MeV/c]");
+        draw.SetTitleY("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"((selmu_truemom-selmu_mom)/selmu_truemom):selmu_truemom",100,0., 8000., 40, -0.8, 0.8, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && 0 protons)");
+        draw.SetTitleX("muon candidate cosTheta");
+        draw.SetTitleY("muon candidate TRUE cosTheta");
+        draw.Draw(exp,"selmu_truecosTheta:selmu_costheta", 100,-1., 1., 100, -1., 1., "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)==0" ,"colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && N protons)");
+        draw.SetTitleX("muon candidate cosTheta");
+        draw.SetTitleY("muon candidate TRUE cosTheta");
+        draw.Draw(exp,"selmu_truecosTheta:selmu_costheta", 100,-1., 1., 100, -1., 1., "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0" ,"colz");
+        gPad->SetLogz();
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && 0 protons)");
+        draw.SetTitleX("muon candidate TRUE cosTheta");
+        draw.SetTitleY("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"((selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta):selmu_truecosTheta",100, -1., 1., 40, -0.15, 0.15, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)==0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && N protons)");
+        draw.SetTitleX("muon candidate TRUE cosTheta");
+        draw.SetTitleY("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"((selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta):selmu_truecosTheta",100, -1., 1., 40, -0.15, 0.15, "all","accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0","colz");
+        gPad->SetLogz();
+        
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        gPad->SetGrid(0,0);
+        
+        draw.SetTitle("(accum[0][2]>6 && 0 protons)");
+        draw.SetTitleX("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"(selmu_truemom-selmu_mom)/selmu_truemom", 40, -0.8, 0.8, Type[ik].Data(),"accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)==0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && N protons)");
+        draw.SetTitleX("muon candidate (p^{true}-p^{reco}/p^{true})");
+        draw.Draw(exp,"(selmu_truemom-selmu_mom)/selmu_truemom", 40, -0.8, 0.8, Type[ik].Data(),"accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && 0 protons)");
+        draw.SetTitleX("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"(selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta", 40, -0.15, 0.15, Type[ik].Data(),"accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)==0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][2]>6 && N protons)");
+        draw.SetTitleX("muon candidate (cos#theta^{true}-cos#theta^{reco}/cos#theta^{true})");
+        draw.Draw(exp,"(selmu_truecosTheta-selmu_costheta)/selmu_truecosTheta", 40, -0.15, 0.15, Type[ik].Data(),"accum_level[0][2]>6 && (nProtonsTPC + nProtonsFGD)>0");
+    
+        c1->Print(Form("%sProtonSelecPlots.pdf",PathName.Data()), "pdf");
+        
     //////////////
         /*
         /// \OTHER_STUFF_FOR_CC0PI
@@ -2517,9 +3330,7 @@ void ProtonSelection()
 }
 
 //draw.Draw(exp,"selmu_mom",40., 0., 5000.,Type[ik].Data(),"accum_level[0][1]>7 && topology!=1 && (nProtonsTPC + nProtonsFGD)>0 && (FGDProtonTId[0]==2212 || nProtonsFGD==0) && (TPCProtonTId==2212 || nProtonsTPC==0)");
-
-
-
+     
 
 //WARNING PRINT PURITIES
 

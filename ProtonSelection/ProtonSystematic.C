@@ -3,8 +3,8 @@ void ProtonSystematic()
 {
     
     TString PathName="/mnt/home/share/t2k/kskwarczynski/BANFF/NewSelection/";
-    TString FileName="Run4Prod6TPlayground";
-    DrawingTools* draw = new DrawingTools(Form("%sOutput/%s.root",PathName.Data(), FileName.Data()), 4);
+    TString FileName="CheckRun7Prod6TPlayground";
+    DrawingTools* draw = new DrawingTools(Form("%sOutput/%s.root",PathName.Data(), FileName.Data()));
 
     //draw->SetStackFillStyle(3254);
 

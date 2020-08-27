@@ -1760,6 +1760,126 @@ void RHCProtonSelection()
         c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
         
         
+///////////////////////////////////////////////////////////////
+        /// \protons_constains
+//////////////////////////////////////////////////////////////
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && true toplogy) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && nProtonsTPC==0 && nProtonsFGD==0 ");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && true toplogy) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)>0");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && false toplogy) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology!=0 && nProtonsTPC==0 && nProtonsFGD==0 ");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && false toplogy) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology!=0 && (nProtonsTPC + nProtonsFGD)>0");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && true toplogy && only CCQE) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==0");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && true toplogy && only CCQE) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)>0 && reaction==0");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && true toplogy && only CCQE) true_nNeutrons");
+        draw.SetTitleX("true_nNeutrons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nNeutrons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==0");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && true toplogy && only CCQE) true_nNeutrons");
+        draw.SetTitleX("true_nNeutrons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nNeutrons",5,0., 5.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)>0 && reaction==0");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && true toplogy && only RES) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==1");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && true toplogy && only RES) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && topology==0 && (nProtonsTPC + nProtonsFGD)>0 && reaction==1");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only 2p2h) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only 2p2h) true_nprotons");
+        draw.SetTitleX("true_nprotons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nprotons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+                
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only 2p2h) true_nNeutrons");
+        draw.SetTitleX("true_nNeutrons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nNeutrons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only 2p2h) true_nNeutrons");
+        draw.SetTitleX("true_nNeutrons");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"true_nNeutrons",8,0., 8.,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && 0 protons && only 2p2h) nu_trueE");
+        draw.SetTitleX("true neutrino energy");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"nu_trueE",40,0., 5000.,Type[ik].Data(),"accum_level[0][0]>7 && nProtonsTPC==0 && nProtonsFGD==0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        draw.SetTitle("(accum[0][0]>7 && N protons && only 2p2h) nu_trueE");
+        draw.SetTitleX("true neutrino energy");
+        draw.SetLegendPos("tr");
+        draw.Draw(exp,"nu_trueE",40,0., 5000,Type[ik].Data(),"accum_level[0][0]>7 && (nProtonsTPC + nProtonsFGD)>0 && reaction==9");
+
+        c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
+        
+        
         //////////////
         /*
         /// \OTHER_STUFF_FOR_CC0PI
@@ -1979,7 +2099,7 @@ void RHCProtonSelection()
     
     c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
     
-    
+    /*
     draw.SetTitle("(accum[0][2]>7 && N protons) selmu mom");
     draw.SetLegendPos("tr");
     draw.SetTitleX("muon candidate momentum [MeV/c]");
@@ -2014,7 +2134,7 @@ void RHCProtonSelection()
     draw.Draw(exp,"selmu_ecallength",40,0., 200.,"particle","accum_level[0][2]>7");
 
     c1->Print(Form("%sProtonSelecPlotsRHC.pdf",PathName.Data()), "pdf");
-    
+    */
     
     c1->Print(Form("%sProtonSelecPlotsRHC.pdf)",PathName.Data()), "pdf");
     delete c1;
