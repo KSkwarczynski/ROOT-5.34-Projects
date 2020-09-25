@@ -33,6 +33,7 @@ std::string SampleId::ConvertSample(SampleEnum sample){
     else if (sample == kFGD1AntiNuMuCC1Track)             ssample = "FGD1 anti-numuCC QE";
     else if (sample == kFGD1AntiNuMuCCNTracks)            ssample = "FGD1 anti-numuCC nQE";
     else if (sample == kFGD1AntiNuMuCC0Pi)                ssample = "FGD1 anti-numuCC 0pi";
+    //else if (sample == kFGD1AntiNuMuCC0PiNp)              ssample = "FGD1 anti-numuCC 0pi Np"; //WARNING
     else if (sample == kFGD1AntiNuMuCC1Pi)                ssample = "FGD1 anti-numuCC 1pi";
     else if (sample == kFGD1AntiNuMuCCOther)              ssample = "FGD1 anti-numuCC other";
     
@@ -40,6 +41,7 @@ std::string SampleId::ConvertSample(SampleEnum sample){
     else if (sample == kFGD2AntiNuMuCC1Track)             ssample = "FGD2 anti-numuCC 1 track";
     else if (sample == kFGD2AntiNuMuCCNTracks)            ssample = "FGD2 anti-numuCC N tracks";
     else if (sample == kFGD2AntiNuMuCC0Pi)                ssample = "FGD2 anti-numuCC 0pi";
+    //else if (sample == kFGD2AntiNuMuCC0PiNp)              ssample = "FGD2 anti-numuCC 0pi Np"; //WARNING
     else if (sample == kFGD2AntiNuMuCC1Pi)                ssample = "FGD2 anti-numuCC 1pi";
     else if (sample == kFGD2AntiNuMuCCOther)              ssample = "FGD2 anti-numuCC other";
     
@@ -82,7 +84,7 @@ std::string SampleId::ConvertSample(SampleEnum sample){
     else if (sample == kFGD2NuEBkgInAntiNuModeCC)         ssample = "FGD2 NuE Bkg In Anti NuMode CC";
     else if (sample == kFGD2NuEBkgInAntiNuModeCC0Pi)      ssample = "FGD2 NuE Bkg In Anti NuMode CC0Pi";
     else if (sample == kFGD2NuEBkgInAntiNuModeCCOther)    ssample = "FGD2 NuE Bkg In Anti NuMode CCOther";
-
+    
     
 
     else                                                  ssample = "Unassigned";
@@ -126,6 +128,7 @@ std::string SampleId::ConvertSampleToSelection(SampleEnum sample){
     else if (sample == kFGD1AntiNuMuCCNTracks)            ssample = "kTrackerAntiNumuCCMultiTrack";
     
     else if (sample == kFGD1AntiNuMuCC0Pi)                ssample = "kTrackerAntiNumuCCMultiPi";
+    //else if (sample == kFGD1AntiNuMuCC0PiNp)              ssample = "kTrackerAntiNumuCCMultiPi"; //WARNING
     else if (sample == kFGD1AntiNuMuCC1Pi)                ssample = "kTrackerAntiNumuCCMultiPi";
     else if (sample == kFGD1AntiNuMuCCOther)              ssample = "kTrackerAntiNumuCCMultiPi";
     
@@ -136,6 +139,7 @@ std::string SampleId::ConvertSampleToSelection(SampleEnum sample){
     else if (sample == kFGD2AntiNuMuCCNTracks)            ssample = "kTrackerAntiNumuCCMultiTrackFGD2";
     
     else if (sample == kFGD2AntiNuMuCC0Pi)                ssample = "kTrackerAntiNumuCCMultiPiFGD2"; 
+    //else if (sample == kFGD2AntiNuMuCC0PiNp)                ssample = "kTrackerAntiNumuCCMultiPiFGD2";  //WARNING 
     else if (sample == kFGD2AntiNuMuCC1Pi)                ssample = "kTrackerAntiNumuCCMultiPiFGD2";
     else if (sample == kFGD2AntiNuMuCCOther)              ssample = "kTrackerAntiNumuCCMultiPiFGD2";
     

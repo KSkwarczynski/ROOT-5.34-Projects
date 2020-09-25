@@ -267,12 +267,13 @@ void numuCCMultiPiAnalysis::DefineMicroTrees(bool addBase){
     AddVarVI(output(), TPCProtonParentTId,"", nProtonsTPC);
     AddVarVI(output(), TPCProtonGParentTId,"",nProtonsTPC);
   
+    /*
     AddVarF(output(), selmu_ecalemene, "");
     AddVarI(output(), selmu_nECALs, "");
     AddVarI(output(), selmu_ecaldetector,"");
     AddVarI(output(), selmu_ecalnhits, "");
     AddVarF(output(), selmu_ecallength, "");
-    
+    */
     
     AddVarVF(output(), TPCProton_ecalemene, "Reconstructed EM energy deposit of the selected track's ECal segment", nProtonsTPC_ECAL);
     AddVarVI(output(), TPCProton_nECALs, "Number of Ecal clusters found", nProtonsTPC_ECAL);
@@ -298,16 +299,20 @@ void numuCCMultiPiAnalysis::DefineMicroTrees(bool addBase){
     AddVarF(   output(), trueHMprot_mom,      "true HM proton momentum");
     AddVarF(   output(), trueHMprot_costheta,      "true HM proton costheta");
     
+    AddVarI(   output(), true_nNeutrons,      "true_nNeutrons");
     
-    /*
     //AddVarI(  output(), true_nPosPion,      "true_nPosPion");
-    AddVarVI(output(),  true_PosPionTId,      "", true_nPosPion);
-    AddVarVI(output(),  true_PosPionParentTId,"", true_nPosPion);
+    AddVarVF(output(), true_PosPion_mom,"",         true_nPosPion);
+    AddVarVF(output(), true_PosPion_cosTheta,"",    true_nPosPion);
+    //AddVarVI(output(),  true_PosPionTId,      "", true_nPosPion);
+    //AddVarVI(output(),  true_PosPionParentTId,"", true_nPosPion);
     
     //AddVarI(  output(), true_nNegPion,      "true_nNegPion");
-    AddVarVI(output(),  true_NegPionTId,      "", true_nNegPion);
-    AddVarVI(output(),  true_NegPionParentTId,"", true_nNegPion);
-    */
+    AddVarVF(output(), true_NegPion_mom,"",         true_nNegPion);
+    AddVarVF(output(), true_NegPion_cosTheta,"",    true_nNegPion);
+    //AddVarVI(output(),  true_NegPionTId,      "", true_nNegPion);
+    //AddVarVI(output(),  true_NegPionParentTId,"", true_nNegPion);
+    
   //--- kinematics to vertex vars -------
 
   //if (_storeRecoPionProtVtx){
@@ -486,7 +491,7 @@ void numuCCMultiPiAnalysis::FillMicroTrees(bool addBase){
   }
 
   //WARNING
-
+    /*
    if( mybox().MainTrack  ) 
    {
         AnaECALParticleB* ecaltracks[NMAXPARTICLES];
@@ -507,7 +512,7 @@ void numuCCMultiPiAnalysis::FillMicroTrees(bool addBase){
             }
         }
     }
-        
+    */ 
     for( Int_t i = 0; i < mybox().pionBox.nProtonTPCtracks; i++ )
     {
         AnaTrackB *track = mybox().pionBox.ProtonTPCtracks[i];
@@ -585,6 +590,7 @@ void numuCCMultiPiAnalysis::FillMicroTrees(bool addBase){
     
     
     int nprotons = 0;
+    int nNeutrons = 0;
     Float_t trueHMprotMom = -999;
     double costheta_trueHMprot = -999; 
     if (GetVertex() && GetVertex()->TrueVertex)
@@ -601,26 +607,30 @@ void numuCCMultiPiAnalysis::FillMicroTrees(bool addBase){
                     costheta_trueHMprot = cos(anaUtils::ArrayToTVector3(vtxProt->TrueParticles[i]->Direction).Angle(anaUtils::ArrayToTVector3(vtxProt->NuDir)));
                 }
             }
-            /*
-            if( vtxProt->TrueParticles[i]->PDG == 211) 
+            
+            if( vtxProt->TrueParticles[i]->PDG == 211 && vtxProt->TrueParticles[i]->ParentPDG == 0) 
             {
-                output().FillVectorVar(true_PosPionTId,       vtxProt->TrueParticles[i]->PDG);
-                output().FillVectorVar(true_PosPionParentTId, vtxProt->TrueParticles[i]->ParentPDG);
+                output().FillVectorVar(true_PosPion_mom,       vtxProt->TrueParticles[i]->Momentum);
+                output().FillVectorVar(true_PosPion_cosTheta, (Float_t)cos(anaUtils::ArrayToTVector3(vtxProt->TrueParticles[i]->Direction).Angle(anaUtils::ArrayToTVector3(vtxProt->NuDir))));
                 output().IncrementCounter(true_nPosPion);
             }
-            if( vtxProt->TrueParticles[i]->PDG == -211)
+            if( vtxProt->TrueParticles[i]->PDG == -211 && vtxProt->TrueParticles[i]->ParentPDG == 0)
             {
-                output().FillVectorVar(true_NegPionTId,       vtxProt->TrueParticles[i]->PDG);
-                output().FillVectorVar(true_NegPionParentTId, vtxProt->TrueParticles[i]->ParentPDG);
+                output().FillVectorVar(true_NegPion_mom,       vtxProt->TrueParticles[i]->Momentum);
+                output().FillVectorVar(true_NegPion_cosTheta, (Float_t)cos(anaUtils::ArrayToTVector3(vtxProt->TrueParticles[i]->Direction).Angle(anaUtils::ArrayToTVector3(vtxProt->NuDir))));
                 output().IncrementCounter(true_nNegPion);
             }
-            */
+            if( vtxProt->TrueParticles[i]->PDG == 2112 && vtxProt->TrueParticles[i]->ParentPDG == 0 ) 
+            {
+               nNeutrons++; 
+            }
         }
     }
     output().FillVar(true_nprotons,nprotons);
     output().FillVar(trueHMprot_mom, trueHMprotMom);
     output().FillVar(trueHMprot_costheta, (Float_t)costheta_trueHMprot);
 
+    output().FillVar(true_nNeutrons,nNeutrons);
     
   // Selected pi0 electron tracks 
   for( Int_t i = 0; i < mybox().pionBox.nElPi0TPCtracks; i++ ) {
@@ -1254,8 +1264,15 @@ if (!track->GetTrueParticle()) return -1;
     if (!trueVertex) return -1; //no truth
     
     // out of FGD1 FV
-    if ( ! anaUtils::InFiducialVolume(SubDetId::kFGD1,trueVertex->Position)) return 5;
-                                        
+    if(_fgdID==SubDetId::kFGD1)
+    {
+        if ( ! anaUtils::InFiducialVolume(SubDetId::kFGD1,trueVertex->Position)) return 5;
+    }
+    // out of FGD2 FV 
+    if(_fgdID==SubDetId::kFGD2)
+    {
+        if ( ! anaUtils::InFiducialVolume(SubDetId::kFGD2,trueVertex->Position)) return 5;
+    }                                
     Int_t nutype = trueVertex->NuPDG;
                         
     if (abs(nutype) == 14) { //AntiNumu or NuMu
@@ -1287,8 +1304,16 @@ int numuCCMultiPiAnalysis::GetTopologyProtonOAinTruth(const AnaTrueVertex& trueV
 //************************                        
         
     // out of FGD1 FV
-    if ( ! anaUtils::InFiducialVolume(SubDetId::kFGD1,trueVertex.Position)) return 5;
-                                        
+    if(_fgdID==SubDetId::kFGD1)
+    {
+        if ( ! anaUtils::InFiducialVolume(SubDetId::kFGD1,trueVertex.Position)) return 5;
+    }
+    // out of FGD2 FV 
+    if(_fgdID==SubDetId::kFGD2)
+    {
+        if ( ! anaUtils::InFiducialVolume(SubDetId::kFGD2,trueVertex.Position)) return 5;
+    }
+    
     Int_t nutype = trueVertex.NuPDG;
                         
     if (abs(nutype) == 14) { //AntiNumu or NuMu

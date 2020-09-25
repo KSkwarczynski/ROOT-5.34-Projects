@@ -404,19 +404,21 @@ bool numuCCMultiPiSelection::IsRelevantTrueObjectForSystematicInToy(const AnaEve
       break;
     
     // Contributors for relevant objects for proton SI
+    //WARNING narazie to wylaczylem sugerujac sie rozwiazeniem z ZeroPi
+    /*
     case SystId::kSIProton:
       
       // Main track is done by numuCC
       // If there are  many pions, i.e. topology cannot change, then do not use
       // the systematic
-      //WARNING tego w pelni nie rozumiem ale dla poczialu CC0Pi nie powinno miec to wplywu wiec zostawie jak jest
+      //TODO tego w pelni nie rozumiem ale dla poczialu CC0Pi nie powinno miec to wplywu wiec zostawie jak jest
       if (ccmultipibox->pionBox.nOtherPions >1 || ccmultipibox->pionBox.nPosPions > 2 ) return false; 
       // Otherwise check that a pion contributes to any of the objects in the
       // box
       //WARNING rozbudowalem aby uwzglednic protony
       return cutUtils::numuCCTrkMultiPi::CheckTrueCausesBoxSimple(*trueTrack, ccmultipibox->pionBox);
       break; 
-  
+    */
     case SystId::kFgdHybridTrackEff:
       // True track should start in the FGD FV of interest
       // Probably can imporve more by requiring that a track corresponds to the

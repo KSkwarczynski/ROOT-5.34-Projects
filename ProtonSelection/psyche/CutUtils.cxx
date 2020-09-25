@@ -788,7 +788,7 @@ void cutUtils::FindGoodQualityTPCProtonsInFGDFV(const AnaEventC& event, multipar
     */
     if (ptrack == params.refTracks[0])
     {
-        std::cout<<" DEBUG FOUND YOU TPC" <<std::endl;
+        //std::cout<<" DEBUG FOUND YOU TPC" <<std::endl;
         found = true;
     }
     if (found)
@@ -838,7 +838,7 @@ void cutUtils::FindIsoFGDProtons(const AnaEventC& event, multipart::MultiParticl
     */
     if (ptrack == params.refTracks[0])
     {
-        std::cout<<" DEBUG FOUND YOU FGD" <<std::endl;
+        //std::cout<<" DEBUG FOUND YOU FGD" <<std::endl;
         found = true;
     }
     if (found)
@@ -958,7 +958,7 @@ bool cutUtils::numuCCTrkMultiPi::CheckTrueCausesBoxSimple(const AnaTrueParticleB
     if (anaUtils::CheckTrueCausesRecoSimple(trueTrack, *box.ElPi0TPCtracks[i]))
       return true;
   }
-  //WARNING
+  //WARNING dodatelem obsluge protonow mocno robocze
   for (int i = 0; i < box.nProtonTPCtracks; i++){
     if (box.ProtonTPCtracks[i]) continue;
     if (anaUtils::CheckTrueCausesRecoSimple(trueTrack, *box.ProtonTPCtracks[i]))

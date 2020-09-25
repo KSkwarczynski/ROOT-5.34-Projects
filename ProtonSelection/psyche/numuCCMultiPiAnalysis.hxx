@@ -245,12 +245,13 @@ public:
     TPCProtonGParentTId,
     
     //WARNING DZIEKIE ZMIENNE ECALOWE
+    /*
     selmu_ecalemene, 
     selmu_nECALs,
     selmu_ecaldetector,
     selmu_ecalnhits,
     selmu_ecallength,
-    
+    */
     nProtonsTPC_ECAL,
     TPCProton_ecalemene, 
     TPCProton_nECALs,
@@ -275,11 +276,17 @@ public:
     trueHMprot_mom,
     trueHMprot_costheta,
     
-    //true_nPosPion,
+    true_nNeutrons,
+    
+    true_nPosPion,
+    true_PosPion_mom,
+    true_PosPion_cosTheta,
     //true_PosPionTId,
     //true_PosPionParentTId,
     
-    //true_nNegPion,
+    true_nNegPion,
+    true_NegPion_mom,
+    true_NegPion_cosTheta,
     //true_NegPionTId,
     //true_NegPionParentTId,
     

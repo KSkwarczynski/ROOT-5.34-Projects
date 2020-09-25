@@ -17,7 +17,7 @@ namespace SampleId{
     kFGD1NuMuCC,
     kFGD1NuMuCCQE,
     kFGD1NuMuCC0Pi,
-    kFGD1NuMuCC0PiNp,
+    kFGD1NuMuCC0PiNp, //WARNING
     kFGD1NuMuCC1Pi,
     kFGD1NuMuCCOther,
     // FGD1 CC4pi
@@ -36,7 +36,8 @@ namespace SampleId{
     // FGD2
     kFGD2NuMuCC,
     kFGD2NuMuCC0Pi,
-    kFGD2NuMuCC0PiNp,
+    //TODO przenies tu kFGD2NuMuCC0PiNp
+    //,
     kFGD2NuMuCC1Pi,
     kFGD2NuMuCCOther,
     // FGD2 CC4pi
@@ -65,6 +66,7 @@ namespace SampleId{
     kFGD1AntiNuMuCC1Track,
     kFGD1AntiNuMuCCNTracks,
     kFGD1AntiNuMuCC0Pi,
+    //kFGD1AntiNuMuCC0PiNp,
     kFGD1AntiNuMuCC1Pi,
     kFGD1AntiNuMuCCOther,
     // FGD2
@@ -72,6 +74,7 @@ namespace SampleId{
     kFGD2AntiNuMuCC1Track,
     kFGD2AntiNuMuCCNTracks,
     kFGD2AntiNuMuCC0Pi,
+    //kFGD2AntiNuMuCC0PiNp,
     kFGD2AntiNuMuCC1Pi,
     kFGD2AntiNuMuCCOther,
     // FGD1
@@ -126,6 +129,11 @@ namespace SampleId{
     kFGD2GammaInAntiNuMode,
     // P0D
     kP0DNuMuCC,
+    
+    kFGD2NuMuCC0PiNp, //WARNING TODO przenies to
+    
+    
+    
     kNSamples
   };
 
