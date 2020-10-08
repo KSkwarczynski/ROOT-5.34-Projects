@@ -147,7 +147,7 @@ void EventSummaryAnalysis(TString fname)
                 
     int AllEvents = tree->GetEntries();
     
-    if(VERBOSE) cout<< "\033[1;34mNumber of all events\033[0m " <<AllEvents<<endl;
+    if(VERBOSE) std::cout<< "\033[1;34mNumber of all events in the tree \033[0m " <<AllEvents<<std::endl;
     
     if(DEBUGMODE) AllEvents=100;
     
@@ -155,8 +155,8 @@ void EventSummaryAnalysis(TString fname)
     const double MomentumEdges[BIN0PI] = {0, 200, 300, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 2000, 2500, 3000, 5000, 30000.};
     const double CosEdges[BIN0PI] = {-1, 0.5, 0.6, 0.7, 0.76, 0.78, 0.8, 0.83, 0.85, 0.88, 0.89, 0.9, 0.91, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95, 0.955, 0.96, 0.965, 0.97, 0.975, 0.98, 0.985, 0.99, 0.995, 1.};
     
-    if(VERBOSE) cout<< "\033[1;33mCC0Pi-0p selection number\033[0m " <<SampleId::kFGD1NuMuCC0Pi<<endl;
-    if(VERBOSE) cout<< "\033[1;33mCC0Pi-Np selection number\033[0m " <<SampleId::kFGD1NuMuCC0PiNp<<endl;
+    if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-0p selection number\033[0m " <<SampleId::kFGD1NuMuCC0Pi<<std::endl;
+    if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-Np selection number\033[0m " <<SampleId::kFGD1NuMuCC0PiNp<<std::endl;
     
     int SelectionCC0Pi0p = SampleId::kFGD1NuMuCC0Pi;       //TODO
     int SelectionCC0PiNp = SampleId::kFGD1NuMuCC0PiNp;      //TODO
@@ -165,20 +165,20 @@ void EventSummaryAnalysis(TString fname)
     
     
     TH2F *hTransfer_ZeroProt_Reco = new TH2F("hTransfer_ZeroProt_Reco", "CC0Pi-0p nominal MC (2p2h only)", 50, 0, 1.4, 50, 0, 1.4);
-    hTransfer_ZeroProt_Reco->GetXaxis()->SetTitle("reco #Q_{3} (GeV)");
-    hTransfer_ZeroProt_Reco->GetYaxis()->SetTitle("reco #Q_{0} (GeV)");
+    hTransfer_ZeroProt_Reco->GetXaxis()->SetTitle("reco Q_{3} (GeV)");
+    hTransfer_ZeroProt_Reco->GetYaxis()->SetTitle("reco Q_{0} (GeV)");
     
     TH2F *hTransfer_nProt_Reco = new TH2F("hTransfer_nProt_Reco", "CC0Pi-Np nominal MC (2p2h only)", 50, 0, 1.4, 50, 0, 1.4);
-    hTransfer_nProt_Reco->GetXaxis()->SetTitle("reco #Q_{3} (GeV)");
-    hTransfer_nProt_Reco->GetYaxis()->SetTitle("reco #Q_{0} (GeV)");
+    hTransfer_nProt_Reco->GetXaxis()->SetTitle("reco Q_{3} (GeV)");
+    hTransfer_nProt_Reco->GetYaxis()->SetTitle("reco Q_{0} (GeV)");
     
     TH2F *hTransfer_ZeroProt_True = new TH2F("hTransfer_ZeroProt_True", "CC0Pi-0p nominal MC (2p2h only)", 50, 0, 1.4, 50, 0, 1.4);
-    hTransfer_ZeroProt_True->GetXaxis()->SetTitle("true #Q_{3} (GeV)");
-    hTransfer_ZeroProt_True->GetYaxis()->SetTitle("true #Q_{0} (GeV)");
+    hTransfer_ZeroProt_True->GetXaxis()->SetTitle("true Q_{3} (GeV)");
+    hTransfer_ZeroProt_True->GetYaxis()->SetTitle("true Q_{0} (GeV)");
     
     TH2F *hTransfer_nProt_True = new TH2F("hTransfer_nProt_True", "CC0Pi-Np nominal MC (2p2h only)", 50, 0, 1.4, 50, 0, 1.4);
-    hTransfer_nProt_True->GetXaxis()->SetTitle("true #Q_{3} (GeV)");
-    hTransfer_nProt_True->GetYaxis()->SetTitle("true #Q_{0} (GeV)");
+    hTransfer_nProt_True->GetXaxis()->SetTitle("true Q_{3} (GeV)");
+    hTransfer_nProt_True->GetYaxis()->SetTitle("true Q_{0} (GeV)");
     
     TH2F *hCC0Pi_0p = new TH2F("hCC0Pi_0p", "CC0Pi-0p nominal MC", BIN0PI-1 ,MomentumEdges, BIN0PI-1, CosEdges);
     hCC0Pi_0p->GetXaxis()->SetTitle("#mu^{-} candidate momentum [MeV/c]");
@@ -189,11 +189,21 @@ void EventSummaryAnalysis(TString fname)
     hCC0Pi_Np->GetYaxis()->SetTitle("#mu^{-} candidate cos#theta");
     
     
-    TH1F *hQ2_ZeroProt_True = new TH1F("hQ2_ZeroProt_True", "CC0Pi-Np nominal MC (CCQE only)", 100, 0, 2);
+    TH1F *hEnu_ZeroProt_True = new TH1F("hEnu_ZeroProt_True", "CC0Pi-0p nominal MC (2p2h only)", 100, 0, 2);
+    hEnu_ZeroProt_True->GetXaxis()->SetTitle("True E_{nu} (GeV)");
+    
+    TH1F *hEnu_nProt_True = new TH1F("hEnu_nProt_True", "CC0Pi-Np nominal MC (2p2h only)", 100, 0, 2);
+    hEnu_nProt_True->GetXaxis()->SetTitle("True E_{nu} (GeV)");
+    
+    
+    
+    TH1F *hQ2_ZeroProt_True = new TH1F("hQ2_ZeroProt_True", "CC0Pi-0p nominal MC (CCQE only)", 100, 0, 2);
     hQ2_ZeroProt_True->GetXaxis()->SetTitle("True Q^{2} (GeV)");
     
     TH1F *hQ2_nProt_True = new TH1F("hQ2_nProt_True", "CC0Pi-Np nominal MC (CCQE only)", 100, 0, 2);
     hQ2_nProt_True->GetXaxis()->SetTitle("True Q^{2} (GeV)");
+    
+    
     
     for(int i=0;  i<AllEvents; i++)
     {
@@ -213,12 +223,16 @@ void EventSummaryAnalysis(TString fname)
             hTransfer_ZeroProt_Reco->Fill(Q3Rec , Q0Rec);
             hTransfer_ZeroProt_True->Fill(TrueQ3, TrueQ0);
             hCC0Pi_0p->Fill(RecoMuonMomentum, RecoMuonCosTheta);
+            
+            hEnu_ZeroProt_True->Fill(TrueEnu);
         }
         if(SampleID == SelectionCC0PiNp && ReactionCode== ReactionCode_2p2h )
         {
             hTransfer_nProt_Reco->Fill(Q3Rec , Q0Rec);
             hTransfer_nProt_True->Fill(TrueQ3, TrueQ0);
             hCC0Pi_Np->Fill(RecoMuonMomentum, RecoMuonCosTheta);
+            
+            hEnu_nProt_True->Fill(TrueEnu);
         }
     }
         
@@ -229,10 +243,23 @@ void EventSummaryAnalysis(TString fname)
     hTransfer_nProt_True->Draw("COLZ");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     
+    hEnu_ZeroProt_True->SetLineColor(kViolet);
+    hEnu_ZeroProt_True->SetFillColor(kViolet);
+    hEnu_ZeroProt_True->Draw("");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     
+    hEnu_nProt_True->SetLineColor(kViolet);
+    hEnu_nProt_True->SetFillColor(kViolet);
+    hEnu_nProt_True->Draw("");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hQ2_ZeroProt_True->SetLineColor(kRed);
+    hQ2_ZeroProt_True->SetFillColor(kRed);
     hQ2_ZeroProt_True->Draw("");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     
+    hQ2_nProt_True->SetLineColor(kRed);
+    hQ2_nProt_True->SetFillColor(kRed);
     hQ2_nProt_True->Draw("");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     /*
@@ -255,6 +282,9 @@ void EventSummaryAnalysis(TString fname)
     */
     
     c1->Print(Form("%s.pdf)",fname.Data()), "pdf");
+    
+    
+    if(VERBOSE) std::cout<< "\033[1;31mFinished ploting :)\033[0m "<<std::endl;
 }
 
 void SetT2Kstyl()
@@ -345,9 +375,9 @@ void SetT2Kstyl()
     gStyle->SetTitleSize(FontSizeTitle, "x");
     gStyle->SetTitleSize(FontSizeTitle, "z");
     gStyle->SetTitleSize(FontSizeTitle, "t");
-    gStyle->SetTitleOffset(1.3, "x");
-    gStyle->SetTitleOffset(1.3, "y");
-    gStyle->SetTitleOffset(1.2, "z");
+    gStyle->SetTitleOffset(1.1, "x");
+    gStyle->SetTitleOffset(1.1, "y");
+    gStyle->SetTitleOffset(1.1, "z");
 
     gStyle->SetTitleStyle(0);
     gStyle->SetTitleFontSize(0.045);//0.08
