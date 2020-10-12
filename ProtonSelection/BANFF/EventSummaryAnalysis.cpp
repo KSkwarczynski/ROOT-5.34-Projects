@@ -26,6 +26,9 @@ void EventSummaryAnalysis(TString fname)
    Double_t        RecoPionMomentum;
    Double_t        RecoPionCosTheta;
    Int_t           PionTopology;
+   Double_t        RecoProtonMomentum;
+   Double_t        RecoProtonCosTheta;
+   Int_t           ProtonTopology;
    Double_t        RecoMuonCosTheta;
    Double_t        ERec;
    Double_t        Q2Rec;
@@ -67,6 +70,9 @@ void EventSummaryAnalysis(TString fname)
    TBranch        *b_RecoPionMomentum;   //!
    TBranch        *b_RecoPionCosTheta;   //!
    TBranch        *b_PionTopology;   //!
+   TBranch        *b_RecoProtonMomentum;   //!
+   TBranch        *b_RecoProtonCosTheta;   //!
+   TBranch        *b_ProtonTopology;   //!
    TBranch        *b_RecoMuonCosTheta;   //!
    TBranch        *b_ERec;   //!
    TBranch        *b_Q2Rec;   //!
@@ -107,6 +113,9 @@ void EventSummaryAnalysis(TString fname)
    tree->SetBranchAddress("RecoPionMomentum", &RecoPionMomentum, &b_RecoPionMomentum);
    tree->SetBranchAddress("RecoPionCosTheta", &RecoPionCosTheta, &b_RecoPionCosTheta);
    tree->SetBranchAddress("PionTopology", &PionTopology, &b_PionTopology);
+   tree->SetBranchAddress("RecoProtonMomentum", &RecoProtonMomentum, &b_RecoProtonMomentum);
+   tree->SetBranchAddress("RecoProtonCosTheta", &RecoProtonCosTheta, &b_RecoProtonCosTheta);
+   tree->SetBranchAddress("ProtonTopology", &ProtonTopology, &b_ProtonTopology);
    tree->SetBranchAddress("RecoMuonCosTheta", &RecoMuonCosTheta, &b_RecoMuonCosTheta);
    tree->SetBranchAddress("ERec", &ERec, &b_ERec);
    tree->SetBranchAddress("Q2Rec", &Q2Rec, &b_Q2Rec);
@@ -155,6 +164,11 @@ void EventSummaryAnalysis(TString fname)
     const double MomentumEdges[BIN0PI] = {0, 200, 300, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 2000, 2500, 3000, 5000, 30000.};
     const double CosEdges[BIN0PI] = {-1, 0.5, 0.6, 0.7, 0.76, 0.78, 0.8, 0.83, 0.85, 0.88, 0.89, 0.9, 0.91, 0.92, 0.925, 0.93, 0.935, 0.94, 0.945, 0.95, 0.955, 0.96, 0.965, 0.97, 0.975, 0.98, 0.985, 0.99, 0.995, 1.};
     
+    const int BINPROTON = 12;
+    const double MomentumEdgesProton[BINPROTON] = {0., 300., 450., 600., 800., 1000., 1250., 1500., 2000., 3000., 5000., 30000.};
+    const double CosEdgesProton[BINPROTON] = {-1.0, 0.5, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.92, 0.98, 0.99, 1.0};
+    
+    
     if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-0p selection number\033[0m " <<SampleId::kFGD1NuMuCC0Pi<<std::endl;
     if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-Np selection number\033[0m " <<SampleId::kFGD1NuMuCC0PiNp<<std::endl;
     
@@ -180,6 +194,14 @@ void EventSummaryAnalysis(TString fname)
     hTransfer_nProt_True->GetXaxis()->SetTitle("true Q_{3} (GeV)");
     hTransfer_nProt_True->GetYaxis()->SetTitle("true Q_{0} (GeV)");
     
+    TH2F *hTransferAll_ZeroProt_True = new TH2F("hTransferAll_ZeroProt_True", "CC0Pi-0p nominal MC", 50, 0, 1.4, 50, 0, 1.4);
+    hTransferAll_ZeroProt_True->GetXaxis()->SetTitle("true Q_{3} (GeV)");
+    hTransferAll_ZeroProt_True->GetYaxis()->SetTitle("true Q_{0} (GeV)");
+    
+    TH2F *hTransferAll_nProt_True = new TH2F("hTransferAll_nProt_True", "CC0Pi-Np nominal MC", 50, 0, 1.4, 50, 0, 1.4);
+    hTransferAll_nProt_True->GetXaxis()->SetTitle("true Q_{3} (GeV)");
+    hTransferAll_nProt_True->GetYaxis()->SetTitle("true Q_{0} (GeV)");
+    
     TH2F *hCC0Pi_0p = new TH2F("hCC0Pi_0p", "CC0Pi-0p nominal MC", BIN0PI-1 ,MomentumEdges, BIN0PI-1, CosEdges);
     hCC0Pi_0p->GetXaxis()->SetTitle("#mu^{-} candidate momentum [MeV/c]");
     hCC0Pi_0p->GetYaxis()->SetTitle("#mu^{-} candidate cos#theta");
@@ -204,6 +226,10 @@ void EventSummaryAnalysis(TString fname)
     hQ2_nProt_True->GetXaxis()->SetTitle("True Q^{2} (GeV)");
     
     
+    TH2F *hCC0Pi_Np_proton = new TH2F("hCC0Pi_Np_proton", "CC0Pi-Np nominal MC", BINPROTON-1 ,MomentumEdgesProton, BINPROTON-1, CosEdgesProton);
+    hCC0Pi_Np_proton->GetXaxis()->SetTitle("proton candidate momentum [MeV/c]");
+    hCC0Pi_Np_proton->GetYaxis()->SetTitle("proton candidate cos#theta");
+    
     
     for(int i=0;  i<AllEvents; i++)
     {
@@ -216,6 +242,15 @@ void EventSummaryAnalysis(TString fname)
         if(SampleID == SelectionCC0PiNp && ReactionCode== ReactionCode_CCQE )
         {
             hQ2_nProt_True->Fill(TrueQ2);
+        }
+            
+        if(SampleID == SelectionCC0Pi0p)
+        {
+            hTransferAll_ZeroProt_True->Fill(TrueQ3, TrueQ0);
+        }
+        if(SampleID == SelectionCC0PiNp )
+        {  
+            hTransferAll_nProt_True->Fill(TrueQ3, TrueQ0);
         }
             
         if(SampleID == SelectionCC0Pi0p && ReactionCode == ReactionCode_2p2h )
@@ -231,6 +266,7 @@ void EventSummaryAnalysis(TString fname)
             hTransfer_nProt_Reco->Fill(Q3Rec , Q0Rec);
             hTransfer_nProt_True->Fill(TrueQ3, TrueQ0);
             hCC0Pi_Np->Fill(RecoMuonMomentum, RecoMuonCosTheta);
+            hCC0Pi_Np_proton->Fill(RecoProtonMomentum, RecoProtonCosTheta);
             
             hEnu_nProt_True->Fill(TrueEnu);
         }
@@ -241,6 +277,12 @@ void EventSummaryAnalysis(TString fname)
     c1->Print(Form("%s.pdf(",fname.Data()), "pdf");
     
     hTransfer_nProt_True->Draw("COLZ");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hTransferAll_ZeroProt_True->Draw("COLZ");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hTransferAll_nProt_True->Draw("COLZ");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     
     hEnu_ZeroProt_True->SetLineColor(kViolet);
@@ -280,6 +322,9 @@ void EventSummaryAnalysis(TString fname)
     hCC0Pi_Np->Draw("COLZ");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     */
+    
+    hCC0Pi_Np_proton->GetXaxis()->SetRangeUser(0, 5000);
+    hCC0Pi_Np_proton->Draw("COLZ");
     
     c1->Print(Form("%s.pdf)",fname.Data()), "pdf");
     
