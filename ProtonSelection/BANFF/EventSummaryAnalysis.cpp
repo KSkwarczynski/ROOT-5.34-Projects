@@ -169,13 +169,17 @@ void EventSummaryAnalysis(TString fname)
     const double CosEdgesProton[BINPROTON] = {-1.0, 0.5, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.92, 0.98, 0.99, 1.0};
     
     
-    if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-0p selection number\033[0m " <<SampleId::kFGD1NuMuCC0Pi<<std::endl;
-    if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-Np selection number\033[0m " <<SampleId::kFGD1NuMuCC0PiNp<<std::endl;
+
     
-    int SelectionCC0Pi0p = SampleId::kFGD1NuMuCC0Pi;       //TODO
-    int SelectionCC0PiNp = SampleId::kFGD1NuMuCC0PiNp;      //TODO
+    //int SelectionCC0Pi0p = SampleId::kFGD1NuMuCC0Pi;       //TODO
+    //int SelectionCC0PiNp = SampleId::kFGD1NuMuCC0PiNp;      //TODO
+    int SelectionCC0Pi0p = 3;
+    int SelectionCC0PiNp = 89;
     int ReactionCode_CCQE = 1;
     int ReactionCode_2p2h = 2;
+    
+    if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-0p selection number\033[0m " <<SelectionCC0Pi0p<<std::endl;
+    if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-Np selection number\033[0m " <<SelectionCC0PiNp<<std::endl;
     
     
     TH2F *hTransfer_ZeroProt_Reco = new TH2F("hTransfer_ZeroProt_Reco", "CC0Pi-0p nominal MC (2p2h only)", 50, 0, 1.4, 50, 0, 1.4);
@@ -219,10 +223,10 @@ void EventSummaryAnalysis(TString fname)
     
     
     
-    TH1F *hQ2_ZeroProt_True = new TH1F("hQ2_ZeroProt_True", "CC0Pi-0p nominal MC (CCQE only)", 100, 0, 2);
+    TH1F *hQ2_ZeroProt_True = new TH1F("hQ2_ZeroProt_True", "CC0Pi-0p nominal MC (CCQE only)", 100, 0, 1.2);
     hQ2_ZeroProt_True->GetXaxis()->SetTitle("True Q^{2} (GeV)");
     
-    TH1F *hQ2_nProt_True = new TH1F("hQ2_nProt_True", "CC0Pi-Np nominal MC (CCQE only)", 100, 0, 2);
+    TH1F *hQ2_nProt_True = new TH1F("hQ2_nProt_True", "CC0Pi-Np nominal MC (CCQE only)", 100, 0, 1.2);
     hQ2_nProt_True->GetXaxis()->SetTitle("True Q^{2} (GeV)");
     
     
@@ -285,6 +289,23 @@ void EventSummaryAnalysis(TString fname)
     hTransferAll_nProt_True->Draw("COLZ");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     
+    double norm = 1/hEnu_ZeroProt_True->Integral();
+    hEnu_ZeroProt_True->Scale(norm);
+    double norm = 1/hEnu_nProt_True->Integral();
+    hEnu_nProt_True->Scale(norm);
+    
+    hEnu_ZeroProt_True->SetLineColor(kBlue);
+    hEnu_nProt_True->SetLineColor(kGreen);
+    hEnu_ZeroProt_True->Draw("");
+    hEnu_nProt_True->Draw("SAME");
+    
+    legend = new TLegend(0.65,0.7,0.9,0.9);
+    legend->AddEntry(hEnu_ZeroProt_True, "CC0Pi-0p (2p2h)","l");
+    legend->AddEntry(hEnu_nProt_True,"CC0Pi-Np (2p2h)","l");
+    legend->SetTextSize(0.035);
+    legend->Draw();
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
     hEnu_ZeroProt_True->SetLineColor(kViolet);
     hEnu_ZeroProt_True->SetFillColor(kViolet);
     hEnu_ZeroProt_True->Draw("");
@@ -294,6 +315,25 @@ void EventSummaryAnalysis(TString fname)
     hEnu_nProt_True->SetFillColor(kViolet);
     hEnu_nProt_True->Draw("");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    
+    double norm = 1/hQ2_ZeroProt_True->Integral();
+    hQ2_ZeroProt_True->Scale(norm);
+    double norm = 1/hQ2_nProt_True->Integral();
+    hQ2_nProt_True->Scale(norm);
+    
+    hQ2_ZeroProt_True->SetLineColor(kBlue);
+    hQ2_nProt_True->SetLineColor(kGreen);
+    hQ2_ZeroProt_True->Draw("");
+    hQ2_nProt_True->Draw("SAME");
+    
+    legend = new TLegend(0.60,0.7,0.9,0.9);
+    legend->AddEntry(hQ2_ZeroProt_True, "CC0Pi-0p (CCQE)","l");
+    legend->AddEntry(hQ2_nProt_True,"CC0Pi-Np (CCQE)","l");
+    legend->SetTextSize(0.035);
+    legend->Draw();
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
     
     hQ2_ZeroProt_True->SetLineColor(kRed);
     hQ2_ZeroProt_True->SetFillColor(kRed);
@@ -387,7 +427,7 @@ void SetT2Kstyl()
     gStyle->SetEndErrorSize(4);
     gStyle->SetStripDecimals(kFALSE);
 
-    gStyle->SetLegendBorderSize(0); //This option dsables legends borders
+    //gStyle->SetLegendBorderSize(0); //This option dsables legends borders
     gStyle->SetLegendFont(FontStyle);
 
     // set the paper & margin sizes
