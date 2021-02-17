@@ -12,5 +12,5 @@ TODO!
 ## NucleonFateFSI
 TODO!
 
-## PN/NN pair
+## pnnn_shape
 TODO!
