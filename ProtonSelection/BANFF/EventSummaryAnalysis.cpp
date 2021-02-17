@@ -181,30 +181,73 @@ void EventSummaryAnalysis(TString fname)
     if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-0p selection number\033[0m " <<SelectionCC0Pi0p<<std::endl;
     if(VERBOSE) std::cout<< "\033[1;33mCC0Pi-Np selection number\033[0m " <<SelectionCC0PiNp<<std::endl;
     
+    TH2F *hResolution_ZeroProt = new TH2F("hResolution_ZeroProt", "CC0Pi-0p", 50, 0, 1000, 50, 0, 1000);
+    hResolution_ZeroProt->GetXaxis()->SetTitle("True P#mu (MeV/c)");
+    hResolution_ZeroProt->GetYaxis()->SetTitle("Reco P#mu (MeV/c)");
+    
+    TH1F *hRMS_ZeroProt = new TH1F("hRMS_ZeroProt", "CC0Pi-0p RMS", 50, 0, 1000);
+    hRMS_ZeroProt->GetXaxis()->SetTitle("True P#mu (MeV/c)");
+    
+    TH1F *hMeanRMS_ZeroProt = new TH1F("hMeanRMS_ZeroProt", "CC0Pi-0p Mean and RMS", 50, 0, 1000);
+    hMeanRMS_ZeroProt->GetXaxis()->SetTitle("True P#mu (MeV/c)");
+    
+    
+    TH2F *hResolution_nProt = new TH2F("hResolution_nProt", "CC0Pi-Np", 50, 0, 1000, 50, 0, 1000);
+    hResolution_nProt->GetXaxis()->SetTitle("True P#mu (MeV/c)");
+    hResolution_nProt->GetYaxis()->SetTitle("Reco P#mu (MeV/c)");
+     
+    TH1F *hRMS_nProt = new TH1F("hRMS_nProt", "CC0Pi-Np RMS", 50, 0, 1000);
+    hRMS_nProt->GetXaxis()->SetTitle("True P#mu (MeV/c)");
+    
+    TH1F *hMeanRMS_nProt = new TH1F("hMeanRMS_nProt", "CC0Pi-Np Mean and RMS", 50, 0, 1000);
+    hMeanRMS_nProt->GetXaxis()->SetTitle("True P#mu (MeV/c)");
+    
+    
+    TH2F *hResolution_ZeroProtAngle = new TH2F("hResolution_ZeroProtAngle", "CC0Pi-0p", 50, 0, 1, 50, 0, 1);
+    hResolution_ZeroProtAngle->GetXaxis()->SetTitle("True Cos#theta#mu");
+    hResolution_ZeroProtAngle->GetYaxis()->SetTitle("Reco Cos#theta#mu");
+    
+    TH1F *hRMS_ZeroProtAngle = new TH1F("hRMS_ZeroProtAngle", "CC0Pi-0p RMS", 50, 0, 1);
+    hRMS_ZeroProtAngle->GetXaxis()->SetTitle("True Cos#theta#mu");
+    
+    TH1F *hMeanRMS_ZeroProtAngle = new TH1F("hMeanRMS_ZeroProtAngle", "CC0Pi-0p Mean and RMS", 50, 0, 1);
+    hMeanRMS_ZeroProtAngle->GetXaxis()->SetTitle("True Cos#theta#mu");
+    
+    TH2F *hResolution_nProtAngle = new TH2F("hResolution_nProtAngle", "CC0Pi-Np", 50, 0, 1, 50, 0, 1);
+    hResolution_nProtAngle->GetXaxis()->SetTitle("True Cos#theta#mu");
+    hResolution_nProtAngle->GetYaxis()->SetTitle("Reco Cos#theta#mu");
+    
+    TH1F *hRMS_nProtAngle = new TH1F("hRMS_nProtAngle", "CC0Pi-Np RMS", 50, 0, 1);
+    hRMS_ZeroProtAngle->GetXaxis()->SetTitle("True Cos#theta#mu");
+    
+    TH1F *hMeanRMS_nProtAngle = new TH1F("hMeanRMS_nProtAngle", "CC0Pi-Np Mean and RMS", 50, 0, 1);
+    hMeanRMS_nProtAngle->GetXaxis()->SetTitle("True Cos#theta#mu");
+    
+    
     
     TH2F *hTransfer_ZeroProt_Reco = new TH2F("hTransfer_ZeroProt_Reco", "CC0Pi-0p nominal MC (2p2h only)", 50, 0, 1.4, 50, 0, 1.4);
-    hTransfer_ZeroProt_Reco->GetXaxis()->SetTitle("reco Q_{3} (GeV)");
-    hTransfer_ZeroProt_Reco->GetYaxis()->SetTitle("reco Q_{0} (GeV)");
+    hTransfer_ZeroProt_Reco->GetXaxis()->SetTitle("reco q_{3} (GeV)");
+    hTransfer_ZeroProt_Reco->GetYaxis()->SetTitle("reco q_{0} (GeV)");
     
     TH2F *hTransfer_nProt_Reco = new TH2F("hTransfer_nProt_Reco", "CC0Pi-Np nominal MC (2p2h only)", 50, 0, 1.4, 50, 0, 1.4);
-    hTransfer_nProt_Reco->GetXaxis()->SetTitle("reco Q_{3} (GeV)");
-    hTransfer_nProt_Reco->GetYaxis()->SetTitle("reco Q_{0} (GeV)");
+    hTransfer_nProt_Reco->GetXaxis()->SetTitle("reco q_{3} (GeV)");
+    hTransfer_nProt_Reco->GetYaxis()->SetTitle("reco q_{0} (GeV)");
     
     TH2F *hTransfer_ZeroProt_True = new TH2F("hTransfer_ZeroProt_True", "CC0Pi-0p nominal MC (2p2h only)", 50, 0, 1.4, 50, 0, 1.4);
-    hTransfer_ZeroProt_True->GetXaxis()->SetTitle("true Q_{3} (GeV)");
-    hTransfer_ZeroProt_True->GetYaxis()->SetTitle("true Q_{0} (GeV)");
+    hTransfer_ZeroProt_True->GetXaxis()->SetTitle("true q_{3} (GeV)");
+    hTransfer_ZeroProt_True->GetYaxis()->SetTitle("true q_{0} (GeV)");
     
     TH2F *hTransfer_nProt_True = new TH2F("hTransfer_nProt_True", "CC0Pi-Np nominal MC (2p2h only)", 50, 0, 1.4, 50, 0, 1.4);
-    hTransfer_nProt_True->GetXaxis()->SetTitle("true Q_{3} (GeV)");
-    hTransfer_nProt_True->GetYaxis()->SetTitle("true Q_{0} (GeV)");
+    hTransfer_nProt_True->GetXaxis()->SetTitle("true q_{3} (GeV)");
+    hTransfer_nProt_True->GetYaxis()->SetTitle("true q_{0} (GeV)");
     
     TH2F *hTransferAll_ZeroProt_True = new TH2F("hTransferAll_ZeroProt_True", "CC0Pi-0p nominal MC", 50, 0, 1.4, 50, 0, 1.4);
-    hTransferAll_ZeroProt_True->GetXaxis()->SetTitle("true Q_{3} (GeV)");
-    hTransferAll_ZeroProt_True->GetYaxis()->SetTitle("true Q_{0} (GeV)");
+    hTransferAll_ZeroProt_True->GetXaxis()->SetTitle("true q_{3} (GeV)");
+    hTransferAll_ZeroProt_True->GetYaxis()->SetTitle("true q_{0} (GeV)");
     
     TH2F *hTransferAll_nProt_True = new TH2F("hTransferAll_nProt_True", "CC0Pi-Np nominal MC", 50, 0, 1.4, 50, 0, 1.4);
-    hTransferAll_nProt_True->GetXaxis()->SetTitle("true Q_{3} (GeV)");
-    hTransferAll_nProt_True->GetYaxis()->SetTitle("true Q_{0} (GeV)");
+    hTransferAll_nProt_True->GetXaxis()->SetTitle("true q_{3} (GeV)");
+    hTransferAll_nProt_True->GetYaxis()->SetTitle("true q_{0} (GeV)");
     
     TH2F *hCC0Pi_0p = new TH2F("hCC0Pi_0p", "CC0Pi-0p nominal MC", BIN0PI-1 ,MomentumEdges, BIN0PI-1, CosEdges);
     hCC0Pi_0p->GetXaxis()->SetTitle("#mu^{-} candidate momentum [MeV/c]");
@@ -238,7 +281,20 @@ void EventSummaryAnalysis(TString fname)
     for(int i=0;  i<AllEvents; i++)
     {
         tree->GetEntry(i);
-
+        
+        if(SampleID == SelectionCC0Pi0p)
+        {
+            hResolution_ZeroProt->Fill(TrueMuonMomentum*1000, RecoMuonMomentum);
+            hResolution_ZeroProtAngle->Fill(TrueMuonCosTheta, RecoMuonCosTheta);
+        }
+        if(SampleID == SelectionCC0PiNp)
+        {
+            hResolution_nProt->Fill(TrueMuonMomentum*1000, RecoMuonMomentum);
+            hResolution_nProtAngle->Fill(TrueMuonCosTheta, RecoMuonCosTheta);
+        }
+        
+        
+        
         if(SampleID == SelectionCC0Pi0p && ReactionCode == ReactionCode_CCQE )
         {
             hQ2_ZeroProt_True->Fill(TrueQ2);
@@ -275,10 +331,152 @@ void EventSummaryAnalysis(TString fname)
             hEnu_nProt_True->Fill(TrueEnu);
         }
     }
-        
+    for(int ix=1;ix<hResolution_ZeroProt->GetNbinsX() + 1; ix++)
+    {
+        TH1F *Temp = new TH1F("Temp", "Temp", 50, 0, 1000);
+        double RMS = 0;
+        double Mean = 0;
+        for(int iy=1;iy<hResolution_ZeroProt->GetNbinsY() + 1; iy++)
+        {  
+            double BinTempCont = hResolution_ZeroProt->GetBinContent(ix,iy);
+            Temp->SetBinContent(iy,BinTempCont);
+        }
+            Mean= Temp->GetMean();
+            RMS = Temp->GetRMS();
+            
+            hMeanRMS_ZeroProt->SetBinContent(ix,  Mean);
+            hMeanRMS_ZeroProt->SetBinError(ix,  RMS);
+            hRMS_ZeroProt->SetBinContent(ix,  RMS);
+            delete Temp;
+    }
+    
+    for(int ix=1;ix<hResolution_nProt->GetNbinsX() + 1; ix++)
+    {
+        TH1F *Temp = new TH1F("Temp", "Temp", 50, 0, 1000);
+        double RMS = 0;
+        double Mean = 0;
+        for(int iy=1;iy<hResolution_nProt->GetNbinsY() + 1; iy++)
+        {  
+            double BinTempCont = hResolution_nProt->GetBinContent(ix,iy);
+            Temp->SetBinContent(iy,BinTempCont);
+        }
+            Mean= Temp->GetMean();
+            RMS = Temp->GetRMS();
+            
+            hMeanRMS_nProt->SetBinContent(ix,  Mean);
+            hMeanRMS_nProt->SetBinError(ix,  RMS);
+            hRMS_nProt->SetBinContent(ix,  RMS);
+            delete Temp;
+    }
+    
+    
+    
+       for(int ix=1;ix<hResolution_ZeroProtAngle->GetNbinsX() + 1; ix++)
+    {
+        TH1F *Temp = new TH1F("Temp", "Temp", 50, 0, 1);
+        double RMS = 0;
+        double Mean = 0;
+        for(int iy=1;iy<hResolution_ZeroProtAngle->GetNbinsY() + 1; iy++)
+        {  
+            double BinTempCont = hResolution_ZeroProtAngle->GetBinContent(ix,iy);
+            Temp->SetBinContent(iy,BinTempCont);
+        }
+            Mean= Temp->GetMean();
+            RMS = Temp->GetRMS();
+            
+            hMeanRMS_ZeroProtAngle->SetBinContent(ix,  Mean);
+            hMeanRMS_ZeroProtAngle->SetBinError(ix,  RMS);
+            hRMS_ZeroProtAngle->SetBinContent(ix,  RMS);
+            delete Temp;
+    }
+           for(int ix=1;ix<hResolution_ZeroProtAngle->GetNbinsX() + 1; ix++)
+    {
+        TH1F *Temp = new TH1F("Temp", "Temp", 50, 0, 1);
+        double RMS = 0;
+        double Mean = 0;
+        for(int iy=1;iy<hResolution_nProtAngle->GetNbinsY() + 1; iy++)
+        {  
+            double BinTempCont = hResolution_nProtAngle->GetBinContent(ix,iy);
+            Temp->SetBinContent(iy,BinTempCont);
+        }
+            Mean= Temp->GetMean();
+            RMS = Temp->GetRMS();
+            
+            hMeanRMS_nProtAngle->SetBinContent(ix,  Mean);
+            hMeanRMS_nProtAngle->SetBinError(ix,  RMS);
+            hRMS_nProtAngle->SetBinContent(ix,  RMS);
+            delete Temp;
+    }
+    
+    
+    c1->Print(Form("%s.pdf[",fname.Data()), "pdf");  
+    
+    hResolution_ZeroProt->Draw("COLZ");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hMeanRMS_ZeroProt->Draw("LE");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hRMS_ZeroProt->Draw();
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    
+    hResolution_nProt->Draw("COLZ");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hMeanRMS_nProt->Draw("LE");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hRMS_nProt->Draw();
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hRMS_ZeroProt->SetLineColor(kBlue);
+    hRMS_nProt->SetLineColor(kGreen);
+    hRMS_ZeroProt->Draw();
+    hRMS_nProt->Draw("SAME");
+    
+    legend = new TLegend(0.65,0.7,0.9,0.9);
+    legend->AddEntry(hRMS_ZeroProt, "CC0Pi-0p","l");
+    legend->AddEntry(hRMS_nProt,"CC0Pi-Np","l");
+    legend->SetTextSize(0.035);
+    legend->Draw();
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    
+    
+    hResolution_ZeroProtAngle->Draw("COLZ");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hMeanRMS_ZeroProtAngle->Draw("LE");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hRMS_ZeroProtAngle->Draw();
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hResolution_nProtAngle->Draw("COLZ");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+          
+    hMeanRMS_nProtAngle->Draw("LE");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hRMS_nProtAngle->Draw();
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+    
+    hRMS_ZeroProtAngle->SetLineColor(kBlue);
+    hRMS_nProtAngle->SetLineColor(kGreen);
+    hRMS_ZeroProtAngle->Draw();
+    hRMS_nProtAngle->Draw("SAME");
+    
+    legend = new TLegend(0.65,0.7,0.9,0.9);
+    legend->AddEntry(hRMS_ZeroProtAngle, "CC0Pi-0p","l");
+    legend->AddEntry(hRMS_nProtAngle,"CC0Pi-Np","l");
+    legend->SetTextSize(0.035);
+    legend->Draw();
+    
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     
     hTransfer_ZeroProt_True->Draw("COLZ");
-    c1->Print(Form("%s.pdf(",fname.Data()), "pdf");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     
     hTransfer_nProt_True->Draw("COLZ");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
@@ -350,23 +548,26 @@ void EventSummaryAnalysis(TString fname)
     
     hTransfer_nProt_Reco->Draw("COLZ");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
-    
+    */
 
     
     
     hCC0Pi_0p->GetXaxis()->SetRangeUser(0, 5000);
+    hCC0Pi_0p->GetYaxis()->SetRangeUser(0.6, 1);
     hCC0Pi_0p->Draw("COLZ");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     
     hCC0Pi_Np->GetXaxis()->SetRangeUser(0, 5000);
+    hCC0Pi_Np->GetYaxis()->SetRangeUser(0.6, 1);
     hCC0Pi_Np->Draw("COLZ");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
-    */
+    
     
     hCC0Pi_Np_proton->GetXaxis()->SetRangeUser(0, 5000);
     hCC0Pi_Np_proton->Draw("COLZ");
-    
-    c1->Print(Form("%s.pdf)",fname.Data()), "pdf");
+    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+        
+    c1->Print(Form("%s.pdf]",fname.Data()), "pdf");
     
     
     if(VERBOSE) std::cout<< "\033[1;31mFinished ploting :)\033[0m "<<std::endl;
@@ -402,7 +603,7 @@ void SetT2Kstyl()
     case 3:
         FontStyle = 132;
         FontSizeLabel = 0.035;
-        FontSizeTitle = 0.040;
+        FontSizeTitle = 0.050;
         YOffsetTitle = 1.6;
         break;
     }
@@ -433,9 +634,9 @@ void SetT2Kstyl()
     // set the paper & margin sizes
     gStyle->SetPaperSize(20, 26);
     gStyle->SetPadTopMargin(0.1);
-    gStyle->SetPadBottomMargin(0.15);
-    gStyle->SetPadRightMargin(0.075); // 0.075 -> 0.13 for colz option
-    gStyle->SetPadLeftMargin(0.13);//to include both large/small font options
+    gStyle->SetPadBottomMargin(0.12);
+    gStyle->SetPadRightMargin(0.12); // 0.075 -> 0.13 for colz option
+    gStyle->SetPadLeftMargin(0.12);//to include both large/small font options
 
     // Fonts, sizes, offsets
     gStyle->SetTextFont(FontStyle);
@@ -460,9 +661,9 @@ void SetT2Kstyl()
     gStyle->SetTitleSize(FontSizeTitle, "x");
     gStyle->SetTitleSize(FontSizeTitle, "z");
     gStyle->SetTitleSize(FontSizeTitle, "t");
-    gStyle->SetTitleOffset(1.1, "x");
-    gStyle->SetTitleOffset(1.1, "y");
-    gStyle->SetTitleOffset(1.1, "z");
+    gStyle->SetTitleOffset(0.8, "x");
+    gStyle->SetTitleOffset(0.8, "y");
+    gStyle->SetTitleOffset(1.0, "z");
 
     gStyle->SetTitleStyle(0);
     gStyle->SetTitleFontSize(0.045);//0.08

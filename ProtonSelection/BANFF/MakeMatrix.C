@@ -5,15 +5,21 @@ void MakeMatrix(TString fname) {
 
     TH2D *CovarainceMatrix; 
     TH2D *CorrelationMatrix; 
-
+    TH1D* mc_sys_error;
+    
     CovarainceMatrix = (TH2D*) f1->Get( "Total_Correlation_Matrix" );
     CorrelationMatrix = (TH2D*) f1->Get( "Total_Covariance_Matrix" );
 
-    
+    cov_var = (TH2D*) f1->Get( "Covariance_Matrix_NoMCStats" );
+    corr_var = (TH2D*) f1->Get( "Correlation_Matrix_NoMCStats" );
+        
+    mc_sys_error = (TH1D*) f1->Get( "MC_Sys_Error" );
+        
+        
     gStyle->SetOptFit(111);
 
     // Open a TCanvas to write the posterior onto
-    TCanvas* c0 = new TCanvas("c0", "c0", 0, 0, 1024, 1024);
+    TCanvas* c0 = new TCanvas("c0", "c0", 0, 0, 1600,1200);
     c0->SetGrid();
     gStyle->SetOptStat(0);
     gStyle->SetOptTitle(0);
@@ -39,16 +45,41 @@ void MakeMatrix(TString fname) {
     
     CovarainceMatrix->GetXaxis()->SetLabelSize(0.015);
     CovarainceMatrix->GetYaxis()->SetLabelSize(0.015);
+    cov_var->GetXaxis()->SetLabelSize(0.015);
+    cov_var->GetYaxis()->SetLabelSize(0.015);
+
     CorrelationMatrix->GetXaxis()->SetLabelSize(0.015);
     CorrelationMatrix->GetYaxis()->SetLabelSize(0.015);
+    corr_var->GetYaxis()->SetLabelSize(0.015);
+    corr_var->GetXaxis()->SetLabelSize(0.015);
+    
     CorrelationMatrix->SetMinimum(-1);
     CorrelationMatrix->SetMaximum(1);
     
+    corr_var->SetMinimum(-1);
+    corr_var->SetMaximum(1);
+    
+    c0->Print(Form("%s.pdf[",fname.Data()), "pdf");
+        
     CovarainceMatrix->Draw("COLZ");
-    c0->Print(Form("%s.pdf(",fname.Data()), "pdf");
+    c0->Print(Form("%s.pdf",fname.Data()), "pdf");
     c0->Print("CovarainceMatrix.png");
-            
+           
+    corr_var->Draw("COLZ");
+    c0->Print(Form("%s.pdf",fname.Data()), "pdf");
+    c0->Print("corr_var.png");
+    
     CorrelationMatrix->Draw("COLZ");
-    c0->Print(Form("%s.pdf)",fname.Data()), "pdf");
+    c0->Print(Form("%s.pdf",fname.Data()), "pdf");
     c0->Print("CorrelationMatrix.png");
+
+    cov_var->Draw("COLZ");
+    c0->Print(Form("%s.pdf",fname.Data()), "pdf");
+    c0->Print("cov_var.png");
+    
+    
+    mc_sys_error->Draw("");
+    c0->Print(Form("%s.pdf",fname.Data()), "pdf");
+    c0->Print("mc_sys_error.png");
+    c0->Print(Form("%s.pdf]",fname.Data()), "pdf");
 }
