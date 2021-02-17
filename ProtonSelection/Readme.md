@@ -9,7 +9,7 @@ Preliminary implementaion of new samples to MCMC, most are workaround ore hardco
 ## BANFF
 TODO!
 
-## Nucleon FSI
+## NucleonFateFSI
 TODO!
 
 ## PN/NN pair
