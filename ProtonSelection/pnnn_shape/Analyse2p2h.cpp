@@ -117,7 +117,9 @@ void Analyse2p2h(TString fname)
    
    //TLorentzVector hm_pprot_4mom = 0;
     TLorentzVector* hm_pprot_4mom = NULL;
-      // List of branches
+    TLorentzVector* pmu_4mom = NULL;
+    
+    // List of branches
    TBranch        *b_Mode;   //!
    TBranch        *b_TgtA;   //!
    TBranch        *b_TgtZ;   //!
@@ -317,6 +319,8 @@ void Analyse2p2h(TString fname)
       
    //tree->SetBranchAddress("hm_pprot_4mom", &hm_pprot_4mom);
    tree->SetBranchAddress("hm_pprot_4mom", &hm_pprot_4mom );
+   tree->SetBranchAddress("pmu_4mom", &pmu_4mom );
+   
 //*******************************************************************************//   
                 
     int AllEvents = tree->GetEntries();
@@ -369,52 +373,33 @@ void Analyse2p2h(TString fname)
     
     
     TH2F *transfer = new TH2F("transfer", Form("q3/q0 %s",Model.Data() ), 40, 0, 1400, 40, 0, 1400);
-    transfer->GetXaxis()->SetTitle("True q3 [MeV]");
-    transfer->GetYaxis()->SetTitle("True q0 [MeV]");
+    transfer->GetXaxis()->SetTitle("True q_{3} [MeV]");
+    transfer->GetYaxis()->SetTitle("True q_{0} [MeV]");
     
     
     TH2F *PPtransfer = new TH2F("PPtransfer", Form("pn q3/q0 %s",Model.Data() ), 40, 0, 1400, 40, 0, 1400);
-    PPtransfer->GetXaxis()->SetTitle("True q3 [MeV]");
-    PPtransfer->GetYaxis()->SetTitle("True q0 [MeV]");
-
-    TH2F *PPtransfercos1 = new TH2F("PPtransfercos1",Form("pn q3/q0 0.6<cos(#theta)<0.7 %s",Model.Data()), 40, 0, 1400, 40, 0, 1400);
-    PPtransfercos1->GetXaxis()->SetTitle("True q3 [MeV]");
-    PPtransfercos1->GetYaxis()->SetTitle("True q0 [MeV]");
-    
-    TH2F *PPtransfercos2 = new TH2F("PPtransfercos2",Form("pn q3/q0 0.9<cos(#theta)<0.94 %s",Model.Data()), 40, 0, 1400, 40, 0, 1400);
-    PPtransfercos2->GetXaxis()->SetTitle("True q3 [MeV]");
-    PPtransfercos2->GetYaxis()->SetTitle("True q0 [MeV]");
-    
+    PPtransfer->GetXaxis()->SetTitle("True q_{3} [MeV]");
+    PPtransfer->GetYaxis()->SetTitle("True q_{0} [MeV]");
     
     TH2F *PPtransferEnu = new TH2F("PPtransferEnu", Form("pn q3/Enu %s",Model.Data()), 40, 0, 1400, 40, 0, 1400);
-    PPtransferEnu->GetXaxis()->SetTitle("True q3 [MeV]");
+    PPtransferEnu->GetXaxis()->SetTitle("True q_{3} [MeV]");
     PPtransferEnu->GetYaxis()->SetTitle("True Enu [MeV]");
     
     TH2F *PPtransferq0Enu = new TH2F("PPtransferq0Enu", Form("pn q0/Enu %s",Model.Data()), 40, 0, 1400, 40, 0, 1400);
-    PPtransferq0Enu->GetXaxis()->SetTitle("True q0 [MeV]");
+    PPtransferq0Enu->GetXaxis()->SetTitle("True q_{0} [MeV]");
     PPtransferq0Enu->GetYaxis()->SetTitle("True Enu [MeV]");
-    
     
 ///////////////////////////////////////////////////////////////////    
     TH2F *NPtransfer = new TH2F("NPtransfer", Form("nn q3/q0 %s",Model.Data()), 40, 0, 1400, 40, 0, 1400);
-    NPtransfer->GetXaxis()->SetTitle("True q3 [MeV]");
-    NPtransfer->GetYaxis()->SetTitle("True q0 [MeV]");
-    
-    TH2F *NPtransfercos1 = new TH2F("NPtransfercos1", Form("nn q3/q0 0.6<cos(#theta)<0.7 %s",Model.Data()), 40, 0, 1400, 40, 0, 1400);
-    NPtransfercos1->GetXaxis()->SetTitle("True q3 [MeV]");
-    NPtransfercos1->GetYaxis()->SetTitle("True q0 [MeV]");
-    
-    
-    TH2F *NPtransfercos2 = new TH2F("NPtransfercos2",Form("nn q3/q0 0.9<cos(#theta)<0.94 %s",Model.Data()), 40, 0, 1400, 40, 0, 1400);
-    NPtransfercos2->GetXaxis()->SetTitle("True q3 [MeV]");
-    NPtransfercos2->GetYaxis()->SetTitle("True q0 [MeV]");
+    NPtransfer->GetXaxis()->SetTitle("True q_{3} [MeV]");
+    NPtransfer->GetYaxis()->SetTitle("True q_{0} [MeV]");
     
     TH2F *NPtransferEnu = new TH2F("NPtransferEnu",Form("nn q3/Enu %s",Model.Data()), 40, 0, 1400, 40, 0, 1400);
-    NPtransferEnu->GetXaxis()->SetTitle("True q3 [MeV]");
+    NPtransferEnu->GetXaxis()->SetTitle("True q_{3} [MeV]");
     NPtransferEnu->GetYaxis()->SetTitle("True Enu [MeV]");
     
     TH2F *NPtransferq0Enu = new TH2F("NPtransferq0Enu",Form("nn q0/Enu %s",Model.Data()), 40, 0, 1400, 40, 0, 1400);
-    NPtransferq0Enu->GetXaxis()->SetTitle("True q0 [MeV]");
+    NPtransferq0Enu->GetXaxis()->SetTitle("True q_{0} [MeV]");
     NPtransferq0Enu->GetYaxis()->SetTitle("True Enu [MeV]");
     
     
@@ -444,9 +429,9 @@ void Analyse2p2h(TString fname)
         if(Mode==ReactionCode_2p2h )
         {
             transfer->Fill(q3_true, q0_true*(-1));
-            if(Nprotons==2 && Nneutrons==0) //PP pair
+            if(Nprotons==2 && Nneutrons==0) //PN pair
             {
-                MuMomentumPP->Fill(TLep);
+                MuMomentumPP->Fill(pmu_4mom->Vect().Mag());
                 EnuPP->Fill(Enu_true);
                 
                 PPtransfer->Fill(q3_true, q0_true*(-1));
@@ -458,20 +443,16 @@ void Analyse2p2h(TString fname)
                 
                 if(CosLep>0.6 && CosLep<0.7)
                 {
-                    MuMomentumPPcos1->Fill(TLep); 
-                    PPtransfercos1->Fill(q3_true, q0_true*(-1));
-                }
+                    MuMomentumPPcos1->Fill(TLep);                 }
                 if(CosLep>0.9 && CosLep<0.94)
                 {
-                    MuMomentumPPcos2->Fill(TLep);
-                    PPtransfercos2->Fill(q3_true, q0_true*(-1));
-                }
+                    MuMomentumPPcos2->Fill(TLep);                }
                 
                 pnCounter++;
             }
-            if(Nprotons==1 && Nneutrons==1) //NP pair
+            if(Nprotons==1 && Nneutrons==1) //NN pair
             {
-                MuMomentumNP->Fill(TLep); 
+                MuMomentumNP->Fill(pmu_4mom->Vect().Mag()); 
                 EnuNP->Fill(Enu_true);
 
                                 
@@ -484,13 +465,10 @@ void Analyse2p2h(TString fname)
                 
                 if(CosLep>0.6 && CosLep<0.7)
                 {
-                    MuMomentumNPcos1->Fill(TLep); 
-                    NPtransfercos1->Fill(q3_true, q0_true*(-1));
-                }
+                    MuMomentumNPcos1->Fill(TLep);                 }
                 if(CosLep>0.9 && CosLep<0.94)
                 {
                     MuMomentumNPcos2->Fill(TLep); 
-                    NPtransfercos2->Fill(q3_true, q0_true*(-1));
                 }
                 nnCounter++;
 
@@ -557,18 +535,6 @@ void Analyse2p2h(TString fname)
     //NPtransfer->GetZaxis()->SetRangeUser(0, 0.03);
     
     NPtransfer->Draw("COLZ");
-    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
-
-    PPtransfercos1->Draw("COLZ");
-    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
-    
-    NPtransfercos1->Draw("COLZ");
-    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
-    
-    PPtransfercos2->Draw("COLZ");
-    c1->Print(Form("%s.pdf",fname.Data()), "pdf");
-    
-    NPtransfercos2->Draw("COLZ");
     c1->Print(Form("%s.pdf",fname.Data()), "pdf");
 
     
@@ -687,7 +653,7 @@ void SetT2Kstyl()
     case 3:
         FontStyle = 132;
         FontSizeLabel = 0.035;
-        FontSizeTitle = 0.040;
+        FontSizeTitle = 0.045;
         YOffsetTitle = 1.6;
         break;
     }
@@ -718,9 +684,9 @@ void SetT2Kstyl()
     // set the paper & margin sizes
     gStyle->SetPaperSize(20, 26);
     gStyle->SetPadTopMargin(0.1);
-    gStyle->SetPadBottomMargin(0.15);
-    gStyle->SetPadRightMargin(0.075); // 0.075 -> 0.13 for colz option
-    gStyle->SetPadLeftMargin(0.13);//to include both large/small font options
+    gStyle->SetPadBottomMargin(0.12);
+    gStyle->SetPadRightMargin(0.12); // 0.075 -> 0.13 for colz option
+    gStyle->SetPadLeftMargin(0.12);//to include both large/small font options
 
     // Fonts, sizes, offsets
     gStyle->SetTextFont(FontStyle);
@@ -733,9 +699,9 @@ void SetT2Kstyl()
     gStyle->SetLabelSize(FontSizeLabel, "x");
     gStyle->SetLabelSize(FontSizeLabel, "y");
     gStyle->SetLabelSize(0.030, "z");
-    gStyle->SetLabelOffset(0.012, "x");
-    gStyle->SetLabelOffset(0.012, "y");
-    gStyle->SetLabelOffset(0.002, "z");
+    gStyle->SetLabelOffset(0.008, "x");
+    gStyle->SetLabelOffset(0.008, "y");
+    gStyle->SetLabelOffset(0.006, "z");
 
     gStyle->SetTitleFont(FontStyle, "x");
     gStyle->SetTitleFont(FontStyle, "y");
