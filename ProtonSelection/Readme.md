@@ -1,10 +1,10 @@
-Study dedicated to study constrains intoducded by ading samples based on proton multiplicity to ND280 fit. Each folder contain scipts/macros used in different software. Some macros are fully new some are modifed. For modified wherewe is my contibution **WARNING** is placed.
+Study dedicated to study constrains intoducded by ading samples based on proton multiplicity to ND280 fit. Each folder contain scipts/macros used in different software. Some macros are fully new some are modifed. 
 
 ## Highland2
 Here are macros used to genreate plot based on Highland output. Moreover seprate macro is there for systematic study.
 
 ## MaCh3
-Preliminary implementaion of new samples to MCMC, most are workaround ore hardcoded stuff for now.
+TODO
 
 ## BANFF
 TODO!
