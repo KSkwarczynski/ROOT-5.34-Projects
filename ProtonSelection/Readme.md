@@ -3,11 +3,14 @@ Study dedicated to study constrains intoducded by ading samples based on proton 
 ## Highland2
 Here are macros used to genreate plot based on Highland output. Moreover seprate macro is there for systematic study.
 
-## psyche
-Main implementaiton of proton samples is here
-
 ## MaCh3
 Preliminary implementaion of new samples to MCMC, most are workaround ore hardcoded stuff for now.
 
 ## BANFF
+TODO!
+
+## Nucleon FSI
+TODO!
+
+## PN/NN pair
 TODO!
