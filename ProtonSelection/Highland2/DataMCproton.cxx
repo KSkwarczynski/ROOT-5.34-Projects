@@ -158,13 +158,13 @@ void DataMCproton()
     draw.SetTitle("FGD2");
     draw.SetTitleX("Momentum of FGD proton candidate");
     draw.SetLegendPos("tr");
-    draw.Draw(data, mc, "FGDProtMom",40., 0., 2500. ,"reaction", "accum_level[0][1][0]>7"); 
+    draw.Draw(data, mc, "FGDProtMom",40., 0., 2500. ,"fgd2reaction", "accum_level[0][1][0]>7"); 
     c1->Print("ProtonSelecPlots.pdf", "pdf");
         
     draw.SetTitle("FGD2");
     draw.SetTitleX("Momentum of TPC proton candidate");
     draw.SetLegendPos("tr");
-    draw.Draw(data, mc, "TPCProtMom",40., 0., 2500. ,"reaction", "accum_level[0][1][0]>7"); 
+    draw.Draw(data, mc, "TPCProtMom",40., 0., 2500. ,"fgd2reaction", "accum_level[0][1][0]>7"); 
     c1->Print("ProtonSelecPlots.pdf", "pdf");
     
     
@@ -185,13 +185,13 @@ void DataMCproton()
     draw.SetTitle("FGD2");
     draw.SetTitleX("Number of recosntucted FGD protons");
     draw.SetLegendPos("tr");
-    draw.Draw(data, mc, "nProtonsFGD",5., 0., 5. ,"reaction", "accum_level[0][1][0]>7"); 
+    draw.Draw(data, mc, "nProtonsFGD",5., 0., 5. ,"fgd2reaction", "accum_level[0][1][0]>7"); 
     c1->Print("ProtonSelecPlots.pdf", "pdf");
         
     draw.SetTitle("FGD2");
     draw.SetTitleX("Number of recosntucted TPC protons");
     draw.SetLegendPos("tr");
-    draw.Draw(data, mc, "nProtonsTPC",5., 0., 5. ,"reaction", "accum_level[0][1][0]>7"); ; 
+    draw.Draw(data, mc, "nProtonsTPC",5., 0., 5. ,"fgd2reaction", "accum_level[0][1][0]>7"); ; 
     c1->Print("ProtonSelecPlots.pdf", "pdf");
     
     c1->Print("ProtonSelecPlots.pdf]", "pdf");
