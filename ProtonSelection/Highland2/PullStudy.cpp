@@ -12,7 +12,7 @@ void PullStudy()
     bool DEBUGMODE=false;
     bool VERBOSE=true;
     
-    TFile *file=TFile::Open("/mnt/home/share/t2k/kskwarczynski/BANFF/NewSelection/OutputNewHighland/PullStudy.root");
+    TFile *file=TFile::Open("/mnt/home/share/t2k/kskwarczynski/BANFF/NewSelection/OutputNewHighland/ProtonRun8a.root");
     TTree *tree;
     file->GetObject("default",tree);
     
@@ -40,7 +40,7 @@ void PullStudy()
     tree->SetBranchAddress("FGDSecProtPull", FGDSecProtPull, &b_FGDSecProtPull);
     tree->SetBranchAddress("FGDSecTId", FGDSecTId, &b_FGDSecTId);
 
-    TFile *fileData=TFile::Open("/mnt/home/share/t2k/kskwarczynski/BANFF/NewSelection/OutputNewHighland/PullStudy.root");
+    TFile *fileData=TFile::Open("/mnt/home/share/t2k/kskwarczynski/BANFF/NewSelection/OutputNewHighland/DataProtonRun8a.root");
     TTree *treeData;
     fileData->GetObject("default",treeData);
     
@@ -63,7 +63,7 @@ void PullStudy()
     treeData->SetBranchAddress("FGDSecProtPull", FGDSecProtPullData, &b_FGDSecProtPullData);
     
     
-     double POTweight = 1;
+    double POTweight = 4.15013E+20 / 4.45319E+21;
      
     int AllEvents=tree->GetEntries();
     if(VERBOSE) cout<< "\033[1;34mNumber of all events \033[0m" <<AllEvents<<endl;
