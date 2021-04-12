@@ -20,6 +20,8 @@ void PullStudy()
     Int_t           NTPCSec;
     Float_t         TPCSecPrPidLik[16];   //[NTPCSec]
     Int_t           TPCSecTId[16];   //[NTPCSec]
+    Float_t         TPCSecPrPull[16];   //[NTPCSec]
+    Int_t         TPCSecCharge[16];   //[NTPCSec]
     Int_t           NFGDSec;
     Float_t         FGDSecProtPull[9];   //[NFGDSec]   
     Int_t           FGDSecTId[9];   //[NFGDSec]
@@ -28,6 +30,8 @@ void PullStudy()
     TBranch        *b_NTPCSec;   //!
     TBranch        *b_TPCSecPrPidLik;   //!
     TBranch        *b_TPCSecTId;   //!
+    TBranch        *b_TPCSecPrPull;   //!
+    TBranch        *b_TPCSecCharge;   //!
     TBranch        *b_NFGDSec;   //!
     TBranch        *b_FGDSecProtPull;   //!
     TBranch        *b_FGDSecTId;   //!
@@ -36,6 +40,9 @@ void PullStudy()
     tree->SetBranchAddress("NTPCSec", &NTPCSec, &b_NTPCSec);
     tree->SetBranchAddress("TPCSecPrPidLik", TPCSecPrPidLik, &b_TPCSecPrPidLik);
     tree->SetBranchAddress("TPCSecTId", TPCSecTId, &b_TPCSecTId);
+    tree->SetBranchAddress("TPCSecPrPull", TPCSecPrPull, &b_TPCSecPrPull);
+    tree->SetBranchAddress("TPCSecCharge", TPCSecCharge, &b_TPCSecCharge);
+    
     tree->SetBranchAddress("NFGDSec", &NFGDSec, &b_NFGDSec);
     tree->SetBranchAddress("FGDSecProtPull", FGDSecProtPull, &b_FGDSecProtPull);
     tree->SetBranchAddress("FGDSecTId", FGDSecTId, &b_FGDSecTId);
@@ -47,18 +54,25 @@ void PullStudy()
     Int_t           accum_levelData[1][4];   //[NTOYS]
     Int_t           NTPCSecData;
     Float_t         TPCSecPrPidLikData[16];   //[NTPCSec]
+    Float_t         TPCSecPrPullData[16];   //[NTPCSec]
+    Int_t         TPCSecChargeData[16];   //[NTPCSec]
     Int_t           NFGDSecData;
     Float_t         FGDSecProtPullData[9];   //[NFGDSec]   
        
     TBranch        *b_accum_levelData;   //!
     TBranch        *b_NTPCSecData;   //!
     TBranch        *b_TPCSecPrPidLikData;   //!
+    TBranch        *b_TPCSecPrPullData;   //!
+    TBranch         *b_TPCSecChargeData;   //[NTPCSec]
     TBranch        *b_NFGDSecData;   //!
     TBranch        *b_FGDSecProtPullData;   //!
     
     treeData->SetBranchAddress("accum_level", accum_levelData, &b_accum_levelData);
     treeData->SetBranchAddress("NTPCSec", &NTPCSecData, &b_NTPCSecData);
     treeData->SetBranchAddress("TPCSecPrPidLik", TPCSecPrPidLikData, &b_TPCSecPrPidLikData);
+    treeData->SetBranchAddress("TPCSecCharge", TPCSecChargeData, &b_TPCSecChargeData);
+
+    treeData->SetBranchAddress("TPCSecPrPull", TPCSecPrPullData, &b_TPCSecPrPullData);
     treeData->SetBranchAddress("NFGDSec", &NFGDSecData, &b_NFGDSecData);
     treeData->SetBranchAddress("FGDSecProtPull", FGDSecProtPullData, &b_FGDSecProtPullData);
     
@@ -73,16 +87,24 @@ void PullStudy()
     
     TH1D *FGDlikelihoodData = new TH1D("FGDlikelihoodData","Proton Pull",40, -10, 8);
     TH1D *FGDlikelihoodProton = new TH1D("FGDlikelihoodProton","Proton Pull",40, -10, 8);
+    TH1D *FGDlikelihoodPiPlus = new TH1D("FGDlikelihoodPiPlus","Proton Pull",40, -10, 8);
     TH1D *FGDlikelihoodNonProton = new TH1D("FGDlikelihoodNonProton","Proton Pull",40, -10, 8);
 
     TH1D *TPClikelihoodData = new TH1D("TPClikelihoodData","Proton Likelihood",20, 0, 1);
     TH1D *TPClikelihoodMuon = new TH1D("TPClikelihoodMuon","Proton Likelihood",20, 0, 1);
     TH1D *TPClikelihoodProton = new TH1D("TPClikelihoodProton","Proton Likelihood",20, 0, 1);
+    TH1D *TPClikelihoodPiPlus = new TH1D("TPClikelihoodPiPlus","Proton Likelihood",20, 0, 1);
     TH1D *TPClikelihoodNonProton = new TH1D("TPClikelihoodNonProton","Proton Likelihood",20, 0, 1);
 
+    TH1D *TPCpullData = new TH1D("TPCpullData","Proton Pull",40, -10, 8);
+    TH1D *TPCpullMuon = new TH1D("TPCpullMuon","Proton Pull",40, -10, 8);
+    TH1D *TPCpullProton = new TH1D("TPCpullProton","Proton Pull",40, -10, 8);
+    TH1D *TPCpullPiPlus = new TH1D("TPCpullPiPlus","Proton Pull",40, -10, 8);
+    TH1D *TPCpullNonProton = new TH1D("TPCpullNonProton","Proton Pull",40, -10, 8);
     
-    FGDlikelihoodData->GetXaxis()->SetTitle("Proton Pull");  
-    FGDlikelihoodData->GetXaxis()->SetTitle("Proton Likelihood"); 
+    FGDlikelihoodData->GetXaxis()->SetTitle("Proton Pull");
+    TPCpullData->GetXaxis()->SetTitle("Proton Pull");
+    TPClikelihoodData->GetXaxis()->SetTitle("Proton Likelihood"); 
 
     for(int i=0;  i<AllEvents; i++)
     {
@@ -95,14 +117,27 @@ void PullStudy()
                 if(TPCSecTId[ig]==2212)
                 {
                     TPClikelihoodProton->Fill( TPCSecPrPidLik[ig], POTweight );
+                    if(TPCSecCharge[ig]>0)TPCpullProton->Fill( TPCSecPrPull[ig], POTweight );
+
                 }
+                if(TPCSecTId[ig]==211)
+                {
+                    TPClikelihoodPiPlus->Fill( TPCSecPrPidLik[ig], POTweight );
+                    if(TPCSecCharge[ig]>0)TPCpullPiPlus->Fill( TPCSecPrPull[ig], POTweight );
+                }
+                
+                
                 if(TPCSecTId[ig]==13)
                 {
                     TPClikelihoodMuon->Fill( TPCSecPrPidLik[ig], POTweight );
+                    if(TPCSecCharge[ig]>0) TPCpullMuon->Fill( TPCSecPrPull[ig], POTweight );
+
                 }
-                if(TPCSecTId[ig]!=2212 && TPCSecTId[ig]!=13)
+                if(TPCSecTId[ig]!=2212 && TPCSecTId[ig]!=13 && TPCSecTId[ig]!=211)
                 {
                     TPClikelihoodNonProton->Fill( TPCSecPrPidLik[ig], POTweight );
+                    if(TPCSecCharge[ig]>0) TPCpullNonProton->Fill( TPCSecPrPull[ig], POTweight );
+
                 }
             }
 
@@ -112,7 +147,11 @@ void PullStudy()
                 {
                     FGDlikelihoodProton->Fill( FGDSecProtPull[ig], POTweight );
                 }
-                if(FGDSecTId[ig]!=2212)
+                if(FGDSecTId[ig]==211)
+                {
+                    FGDlikelihoodPiPlus->Fill( FGDSecProtPull[ig], POTweight );
+                }
+                if(FGDSecTId[ig]!=2212 && FGDSecTId[ig]!=2212)
                 {
                     FGDlikelihoodNonProton->Fill( FGDSecProtPull[ig], POTweight );
                 }
@@ -130,6 +169,8 @@ void PullStudy()
             for(int ig=0;  ig<NTPCSecData; ig++)
             {
                 TPClikelihoodData->Fill( TPCSecPrPidLikData[ig] );
+                if(TPCSecChargeData[ig]>0) TPCpullData->Fill( TPCSecPrPullData[ig] );
+
             }
             
             for(int ig=0;  ig<NFGDSecData; ig++)
@@ -141,33 +182,64 @@ void PullStudy()
     
     THStack *FGD_Stack= new THStack( "FGD_Stack", "FGD Proton Pull, CC Inclusive" );
     FGD_Stack->Add( FGDlikelihoodNonProton );
+    FGD_Stack->Add( FGDlikelihoodPiPlus );    
     FGD_Stack->Add( FGDlikelihoodProton );    
     
     FGDlikelihoodProton->SetFillColor(kGreen);
     FGDlikelihoodProton->SetFillStyle(3001);
     FGDlikelihoodProton->SetLineColor(kGreen);
-
-    FGDlikelihoodNonProton->SetFillColor(kRed);
+    
+    FGDlikelihoodPiPlus->SetFillColor(kBlue);
+    FGDlikelihoodPiPlus->SetFillStyle(3001);
+    FGDlikelihoodPiPlus->SetLineColor(kBlue);
+    
+    FGDlikelihoodNonProton->SetFillColor(kBlack);
     FGDlikelihoodNonProton->SetFillStyle(3001);
-    FGDlikelihoodNonProton->SetLineColor(kRed);
+    FGDlikelihoodNonProton->SetLineColor(kBlack);
     
     THStack *TPC_Stack= new THStack( "TPC_Stack", "TPC Proton Likelihood, CC Inclusive" );
     TPC_Stack->Add( TPClikelihoodNonProton );
     TPC_Stack->Add( TPClikelihoodMuon );
+    TPC_Stack->Add( TPClikelihoodPiPlus );
     TPC_Stack->Add( TPClikelihoodProton );
     
     TPClikelihoodProton->SetFillColor(kGreen);
     TPClikelihoodProton->SetFillStyle(3001);
     TPClikelihoodProton->SetLineColor(kGreen);
 
-    TPClikelihoodNonProton->SetFillColor(kRed);
+    TPClikelihoodNonProton->SetFillColor(kBlack);
     TPClikelihoodNonProton->SetFillStyle(3001);
-    TPClikelihoodNonProton->SetLineColor(kRed);
+    TPClikelihoodNonProton->SetLineColor(kBlack);
     
-    TPClikelihoodMuon->SetFillColor(kBlue);
+    TPClikelihoodPiPlus->SetFillColor(kBlue);
+    TPClikelihoodPiPlus->SetFillStyle(3001);
+    TPClikelihoodPiPlus->SetLineColor(kBlue);
+    
+    TPClikelihoodMuon->SetFillColor(kRed);
     TPClikelihoodMuon->SetFillStyle(3001);
-    TPClikelihoodMuon->SetLineColor(kBlue);
+    TPClikelihoodMuon->SetLineColor(kRed);
     
+    THStack *TPC_Stack_pull = new THStack( "TPC_Stack_pull", "TPC Proton Pull, CC Inclusive, positive tracks" );
+    TPC_Stack_pull->Add( TPCpullNonProton );
+    TPC_Stack_pull->Add( TPCpullPiPlus );
+    TPC_Stack_pull->Add( TPCpullMuon );
+    TPC_Stack_pull->Add( TPCpullProton );
+    
+    TPCpullProton->SetFillColor(kGreen);
+    TPCpullProton->SetFillStyle(3001);
+    TPCpullProton->SetLineColor(kGreen);
+
+    TPCpullPiPlus->SetFillColor(kBlue);
+    TPCpullPiPlus->SetFillStyle(3001);
+    TPCpullPiPlus->SetLineColor(kBlue);
+    
+    TPCpullNonProton->SetFillColor(kBlack);
+    TPCpullNonProton->SetFillStyle(3001);
+    TPCpullNonProton->SetLineColor(kBlack);
+    
+    TPCpullMuon->SetFillColor(kRed);
+    TPCpullMuon->SetFillStyle(3001);
+    TPCpullMuon->SetLineColor(kRed);
     
     c1->Print("protonPull.pdf[", "pdf");    
 
@@ -177,6 +249,7 @@ void PullStudy()
     TLegend *legend = new TLegend(0.75,0.75,0.9,0.9);
     legend->AddEntry(FGDlikelihoodData, "Data","pe");
     legend->AddEntry(FGDlikelihoodProton, "Proton","l");
+    legend->AddEntry(FGDlikelihoodPiPlus, "Pi+","l");
     legend->AddEntry(FGDlikelihoodNonProton, "Other","l");
     legend->SetTextSize(0.04);
     legend->Draw();
@@ -186,18 +259,37 @@ void PullStudy()
     
     c1->Print("protonPull.pdf", "pdf");
   
+    TPC_Stack_pull->Draw("");
+    TPCpullData->Draw("pe same");
+    
+    TLegend *legend2 = new TLegend(0.75,0.75,0.9,0.9);
+    legend2->AddEntry(TPCpullData, "Data","pe");
+    legend2->AddEntry(TPCpullProton, "Proton","l");
+    legend2->AddEntry(TPCpullMuon, "Muon","l");
+    legend2->AddEntry(TPCpullPiPlus, "Pi+","l");
+    legend2->AddEntry(TPCpullNonProton, "Other","l");
+    legend2->SetTextSize(0.04);
+    legend2->Draw();
+    
+    TPC_Stack_pull->GetXaxis();
+    TPC_Stack_pull->GetXaxis()->SetTitle("Proton Pull");  
+    
+    c1->Print("protonPull.pdf", "pdf");
+
+        
     c1->SetLogy();
       
     TPC_Stack->Draw("");
     TPClikelihoodData->Draw("pe same");
     
-    TLegend *legend2 = new TLegend(0.75,0.75,0.9,0.9);
-    legend2->AddEntry(TPClikelihoodData, "Data","pe");
-    legend2->AddEntry(TPClikelihoodProton, "Proton","l");
-    legend2->AddEntry(TPClikelihoodMuon, "Muon","l");
-    legend2->AddEntry(TPClikelihoodNonProton, "Other","l");
-    legend2->SetTextSize(0.04);
-    legend2->Draw();
+    TLegend *legend3 = new TLegend(0.75,0.75,0.9,0.9);
+    legend3->AddEntry(TPClikelihoodData, "Data","pe");
+    legend3->AddEntry(TPClikelihoodProton, "Proton","l");
+    legend3->AddEntry(TPClikelihoodMuon, "Muon","l");
+    legend3->AddEntry(TPClikelihoodPiPlus, "Pi+","l");
+    legend3->AddEntry(TPClikelihoodNonProton, "Other","l");
+    legend3->SetTextSize(0.04);
+    legend3->Draw();
     
     TPC_Stack->GetXaxis();
     TPC_Stack->GetXaxis()->SetTitle("Proton Likelihood");  
