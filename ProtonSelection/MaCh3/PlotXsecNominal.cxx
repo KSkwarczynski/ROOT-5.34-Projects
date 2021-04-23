@@ -53,16 +53,18 @@ void PlotXsecNominal(TString postfitfile) {
     hcov->GetXaxis()->SetLabelSize(0.015);
     hcov->GetYaxis()->SetLabelSize(0.015);
     hcov->GetZaxis()->SetLabelSize(0.015);
+    hcov->SetMarkerSize(0.3);
     hcov->GetZaxis()->SetTitle("Covariance");
     hcov->GetZaxis()->SetRangeUser(-0.10, 0.10);
-    hcov->GetXaxis()->SetRangeUser(0., 47);
-    hcov->GetYaxis()->SetRangeUser(0., 47);
+    hcov->GetXaxis()->SetRangeUser(0., n_dete);
+    hcov->GetYaxis()->SetRangeUser(0., n_dete);
     hcov->Draw("COLZ TEXT"); //Plot matrix element content
     c0->Print(Form("CorrelationMatrix_%s.pdf", "pdf"));
     
     cov_dete.GetXaxis().SetLabelSize(0.015);
     cov_dete.GetYaxis().SetLabelSize(0.015);
     cov_dete.GetZaxis().SetLabelSize(0.015);
+    cov_dete->SetMarkerSize(0.3);
     cov_dete.GetZaxis().SetTitle("Covariance");
     cov_dete.Draw("COLZ TEXT"); //Plot matrix element content
     c0->Print(Form("CorrelationMatrix_%s.pdf", "pdf"));
@@ -70,6 +72,7 @@ void PlotXsecNominal(TString postfitfile) {
     corr_dete.GetXaxis().SetLabelSize(0.015);
     corr_dete.GetYaxis().SetLabelSize(0.015);
     corr_dete.GetZaxis().SetLabelSize(0.015);
+    corr_dete->SetMarkerSize(0.3);
     corr_dete.GetZaxis().SetTitle("Correaltion");
     corr_dete.Draw("COLZ TEXT"); //Plot matrix element content
     c0->Print(Form("CorrelationMatrix_%s.pdf", "pdf"));
