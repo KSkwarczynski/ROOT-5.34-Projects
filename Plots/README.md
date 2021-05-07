@@ -36,9 +36,10 @@ Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex Carter, Kirst
    `export CUDAPATH="/srv/localstage/akaboth/cuda-7.0"` <- if you have a CUDA installation, put the path to the CUDA libraries here, if not comment this line out
    Most of the common clusters like IC, RHUL, RAL and compute canada should automatically find the right CUDA path with no edits </li>
 <li> **./setup_niwgreweight.sh** </li>
-<li> **source setup.sh** </li>
-<li> **make** </li>
+<li> * **source setup.sh** </li>
+<li> * **make** </li>
 </ol>
+
 ## Configuration File
 
 All programs can use a .cfg file to pass information to the fitter, for example:
