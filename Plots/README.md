@@ -4,7 +4,7 @@ Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex Carter, Kirst
 
 # Git instructions
 <ol>
-<li> The default branch you get when checking out MaCh3 is "main". </li>
+<li> The default branch you get when checking out MaCh3 is `main`. </li>
    <ol>
    <li> This branch is at the most recent point where the analysis had been validated for a public release </li>
    <li> Master is only ever changed by pull requests with approval from an administrator </li>
@@ -32,7 +32,7 @@ Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex Carter, Kirst
   <ol>
   <li> This is not obligatory, you can use MaCh3 without psyche </li>
   </ol>
-<li> Edit <code>setup.sh</code> if you are on a resource we don't typically use:
+<li> Edit <strong>setup.sh</strong> if you are on a resource we don't typically use:
    <code>export CUDAPATH="/srv/localstage/akaboth/cuda-7.0"</code> <- if you have a CUDA installation, put the path to the CUDA libraries here, if not comment this line out
    Most of the common clusters like IC, RHUL, RAL and compute canada should automatically find the right CUDA path with no edits </li>
 <li> <code>./setup_niwgreweight.sh</code> </li>
