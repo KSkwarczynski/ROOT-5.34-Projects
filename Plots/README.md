@@ -4,7 +4,7 @@ Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex Carter, Kirst
 
 # Git instructions
 <ol>
-<li> The default branch you get when checking out MaCh3 is `main`. </li>
+<li> The default branch you get when checking out MaCh3 is <strong>main</strong>. </li>
    <ol>
    <li> This branch is at the most recent point where the analysis had been validated for a public release </li>
    <li> Master is only ever changed by pull requests with approval from an administrator </li>
