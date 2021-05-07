@@ -2,20 +2,24 @@ Developers: Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Kirsty
 
 
 # Git instructions
-
-1) The default branch you get when checking out MaCh3 is "main". 
-   1a) This branch is at the most recent point where the analysis had been validated for a public release
-   1b) Master is only ever changed by pull requests with approval from an administrator
-2) Development work is done around the "develop" branch. 
-   2a) This branch is where work on the analysis under current preparation is being done. 
-   2b) To make changes branch off develop using a name of the format feature_XYZ, do some development, then make a pull request to merge your changes back into develop
-   2c) Changes should be merged back into develop frequently, but also checked to make sure they don't break the code for others
-3) If you're preparing an analysis that you think doesn't fit well with the above model bring it up at a MaCh3 meeting and we can discuss
-
+<ol>
+<li> The default branch you get when checking out MaCh3 is "main". </li>
+   <ol>
+   <li> This branch is at the most recent point where the analysis had been validated for a public release </li>
+   <li> Master is only ever changed by pull requests with approval from an administrator </li>
+   </ol>
+<li> Development work is done around the "develop" branch. 
+   <ol>
+   <li> This branch is where work on the analysis under current preparation is being done. </li>
+   <li> To make changes branch off develop using a name of the format feature_XYZ, do some development, then make a pull request to merge your changes back into develop. </li>
+   <li> Changes should be merged back into develop frequently, but also checked to make sure they don't break the code for others. </li>
+   </ol>
+<li> If you're preparing an analysis that you think doesn't fit well with the above model bring it up at a MaCh3 meeting and we can discuss </li>
+</ol>
 
 # MaCh3 Instructions
 
-## INSTALL
+## Install
 1) In a suitable directory run: git clone git@github.com:t2k-software/MaCh3.git
 1a) in order to do this you'll need to be a member of the t2k-software github organisation and have your ssh key set up with github
 2) Make sure you have cmake and a root install in your path
@@ -28,7 +32,7 @@ Developers: Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Kirsty
 6) source setup.sh
 7) make
 
-# CONFIGURATION FILE
+## Configuration File
 
 All programs can use a .cfg file to pass information to the fitter, for example:
 ```
@@ -42,7 +46,7 @@ SKjoint_ND280_2012 example_config.cfg
 
 For information on what can be put in the config file, look at the source code of the manager class.
 
-# GIT INSTRUCTIONS
+## GIT Instructions
 Probably the most important thing is to always work on your own branch and use pull requests to propagate any changes you want to share. You shouuld never directly work on or edit the master branch.
 
 To make your own branch, after following the installation instructions above you should do:
@@ -55,29 +59,38 @@ If you haven't used git before you are strongly advised to read Chapters 1-3 of 
 
 If you are comfortable with git but would like a quick reminder of some commonly used commands see below:
 List all the git branches in the repository (the one you are on should have a * next to it)
-   $ git branch -a
+```
+git branch -a
+```
 See the list of files modified and those staged for commit on your branch
-   $ git status
+```
+git status
+```
 Add a new file to version control or stage a modified file for commit
-   $ git add MYFILE
+```
+git add MYFILE
+```
 Commit all staged changes to the current branch
-   $ git commit -m "this message tells what I changed"
+```
+git commit -m "this message tells what I changed"
+```
 Commiting only changes the local repository, to propagate changes to the remote repository (called origin by default) you should do:
-   $ git push
+```
+git push
+```
 If you have not pushed the branch you are on before you will be given a message asking you to choose an upstream repository, if you are using the default names this can be fixed with
+```
 git push -u origin MYBRANCHNAME
+```
 To merge your commits into the master branch, open your favourite browser and go to the page :
    https://github.com/pjdunne/MaCh3
    Select your branch from the dropdown branch list, click new pull request and follow the instructions (the base branch is the one you are asking to change, and the compare branch is the one the changes are coming from)
    A list of the commits to merge is made and you should leave time for the group can look at it and comment before approving the merge request.
    Note that if you push a new commit after having done a merge request that was not approved yet, the new commits will be automatically added to the merge request.
 
-PS: some of those actions are synchronised with Slack and will appear in the mach3_github by magic so everybody can track the change easily !
+PS: some of those actions are synchronised with Slack and will appear in the `mach3_github` by magic so everybody can track the change easily !
 
-
-###################################
-# INPUTS ##########################
-###################################
+# INPUTS
 
 It is usual to keep all the inputs required in one common place for all your analysis work and use symlinks in the MaCh3 inputs directory. Scripts for doing this can be found in doc/external_files
 
@@ -86,9 +99,7 @@ The list of up to date inputs for each OA iteration can be found here: https://w
 Most of the files needed can be obtained from nextCloud or iRods
 
 
-################################################
-# OLD LIST OF INPUTS FOR REFERENCE  ############
-################################################
+# OLD LIST OF INPUTS FOR REFERENCE
 
 For ND280, at the moment we have two sets of splines: one for RHC Multi Pi and one for RHC Multi Track. Going forward we will be using RHC Multi Pi, but until this is fully validated use RHC Multi Track for SK development work.
 
