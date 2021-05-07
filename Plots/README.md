@@ -28,16 +28,16 @@ Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex Carter, Kirst
   </ol>
 <li> Make sure you have cmake and a root install in your path. </li>
 <li> You will also need to have set up your ssh key on git.t2k.org and be able to see repositories in the nd280 group git.t2k.org/nd280. </li>
-<li> <strong>./setup_psyche.sh</strong> </li>
+<li> <code>./setup_psyche.sh</code> </li>
   <ol>
   <li> This is not obligatory, you can use MaCh3 without psyche </li>
   </ol>
-<li> Edit <strong>setup.sh</strong> if you are on a resource we don't typically use:
+<li> Edit <code>setup.sh</code> if you are on a resource we don't typically use:
    <code>export CUDAPATH="/srv/localstage/akaboth/cuda-7.0"</code> <- if you have a CUDA installation, put the path to the CUDA libraries here, if not comment this line out
    Most of the common clusters like IC, RHUL, RAL and compute canada should automatically find the right CUDA path with no edits </li>
-<li> <strong>./setup_niwgreweight.sh</strong> </li>
-<li> <strong>source setup.sh</strong> </li>
-<li> <strong>make</strong> </li>
+<li> <code>./setup_niwgreweight.sh</code> </li>
+<li> <code>source setup.sh</code> </li>
+<li> <code>make</code> </li>
 </ol>
 
 ## Configuration File
