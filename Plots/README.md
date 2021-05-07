@@ -12,7 +12,7 @@ Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex Carter, Kirst
 <li> Development work is done around the "develop" branch. 
    <ol>
    <li> This branch is where work on the analysis under current preparation is being done. </li>
-   <li> To make changes branch off develop using a name of the format feature_XYZ, do some development, then make a pull request to merge your changes back into develop. </li>
+   <li> To make changes branch off develop using a name of the format <code>feature_XYZ</code>, do some development, then make a pull request to merge your changes back into develop. </li>
    <li> Changes should be merged back into develop frequently, but also checked to make sure they don't break the code for others. </li>
    </ol>
 <li> If you're preparing an analysis that you think doesn't fit well with the above model bring it up at a MaCh3 meeting and we can discuss </li>
