@@ -1,4 +1,5 @@
-Developers: Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex Carter, Kirsty Duffy, Patrick Dunne, Evan Goodman, Leila Haegel, Thomas Holvey, Asher Kaboth, Xiaoyue Liu, William Parker, Dave Payne, Patrick de Perio, Elder Pinzon, Balint Radics, Kamil Skwarczynski, Artur Sztuc, Abraham Teklu, Kevin Wood, Clarence Wret, Tomoyo Yoshida 
+# Developers
+Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex Carter, Kirsty Duffy, Patrick Dunne, Evan Goodman, Leila Haegel, Thomas Holvey, Asher Kaboth, Xiaoyue Liu, William Parker, Dave Payne, Patrick de Perio, Elder Pinzon, Balint Radics, Kamil Skwarczynski, Artur Sztuc, Abraham Teklu, Kevin Wood, Clarence Wret, Tomoyo Yoshida 
 
 
 # Git instructions
@@ -27,16 +28,16 @@ Developers: Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex C
   </ol>
 <li> Make sure you have cmake and a root install in your path. </li>
 <li> You will also need to have set up your ssh key on git.t2k.org and be able to see repositories in the nd280 group `git.t2k.org/nd280`. </li>
-<li> ``./setup_psyche.sh`` </li>
+<li> **./setup_psyche.sh** </li>
   <ol>
   <li> This is not obligatory, you can use MaCh3 without psyche </li>
   </ol>
-<li> Edit setup.sh if you are on a resource we don't typically use:
+<li> Edit **setup.sh** if you are on a resource we don't typically use:
    `export CUDAPATH="/srv/localstage/akaboth/cuda-7.0"` <- if you have a CUDA installation, put the path to the CUDA libraries here, if not comment this line out
    Most of the common clusters like IC, RHUL, RAL and compute canada should automatically find the right CUDA path with no edits </li>
-<li> ``./setup_niwgreweight.sh`` </li>
-<li> ``source setup.sh`` </li>
-<li> `make` </li>
+<li> **./setup_niwgreweight.sh** </li>
+<li> **source setup.sh** </li>
+<li> **make** </li>
 </ol>
 ## Configuration File
 
@@ -66,7 +67,7 @@ git checkout MYBRANCHNAME
 If you haven't used git before you are strongly advised to read Chapters 1-3 of https://git-scm.com/book/en/v1/Getting-Started 
 
 If you are comfortable with git but would like a quick reminder of some commonly used commands see below:
-List all the git branches in the repository (the one you are on should have a * next to it)
+List all the git branches in the repository (the one you are on should have a * next to it).
 ```
 git branch -a
 ```
@@ -100,14 +101,14 @@ PS: some of those actions are synchronised with Slack and will appear in the `ma
 
 # Inputs
 
-It is usual to keep all the inputs required in one common place for all your analysis work and use symlinks in the MaCh3 inputs directory. Scripts for doing this can be found in doc/external_files
+It is usual to keep all the inputs required in one common place for all your analysis work and use symlinks in the **MaCh3 inputs directory**. Scripts for doing this can be found in doc/external_files.
 
 The list of up to date inputs for each OA iteration can be found here: https://www.t2k.org/asg/oagroup/inputs
 
-Most of the files needed can be obtained from nextCloud or iRods
+Most of the files needed can be obtained from nextCloud or iRods.
 
 
-# Old List of Inputs for Reference
+## Old List of Inputs for Reference
 
 For ND280, at the moment we have two sets of splines: one for RHC Multi Pi and one for RHC Multi Track. Going forward we will be using RHC Multi Pi, but until this is fully validated use RHC Multi Track for SK development work.
 
@@ -117,7 +118,7 @@ http://neutsrv2.triumf.ca/neutshare/jmorrison/Final_Thesis_Inputs/RHCMultiTrack_
 
 Ask Will if either of those links don't work. Once you've got these, you may have to edit your psycheSteering.parameters.dat file to be set for RHC Multi Pi/Track. Look in doc/nd280 for some example 3b event rates to check everything's worked out the box.
 
-Even older!!!
+## Even older!!!
 
 the old inputs can be found in the music input folder on the repo:
 https://repo.nd280.org/viewvc/T2K/GlobalAnalysisTools/GlobalFitters/numuMCMC/inputs/
@@ -146,7 +147,7 @@ http://www.phy.duke.edu/~ah243/mtuple_13a_wohecut_2rpi0_weights/run1-4/
 http://www.phy.duke.edu/~ah243/mtuple_13a_wohecut_2rpi0_fitqunpi0cut_weights/run1-4/
 They have been renamed for formatting purposes, no changes to the splines were made.
 
-## 26th November 2013-- *** MOST CURRENT SPLINES
+### 26th November 2013
 Latest splines are found here. This should be the last update for the full run1-4 analysis:
 
 nue:
