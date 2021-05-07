@@ -1,4 +1,4 @@
-Developers: Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Kirsty Duffy, Patrick Dunne, Leila Haegel, Asher Kaboth, Xiaoyue Liu, William Parker, Dave Payne, Patrick de Perio, Elder Pinzon, Balint Radics, Artur Sztuc, Kevin Wood, Clarence Wret 
+Developers: Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Alex Carter, Kirsty Duffy, Patrick Dunne, Evan Goodman, Leila Haegel, Thomas Holvey, Asher Kaboth, Xiaoyue Liu, William Parker, Dave Payne, Patrick de Perio, Elder Pinzon, Balint Radics, Kamil Skwarczynski, Artur Sztuc, Abraham Teklu, Kevin Wood, Clarence Wret, Tomoyo Yoshida 
 
 
 # Git instructions
@@ -20,18 +20,24 @@ Developers: Edward Atkin, Daniel Barrow, Casey Bojechko, Richard Calland, Kirsty
 # MaCh3 Instructions
 
 ## Install
-1) In a suitable directory run: git clone git@github.com:t2k-software/MaCh3.git
-1a) in order to do this you'll need to be a member of the t2k-software github organisation and have your ssh key set up with github
-2) Make sure you have cmake and a root install in your path
-3) You will also need to have set up your ssh key on git.t2k.org and be able to see repositories in the nd280 group git.t2k.org/nd280
-3) ./setup_psyche.sh
-4) Edit setup.sh if you are on a resource we don't typically use:
-   export CUDAPATH="/srv/localstage/akaboth/cuda-7.0" <- if you have a CUDA installation, put the path to the CUDA libraries here, if not comment this line out
-   Most of the common clusters like IC, RHUL, RAL and compute canada should automatically find the right CUDA path with no edits
-5) ./setup_niwgreweight.sh   
-6) source setup.sh
-7) make
-
+<ol>
+<li> In a suitable directory run: git clone git@github.com:t2k-software/MaCh3.git </li>
+  <ol>
+  <li> in order to do this you'll need to be a member of the t2k-software github organisation and have your ssh key set up with github. </li>
+  </ol>
+<li> Make sure you have cmake and a root install in your path. </li>
+<li> You will also need to have set up your ssh key on git.t2k.org and be able to see repositories in the nd280 group 'git.t2k.org/nd280'. </li>
+<li> ./setup_psyche.sh </li>
+  <ol>
+  <li> This is not obligatory, you can use MaCh3 without psyche </li>
+  </ol>
+<li> Edit setup.sh if you are on a resource we don't typically use:
+   'export CUDAPATH="/srv/localstage/akaboth/cuda-7.0"' <- if you have a CUDA installation, put the path to the CUDA libraries here, if not comment this line out
+   Most of the common clusters like IC, RHUL, RAL and compute canada should automatically find the right CUDA path with no edits </li>
+<li> ./setup_niwgreweight.sh </li>
+<li> source setup.sh </li>
+<li> make </li>
+</ol>
 ## Configuration File
 
 All programs can use a .cfg file to pass information to the fitter, for example:
@@ -39,10 +45,12 @@ All programs can use a .cfg file to pass information to the fitter, for example:
 SKjoint_ND280_2012 example_config.cfg
 ```
 
-*** to run a toy fit, add the following 3 lines to the config file: ***
+To run a toy fit, add the following 3 lines to the config file:
+```
   TOYFIT = true
   NTOY = <n> // the toy dataset number you want to fit
   TOYFILE = "/path/to/toyfile.root" // file containing all toy datasets
+```
 
 For information on what can be put in the config file, look at the source code of the manager class.
 
@@ -90,7 +98,7 @@ To merge your commits into the master branch, open your favourite browser and go
 
 PS: some of those actions are synchronised with Slack and will appear in the `mach3_github` by magic so everybody can track the change easily !
 
-# INPUTS
+# Inputs
 
 It is usual to keep all the inputs required in one common place for all your analysis work and use symlinks in the MaCh3 inputs directory. Scripts for doing this can be found in doc/external_files
 
@@ -99,7 +107,7 @@ The list of up to date inputs for each OA iteration can be found here: https://w
 Most of the files needed can be obtained from nextCloud or iRods
 
 
-# OLD LIST OF INPUTS FOR REFERENCE
+# Old List of Inputs for Reference
 
 For ND280, at the moment we have two sets of splines: one for RHC Multi Pi and one for RHC Multi Track. Going forward we will be using RHC Multi Pi, but until this is fully validated use RHC Multi Track for SK development work.
 
@@ -138,10 +146,7 @@ http://www.phy.duke.edu/~ah243/mtuple_13a_wohecut_2rpi0_weights/run1-4/
 http://www.phy.duke.edu/~ah243/mtuple_13a_wohecut_2rpi0_fitqunpi0cut_weights/run1-4/
 They have been renamed for formatting purposes, no changes to the splines were made.
 
------------------------------------------------------------------------------------------
---26th November 2013-- *** MOST CURRENT SPLINES ***
------------------------------------------------------------------------------------------
-
+## 26th November 2013-- *** MOST CURRENT SPLINES
 Latest splines are found here. This should be the last update for the full run1-4 analysis:
 
 nue:
@@ -149,5 +154,5 @@ http://www.phy.duke.edu/~ah243/mtuple_13a_wohecut_2rpi0_weights/run1-4full/
 
 numu (KDI):
 http://www.phy.duke.edu/~tmw23/numu_analysis/splines/20131016/
------------------------------------------------------------------------------------------
+
 
