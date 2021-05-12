@@ -8,51 +8,71 @@ void PlotFSIplot(TString fname) {
     TFile *f1 = TFile::Open(fname);
 
 
-    TH1D *hFSImodeCCQEfull; 
-    TH1D *hFSImode2p2hfull; 
-    TH1D *hFSImodeRESfull; 
-    TH1D *hFSImodeOtherfull; 
+    TH1D *hFSImodeCCQE_C12;
+    TH1D *hFSImodeCCQE_O16; 
+    TH1D *hFSImode2p2h_C12; 
+    TH1D *hFSImodeRES_C12; 
 
         
-    hFSImodeCCQEfull = (TH1D*) f1->Get( "hFSImodeCCQEfull" );
-    hFSImode2p2hfull = (TH1D*) f1->Get( "hFSImode2p2hfull" );
-    hFSImodeRESfull = (TH1D*) f1->Get( "hFSImodeRESfull" );
-    hFSImodeOtherfull = (TH1D*) f1->Get( "hFSImodeOtherfull" );
+    hFSImodeCCQE_C12 = (TH1D*) f1->Get( "hFSImodeCCQE_C12" );
+    hFSImodeCCQE_O16 = (TH1D*) f1->Get( "hFSImodeCCQE_O16" );
+    hFSImode2p2h_C12 = (TH1D*) f1->Get( "hFSImode2p2h_C12" );
+    hFSImodeRES_C12 = (TH1D*) f1->Get( "hFSImodeRES_C12" );
 
-    hFSImodeCCQEfull->SetLineColor(kRed);
-    hFSImode2p2hfull->SetLineColor(kViolet);
-    hFSImodeRESfull->SetLineColor(kGreen);
+
+    hFSImodeCCQE_C12->SetLineColor(kRed);
+        hFSImodeCCQE_O16->SetLineColor(kCyan);
+    hFSImode2p2h_C12->SetLineColor(kViolet);
+    hFSImodeRES_C12->SetLineColor(kGreen);
               
-    double norm = 1/hFSImodeCCQEfull->Integral();
-    hFSImodeCCQEfull->Scale(norm);
+    double norm = 1/hFSImodeCCQE_C12->Integral();
+    hFSImodeCCQE_C12->Scale(norm);
+        
+    double norm = 1/hFSImodeCCQE_O16->Integral();
+    hFSImodeCCQE_O16->Scale(norm);
     
-    double norm = 1/hFSImode2p2hfull->Integral();
-    hFSImode2p2hfull->Scale(norm);
+    double norm = 1/hFSImode2p2h_C12->Integral();
+    hFSImode2p2h_C12->Scale(norm);
     
-    double norm = 1/hFSImodeRESfull->Integral();
-    hFSImodeRESfull->Scale(norm);
+    double norm = 1/hFSImodeRES_C12->Integral();
+    hFSImodeRES_C12->Scale(norm);
     
     
-    hFSImodeRESfull->GetXaxis()->SetRangeUser(1, 3);
-    hFSImodeRESfull->GetXaxis()->SetBinLabel(2,"no FSI");
-    hFSImodeRESfull->GetXaxis()->SetBinLabel(3,"FSI");
+    hFSImodeRES_C12->GetXaxis()->SetRangeUser(1, 3);
+    hFSImodeRES_C12->GetXaxis()->SetBinLabel(2,"no FSI");
+    hFSImodeRES_C12->GetXaxis()->SetBinLabel(3,"FSI");
     
     
     c1->Print("nucleonFSI.pdf[", "pdf");  
     
-    hFSImodeRESfull->Draw();
-    hFSImode2p2hfull->Draw("SAME");
-    hFSImodeCCQEfull->Draw("SAME");
+    hFSImodeRES_C12->Draw();
+    hFSImode2p2h_C12->Draw("SAME");
+    hFSImodeCCQE_C12->Draw("SAME");
     
     TLegend *legend = new TLegend(0.75,0.75,0.9,0.9);
-    legend->AddEntry(hFSImodeCCQEfull, "CCQE","l");
-    legend->AddEntry(hFSImode2p2hfull, "2p2h","l");
-    legend->AddEntry(hFSImodeRESfull, "RES","l");
+    legend->AddEntry(hFSImodeCCQE_C12, "CCQE","l");
+    legend->AddEntry(hFSImode2p2h_C12, "2p2h","l");
+    legend->AddEntry(hFSImodeRES_C12, "RES","l");
     legend->SetTextSize(0.04);
     legend->Draw();
     
-    c1->Print("nucleonFSI.pdf[", "pdf");
+    c1->Print("nucleonFSI.pdf", "pdf");
     
+    hFSImodeCCQE_C12->GetXaxis()->SetRangeUser(1, 3);
+    hFSImodeCCQE_C12->GetXaxis()->SetBinLabel(2,"no FSI");
+    hFSImodeCCQE_C12->GetXaxis()->SetBinLabel(3,"FSI");
+    
+    hFSImodeCCQE_C12->Draw();
+    hFSImodeCCQE_O16->Draw("SAME");
+    
+    TLegend *legend = new TLegend(0.70,0.75,0.9,0.9);
+    legend->AddEntry(hFSImodeCCQE_C12, "CCQE C12","l");
+    legend->AddEntry(hFSImodeCCQE_O16, "CCQE O16","l");
+    legend->SetTextSize(0.04);
+    legend->Draw();
+    
+    c1->Print("nucleonFSI.pdf", "pdf");
+
     c1->Print("nucleonFSI.pdf]", "pdf");  
 }
 
