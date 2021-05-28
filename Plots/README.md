@@ -26,12 +26,17 @@ Hopefully the error messages should be helpful if things cannot be found.
 ```
 ND280GenWeights -i <flat-tree> -o <outputfile_name> -c <config_file>
 ```
-*config_file* can be found in `<path>/app/Configs`
+*config_file* can be found in `<path>/app/Configs`. *config_file* determines which dial will be loaded by the app,
+as well as knots selection, through config you can also define if you want to use mirroring for splines or not.
 
 **genWeightFromPsyche** - this app will reweight psyche toy from *RunSyst_New*, output from this app
 is used for generating ND280 covariance matrix. 
 ```
 genWeightFromPsyche -i <RunSyst_New_file.root> -o <outputfile.root< -c <config.toml>
 ```
+
+Furthermore in scripts folder you can find ND280 scipts which will plot spline for each event, for particular dial, moreover you can
+can turn option to except TGraph plot TSpline3.
+
 ### SK
 This will be filled by SK expert
