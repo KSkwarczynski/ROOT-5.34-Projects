@@ -20,7 +20,7 @@ Hopefully the error messages should be helpful if things cannot be found.
 
 ## Apps
 
-# ND280
+### ND280
 
 **ND280GenWeights** - this is the main app resposnible for generating ND280 splines
 ```
@@ -33,5 +33,5 @@ is used for generating ND280 covariance matrix.
 ```
 genWeightFromPsyche -i <RunSyst_New_file.root> -o <outputfile.root< -c <config.toml>
 ```
-# SK
+### SK
 This will be filled by SK expert
