@@ -14,10 +14,10 @@ void convertTH2DToPoly (){
   const double nsamples = 1;
   TString sampleName[nsamples] = {"FGD1_numuCC_0pi_N_protons_no_photon"};
 
-  const int BinX = 15;
-  const int BinY = 12;
-  double BinArray_x[BinX+1] = {0., 450., 500., 550, 600., 650, 700., 750, 800., 900., 1000., 1200, 1500, 2000, 3000, 5000};
-  double BinArray_y[BinY+1] = {-1.,0.5, 0.6, 0.7, 0.8, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.99, 1.};
+  const int BinX = 17;
+  const int BinY = 13;
+  double BinArray_x[BinX+1] = {0., 450., 500., 550, 600., 650, 700., 750, 800., 850, 900., 1000., 1200, 1500, 2000, 3000, 5000, 30000};
+  double BinArray_y[BinY+1] = {-1., 0.5, 0.6, 0.7, 0.75, 0.8, 0.85, 0.90, 0.92, 0.94, 0.96, 0.98, 0.99, 1.};
 
   //const int BinX = 3;
   //const int BinY = 3;
