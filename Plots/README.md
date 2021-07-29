@@ -35,143 +35,147 @@ In the main reweight loop we loop over the events and calculate the weight for e
 
 <li> Make all sorts of fun plots!
 </ol>
-******************************************
 
 
-******************************************
-Description of making inputs:
-******************************************
-1) Cross-section covariance matrix (aka NIWG covariance matrix)
+#Description of making inputs:
+<ol>
+
+
+<li> Cross-section covariance matrix (aka NIWG covariance matrix)
   Use MaCh3 xsecMatrixMaker
 
-2) ND280 detector covariance matrix
+<li> ND280 detector covariance matrix
   Currently, ask BANFF!
 
-3) flux covariance matrix
+<li> flux covariance matrix
   Get it straight from the flux group and point to it in your config file
   If you're using the fluxweight from psyche you need to point to it in your psycheSteering.parameters.dat file
   Also make sure that when input MC and Sand were processed that the psycheSteering.parameters.dat file was pointing to a correct flux file
 
-4) Input Data, MC and Sand
+<li> Input Data, MC and Sand
   Probably the hardest thing to do, but fret not, here are some steps
+<ol>
+<li> First thing's first, ask the NuMu group for flat-trees that have been processed in highland. The NuMu group are now (2016ish) responsible for providing fitters with flattrees, which reduces the workload on you
+An example of finding such flattrees on iRODS can be found by doing "ils asg2018oa/NuMu/MC/run2a_FlatTree_highland2", which will give you the MC for run2a     Download all of these. If you don't know how to get iRODS it can automagically be installed by MaCh3/SetMeUp.sh. The full t2k.org documentation is at https://t2k.org/asg/oagroup/gadatastorage/index_html
 
-  a) First thing's first, ask the NuMu group for flat-trees that have been processed in highland. The NuMu group are now (2016ish) responsible for providing fitters with flattrees, which reduces the workload on you
-     An example of finding such flattrees on iRODS can be found by doing "ils asg2018oa/NuMu/MC/run2a_FlatTree_highland2", which will give you the MC for run2a
-     Download all of these. If you don't know how to get iRODS it can automagically be installed by MaCh3/SetMeUp.sh. The full t2k.org documentation is at https://t2k.org/asg/oagroup/gadatastorage/index_html
+<li> Get T2KReWeight from the T2K github at https://github.com/t2k-software/T2KReWeight (or cvs if you're old school and want to risk using deprecated code?)
 
-  b) Get T2KReWeight from the T2K github at https://github.com/t2k-software/T2KReWeight (or cvs if you're old school and want to risk using deprecated code?)
+<li> Read the instructions for installing T2KReWeight with NEUT, NIWGReWeight, psyche and highland2.
+Many instructions exist at https://www.t2k.org/asg/oagroup/tool/t2kreweight. Sadly a lot of these instructions are deprecated and old (welcome to t2k...), here's what works:
 
-  c) Read the instructions for installing T2KReWeight with NEUT, NIWGReWeight, psyche and highland2.
-     Many instructions exist at https://www.t2k.org/asg/oagroup/tool/t2kreweight. Sadly a lot of these instructions are deprecated and old (welcome to t2k...), here's what works:
+Getting NEUT and NIWGReWeight up and running:
+Read https://www.t2k.org/asg/oagroup/tool/t2kreweight/installing/installt2krewt and get NEUT and NIWGReWeight
+NEUT instructions to download and compile can be found https://www.t2k.org/asg/xsec/niwgdocs/neut/install_neut with versions at https://www.t2k.org/asg/xsec/niwgdocs/neut
+You will want to build the reweighting library because this is how we perform our reweighting at T2K
+NIWGReWeight is simply a matter of downloading the repo from cvs and building against ROOT. The installt2krewt t2k.org page works well here!
 
-     Getting NEUT and NIWGReWeight up and running:
-      Read https://www.t2k.org/asg/oagroup/tool/t2kreweight/installing/installt2krewt and get NEUT and NIWGReWeight
-      NEUT instructions to download and compile can be found https://www.t2k.org/asg/xsec/niwgdocs/neut/install_neut with versions at https://www.t2k.org/asg/xsec/niwgdocs/neut
-        You will want to build the reweighting library because this is how we perform our reweighting at T2K
-      NIWGReWeight is simply a matter of downloading the repo from cvs and building against ROOT. The installt2krewt t2k.org page works well here!
+If you encounter problems at any of these stages you're probably not alone: these packages are notoriously poorly documented. Send an email to Hayato-san, Luke Pickering, Kendall Mahn Mark Scott, Asher Kaboth, and Clarence Wret and they can probably help out. 
 
-      If you encounter problems at any of these stages you're probably not alone: these packages are notoriously poorly documented. Send an email to Hayato-san, Luke Pickering, Kendall Mahn Mark Scott, Asher Kaboth, and Clarence Wret and they can probably help out. 
+Getting oaAnalysisReader to be able to read and process the NuMu flattrees:
+https://www.t2k.org/asg/oagroup/tool/t2kreweight/installing/installt2krewt __WRONGLY__ specifies downloading GlobalAnalysisTools/example_files and running MakeProject on a nd5 root file to build the readOAanalysis library.
+Nick Hastings kindly updated this to instead use the highland2 library oaAnalysisReader. You can download this library without getting at https://repo.nd280.org/viewvc/ND280/highland2/oaAnalysisReader/ through cvs
+This will already be built if you have highland2.
+If this is your first time using ND280 software, get CMT and read the ND280 software guide to get a general idea of how CMT works.
+Build the library by cmt broadcast cmt config && cmt broadcast cmt make
+To tell T2KRW about the oaAnalysisReader install it looks for the environment variable OAANALYSISREADERROOT which gets exported when you run oaAnalysisReader/setup.sh. Be sure to set your CMTPATH variable correctly
 
-     Getting oaAnalysisReader to be able to read and process the NuMu flattrees:
-      https://www.t2k.org/asg/oagroup/tool/t2kreweight/installing/installt2krewt __WRONGLY__ specifies downloading GlobalAnalysisTools/example_files and running MakeProject on a nd5 root file to build the readOAanalysis library.
-      Nick Hastings kindly updated this to instead use the highland2 library oaAnalysisReader. You can download this library without getting at https://repo.nd280.org/viewvc/ND280/highland2/oaAnalysisReader/ through cvs
-      This will already be built if you have highland2.
-      If this is your first time using ND280 software, get CMT and read the ND280 software guide to get a general idea of how CMT works.
-      Build the library by cmt broadcast cmt config && cmt broadcast cmt make
-      To tell T2KRW about the oaAnalysisReader install it looks for the environment variable OAANALYSISREADERROOT which gets exported when you run oaAnalysisReader/setup.sh. Be sure to set your CMTPATH variable correctly
+Getting psyche to process events to make weights from NRooTrackerVtx objects:
+For psyche you need to get the nd280Psyche package, which manages the libraries in psyche. Again, if you've run with highland2 before this downloads psyche.
+The nd280Psyche package can be found at https://repo.nd280.org/viewvc/ND280/nd280Psyche
+Again, set your CMTPATH accordingly and source the nd280Psyche/cmt/setup.sh to export the environment variables.
+Build the libraries by cd nd280Psyche/VERSIONNUMBER/cmt && cmt broadcast cmt config && cmt broadcast cmt make
 
-     Getting psyche to process events to make weights from NRooTrackerVtx objects:
-      For psyche you need to get the nd280Psyche package, which manages the libraries in psyche. Again, if you've run with highland2 before this downloads psyche.
-      The nd280Psyche package can be found at https://repo.nd280.org/viewvc/ND280/nd280Psyche
-      Again, set your CMTPATH accordingly and source the nd280Psyche/cmt/setup.sh to export the environment variables.
-      Build the libraries by cd nd280Psyche/VERSIONNUMBER/cmt && cmt broadcast cmt config && cmt broadcast cmt make
+  <li> Building it all together
+You should now hopefully have T2KReWeight downloaded, NEUT and NEUTReWeight downloaded and built, NIWGReWeight downloaded and built, psyche and oaAnalysisReader downloaded and built. Now for the fun task of linking them to T2KReWeight
 
-  d) Building it all together
-    You should now hopefully have T2KReWeight downloaded, NEUT and NEUTReWeight downloaded and built, NIWGReWeight downloaded and built, psyche and oaAnalysisReader downloaded and built. Now for the fun task of linking them to T2KReWeight
+Setting up the configure file for install:
+cd to T2KReWeight, and copy the example_scripts/* into the T2KReWeight folder.
+Looking at the example_config.sh file you will see various options to turn on/off. I run with:
+<code>
+{
+    source example_setup.sh;
 
-      Setting up the configure file for install:
-        cd to T2KReWeight, and copy the example_scripts/* into the T2KReWeight folder.
-        Looking at the example_config.sh file you will see various options to turn on/off. I run with:
-        {
-            source example_setup.sh;
+    ./configure \
+        --enable-neut \
+        --with-cern=$CERN_ROOT \
+    --enable-niwg \
+    --enable-psyche \
+    --enable-oaanalysis \
+    --disable-genie \
+        --with-pythia6-lib=$PYTHIA6_LIB \
+        --with-lhapdf-inc=$LHAPDF_INC \
+        --with-lhapdf-lib=$LHAPDF_LIB \
+        --with-libxml2-inc=$LIBXML_INC \
+        --with-libxml2-lib=$LIBXML_LIB \
+        --with-log4cpp-inc=$LOG4CPP_INC \
+        --with-log4cpp-lib=$LOG4CPP_LIB \
+        --disable-geant \
+        --disable-jnubeam
+}
+</code> 
+which turns on NEUT, NIWGReWeight, psyche and oaAnalysis
 
-            ./configure \
-              --enable-neut \
-              --with-cern=$CERN_ROOT \
-            --enable-niwg \
-            --enable-psyche \
-            --enable-oaanalysis \
-            --disable-genie \
-              --with-pythia6-lib=$PYTHIA6_LIB \
-              --with-lhapdf-inc=$LHAPDF_INC \
-              --with-lhapdf-lib=$LHAPDF_LIB \
-              --with-libxml2-inc=$LIBXML_INC \
-              --with-libxml2-lib=$LIBXML_LIB \
-              --with-log4cpp-inc=$LOG4CPP_INC \
-              --with-log4cpp-lib=$LOG4CPP_LIB \
-              --disable-geant \
-              --disable-jnubeam
-        }
-        which turns on NEUT, NIWGReWeight, psyche and oaAnalysis
+The example_setup.sh should contain all of your environment variables needed to build the required libraries. Mine looks like:
+<code>
+{
+    # T2KReWeight environment variables
+    export T2KREWEIGHT=$(pwd -P)
 
-        The example_setup.sh should contain all of your environment variables needed to build the required libraries. Mine looks like:
-        {
-          # T2KReWeight environment variables
-          export T2KREWEIGHT=$(pwd -P)
+    # ROOT istall
+    source ~/vols/software/root/bin/thisroot.sh
+    export PATH=$T2KREWEIGHT/bin:$PATH:$T2KREWEIGHT/app:$ROOTSYS/bin:$PATH;
+    export LD_LIBRARY_PATH=$T2KREWEIGHT/lib:$LD_LIBRARY_PATH;
 
-          # ROOT istall
-          source ~/vols/software/root/bin/thisroot.sh
-          export PATH=$T2KREWEIGHT/bin:$PATH:$T2KREWEIGHT/app:$ROOTSYS/bin:$PATH;
-          export LD_LIBRARY_PATH=$T2KREWEIGHT/lib:$LD_LIBRARY_PATH;
+    # Setup the analysis reader
+    here=$(pwd -P)
+    export CMTPATH=~/vols/software/highland2
+    cd ${CMTPATH}/nd280Highland2/v2r28/cmt
+    #cmt broadcast cmt config
+    source setup.sh
+    cd ${here}
 
-          # Setup the analysis reader
-          here=$(pwd -P)
-          export CMTPATH=~/vols/software/highland2
-          cd ${CMTPATH}/nd280Highland2/v2r28/cmt
-          #cmt broadcast cmt config
-          source setup.sh
-          cd ${here}
+    # NEUT and CERNLIB
+    export CERN=~/ssd/CERNLIB
+    export CERN_LEVEL=2005
+    export CERN_ROOT=$CERN/$CERN_LEVEL
+    export CERNLIB=$CERN_ROOT/lib
+    export LD_LIBRARY_PATH=$CERNLIB:$LD_LIBRARY_PATH
+    export PATH=$CERN_ROOT/bin:$PATH
 
-          # NEUT and CERNLIB
-          export CERN=~/ssd/CERNLIB
-          export CERN_LEVEL=2005
-          export CERN_ROOT=$CERN/$CERN_LEVEL
-          export CERNLIB=$CERN_ROOT/lib
-          export LD_LIBRARY_PATH=$CERNLIB:$LD_LIBRARY_PATH
-          export PATH=$CERN_ROOT/bin:$PATH
+    export NEUT_ROOT=~/ssd/neut_5.3.3_Autumn2016
+    export PATH=$NEUT_ROOT/src/neutsmpl/bin:$PATH
+    export LD_LIBRARY_PATH=$NEUT_ROOT/src/reweight:$LD_LIBRARY_PATH;
 
-          export NEUT_ROOT=~/ssd/neut_5.3.3_Autumn2016
-          export PATH=$NEUT_ROOT/src/neutsmpl/bin:$PATH
-          export LD_LIBRARY_PATH=$NEUT_ROOT/src/reweight:$LD_LIBRARY_PATH;
+    # NIWG
+    export NIWG=~/vols/software/NIWGReWeight_OA
+    export LD_LIBRARY_PATH=${NIWG}:$LD_LIBRARY_PATH;
+    export NIWGREWEIGHT_INPUTS=${NIWG}/inputs
+}
+</code> 
+Then simply do source example_config.sh && make clean && make
 
-          # NIWG
-          export NIWG=~/vols/software/NIWGReWeight_OA
-          export LD_LIBRARY_PATH=${NIWG}:$LD_LIBRARY_PATH;
-          export NIWGREWEIGHT_INPUTS=${NIWG}/inputs
-        }
+Hopefully this builds everything "just fine", but it's likely that some of the libraries won't be linked properly, or that there's some version mismatched
+For an example, in Feb 2018 I used the official NEUT 5.3.3 version for the analysis, which did not include axial form factors enumerators, required in src/T2KNeutUtils.cxx. So I had had to comment out those parts of T2KNeutUtils.cxx (since they aren't used in our analysis this year).
+If you're having build issues, check the libraries and includes you're linking against and make sure the build configure was correct by looking at make/Make.config
 
-        Then simply do source example_config.sh && make clean && make
+<li> Making the input Data and MC
+You should now be able to run executables like genWeightsFromNRooTracker_BANFF_2017 in T2KReWeight/app.
+do ./genWeightsFromNRooTracker_BANFF_2017 to get what options you should provide to the executable
+The input files (-p option) are the files provided by the NuMu group, which psyche reads and processes to produce detector weights and flux weights.
+As stressed before, be careful to use an appropriate psycheSteering.parameters.dat file in your $PSYCHESTEERINGROOT install. If you don't know what this means, ask Mark Scott, Asher Kaboth, Alexandr Izmaylov, Anselmo Cervera, Simon Bienstock or Clarence Wret.
 
-        Hopefully this builds everything "just fine", but it's likely that some of the libraries won't be linked properly, or that there's some version mismatched
-        For an example, in Feb 2018 I used the official NEUT 5.3.3 version for the analysis, which did not include axial form factors enumerators, required in src/T2KNeutUtils.cxx. So I had had to comment out those parts of T2KNeutUtils.cxx (since they aren't used in our analysis this year).
-        If you're having build issues, check the libraries and includes you're linking against and make sure the build configure was correct by looking at make/Make.config
+</ol>
+A valid run of the executable on MC file NuMu_file.root with output file NuMu_file_output.root would be 
 
-    e) Making the input Data and MC
-      You should now be able to run executables like genWeightsFromNRooTracker_BANFF_2017 in T2KReWeight/app.
-      do ./genWeightsFromNRooTracker_BANFF_2017 to get what options you should provide to the executable
-      The input files (-p option) are the files provided by the NuMu group, which psyche reads and processes to produce detector weights and flux weights.
-      As stressed before, be careful to use an appropriate psycheSteering.parameters.dat file in your $PSYCHESTEERINGROOT install. If you don't know what this means, ask Mark Scott, Asher Kaboth, Alexandr Izmaylov, Anselmo Cervera, Simon Bienstock or Clarence Wret.
+<code>./genWeightsFromNRooTracker_BANFF_2017 -p NuMu_file.root -o NuMu_file_output.root -r MC</code> 
 
-      A valid run of the executable on MC file NuMu_file.root with output file NuMu_file_output.root would be 
-        ./genWeightsFromNRooTracker_BANFF_2017 -p NuMu_file.root -o NuMu_file_output.root -r MC
+You can then use hadd to collect the files and cut them into runs (e.g. Run2a, 2w, 4a)
 
-      You can then use hadd to collect the files and cut them into runs (e.g. Run2a, 2w, 4a)
+You should now have output files that have been processed through psyche and T2KReWeight to give you nominal detector weight corrections, flux corrections and splines from NEUT and NIWGReWeight!
 
-    You should now have output files that have been processed through psyche and T2KReWeight to give you nominal detector weight corrections, flux corrections and splines from NEUT and NIWGReWeight!
-
-    This are then the inputs for the ND280 code in MaCh3, see MaCh3/samplePDF/samplePDFND2018.cpp, searching for SampleGroup. 
+This are then the inputs for the ND280 code in MaCh3, see MaCh3/samplePDF/samplePDFND2018.cpp, searching for SampleGroup. 
       
-
+</ol>
 
 # Running Executables and Making post-fit plots:
 
@@ -334,5 +338,6 @@ The TH2Poly templates should be saved within the BANFFs NDDetCov file, so there'
 
 
 **Flux Cov:**
+
 Usually just get from beam group and lob in `inputs`. Make sure psyche is using the correct tuning version in `psyche/psycheND280_utils/v*r*/parameters/psycheND280Utils.parameters.dat`
 
