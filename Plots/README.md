@@ -91,63 +91,61 @@ You should now hopefully have T2KReWeight downloaded, NEUT and NEUTReWeight down
 Setting up the configure file for install:
 cd to T2KReWeight, and copy the example_scripts/* into the T2KReWeight folder.
 Looking at the example_config.sh file you will see various options to turn on/off. I run with:
-<code>
-source example_setup.sh;
-./configure \
-    --enable-neut \
-    --with-cern=$CERN_ROOT \
---enable-niwg \
---enable-psyche \
---enable-oaanalysis \
---disable-genie \
-    --with-pythia6-lib=$PYTHIA6_LIB \
-    --with-lhapdf-inc=$LHAPDF_INC \
-    --with-lhapdf-lib=$LHAPDF_LIB \
-    --with-libxml2-inc=$LIBXML_INC \
-    --with-libxml2-lib=$LIBXML_LIB \
-    --with-log4cpp-inc=$LOG4CPP_INC \
-    --with-log4cpp-lib=$LOG4CPP_LIB \
-    --disable-geant \
-    --disable-jnubeam
-</code> 
+    source example_setup.sh;
+
+    ./configure \
+        --enable-neut \
+        --with-cern=$CERN_ROOT \
+    --enable-niwg \
+    --enable-psyche \
+    --enable-oaanalysis \
+    --disable-genie \
+        --with-pythia6-lib=$PYTHIA6_LIB \
+        --with-lhapdf-inc=$LHAPDF_INC \
+        --with-lhapdf-lib=$LHAPDF_LIB \
+        --with-libxml2-inc=$LIBXML_INC \
+        --with-libxml2-lib=$LIBXML_LIB \
+        --with-log4cpp-inc=$LOG4CPP_INC \
+        --with-log4cpp-lib=$LOG4CPP_LIB \
+        --disable-geant \
+        --disable-jnubeam
+
 which turns on NEUT, NIWGReWeight, psyche and oaAnalysis
 
 The example_setup.sh should contain all of your environment variables needed to build the required libraries. Mine looks like:
 
-<code>
-# T2KReWeight environment variables
-export T2KREWEIGHT=$(pwd -P)
+    # T2KReWeight environment variables
+    export T2KREWEIGHT=$(pwd -P)
 
-# ROOT istall
-source ~/vols/software/root/bin/thisroot.sh
-export PATH=$T2KREWEIGHT/bin:$PATH:$T2KREWEIGHT/app:$ROOTSYS/bin:$PATH;
-export LD_LIBRARY_PATH=$T2KREWEIGHT/lib:$LD_LIBRARY_PATH;
+    # ROOT istall
+    source ~/vols/software/root/bin/thisroot.sh
+    export PATH=$T2KREWEIGHT/bin:$PATH:$T2KREWEIGHT/app:$ROOTSYS/bin:$PATH;
+    export LD_LIBRARY_PATH=$T2KREWEIGHT/lib:$LD_LIBRARY_PATH;
 
-# Setup the analysis reader
-here=$(pwd -P)
-export CMTPATH=~/vols/software/highland2
-cd ${CMTPATH}/nd280Highland2/v2r28/cmt
-#cmt broadcast cmt config
-source setup.sh
-cd ${here}
+    # Setup the analysis reader
+    here=$(pwd -P)
+    export CMTPATH=~/vols/software/highland2
+    cd ${CMTPATH}/nd280Highland2/v2r28/cmt
+    #cmt broadcast cmt config
+    source setup.sh
+    cd ${here}
 
-# NEUT and CERNLIB
-export CERN=~/ssd/CERNLIB
-export CERN_LEVEL=2005
-export CERN_ROOT=$CERN/$CERN_LEVEL
-export CERNLIB=$CERN_ROOT/lib
-export LD_LIBRARY_PATH=$CERNLIB:$LD_LIBRARY_PATH
-export PATH=$CERN_ROOT/bin:$PATH
+    # NEUT and CERNLIB
+    export CERN=~/ssd/CERNLIB
+    export CERN_LEVEL=2005
+    export CERN_ROOT=$CERN/$CERN_LEVEL
+    export CERNLIB=$CERN_ROOT/lib
+    export LD_LIBRARY_PATH=$CERNLIB:$LD_LIBRARY_PATH
+    export PATH=$CERN_ROOT/bin:$PATH
 
-export NEUT_ROOT=~/ssd/neut_5.3.3_Autumn2016
-export PATH=$NEUT_ROOT/src/neutsmpl/bin:$PATH
-export LD_LIBRARY_PATH=$NEUT_ROOT/src/reweight:$LD_LIBRARY_PATH;
+    export NEUT_ROOT=~/ssd/neut_5.3.3_Autumn2016
+    export PATH=$NEUT_ROOT/src/neutsmpl/bin:$PATH
+    export LD_LIBRARY_PATH=$NEUT_ROOT/src/reweight:$LD_LIBRARY_PATH;
 
-# NIWG
-export NIWG=~/vols/software/NIWGReWeight_OA
-export LD_LIBRARY_PATH=${NIWG}:$LD_LIBRARY_PATH;
-export NIWGREWEIGHT_INPUTS=${NIWG}/inputs
-</code> 
+    # NIWG
+    export NIWG=~/vols/software/NIWGReWeight_OA
+    export LD_LIBRARY_PATH=${NIWG}:$LD_LIBRARY_PATH;
+    export NIWGREWEIGHT_INPUTS=${NIWG}/inputs
 
 Then simply do source example_config.sh && make clean && make
 
