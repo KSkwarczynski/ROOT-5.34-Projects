@@ -172,12 +172,8 @@ Description of making inputs:
     This are then the inputs for the ND280 code in MaCh3, see MaCh3/samplePDF/samplePDFND2018.cpp, searching for SampleGroup. 
       
 
-******************************************
 
-
-******************************************
-Running Executables and Making post-fit plots:
-******************************************
+# Running Executables and Making post-fit plots:
 
 
 MaCh3 ND Executables and Plotting Scripts
@@ -186,152 +182,157 @@ How to run the ND side of MaCh3. Focus is on which executables/scripts to use, r
 
 
 Submit job to cluster:
+```
+./clusters/submit_ND280.sh ExecutableName config.cfg JobName NumberOfJobs NumberOfSteps
+```
+You may have to add your own clusters into the script, and adapt load up + s/step for the Walltime
+
+
+**Running a fit:**
+```
+ND280_MCMC_2019 ./config.cfg
+```
+Initially loads up samplePDF, systematics, data. Reweighta MC to prior values. Then start a Markov Chain
+
+Output contains TTree 'posteriors'. In this is every parameter value for every step, and each contribution to the LLH for every step
+
+
+**Plotting Postfit Parameter Values and Distributions:**
+```
+cd nd280_utils
+./DrawComp FitOutput.root
+```
+This draws 1D distribution for each flux and cross-section parameter, and a plot of them all at the end. Saved in a root and pdf file
+
+To make correlations:
+```
+./DrawComp FitOutput.root drawcorr
+```
+And to compare Fits:
+```
+./DrawComp FitOutput1.root FitOutput2.root (FitOutput3.root)
+```
+For nicer more aesthetic plots, run over the root file output of DrawComp:
+```
+GetAsimovPlots_HPDOnly.C("DrawCompOutput.root")
+```
+Uses Higher Posterior Density for each parameter. This has some hardcoding in for eg scaling Eb, plotting a higher z axis for CC Misc. DrawComp and GetAsimovPlots_HPDOnly could be combined. 
+	 
+Can compare two DrawComp outputs:
+```
+GetAsimovPlots_HPDOnly2Fits.C("DrawCompOutput1.root","DrawCompOutput2.root")
+```
+This could also be combined into one nice exec with GetAsimovPlots_HPD and DrawComp
+
+
+**Chain Diagnostics:**
+```
+cd nd280_utils`	
+./DiagMCMC FitOutput.root
+```
+This makes parameter traces, LLH trace, batched means, and auto correlations. Very useful for testing chain convergence and step size tuning. Output is a root file with plots in directories. To put every plot in a pdf:
+```
+loopit.C("DiagMCMCOutput.root")
+```
+Loopit is a generic script which just takes in a root file, loops through everything in the file (recursively over directories), and plots any TH1, TH2, or canvas.
+
+
+**Posterior Predictions:**
+```
+ND280_PosteriorPredictive_2016 config.cfg
+```
+In the config you specify the OutputChain.root you want to run over. The executable draws 20000 random steps, reweights the MC to each step. Then for each sample for each bin you have 20000 bin contents. Fit a guassian and take the central value and uncertainty as the bin contents and error for that bin in the prediction. Also throws and compares to make p values. NOTE: Will is in process of updating this for OA 2020 to use TH2Polys
+
+Again can save plots to pdf with:
+```
+loopit.C("PosteriorPredictionOutput.root")
+```
+
+**LLH Scans:**
+```
+    ND280_LLHscan_2019 config.cfg
+```
+Loads up stuff in similar way to ND280_MCMC_2019. Then scrolls through parameters one by one, setting them each to 150 different values between +/-1sigma, while everything else is nominal. Reweights MC to each value and calculates the LLH. Output is a root file with plot of LLH vs parameter value for every parameter, and every LLH contribution
+
+Can loop over file to get pdf of output with:
+```
+    loopit.C("LLHScanOutput.root")
+```
+Or to compare two different LLH Scans:
+```
+loopdir.C("LLHScanOutput1.root","LLHScanOutput2.root")
+```
+Watch out for hard coding of eg not plotting NDDet parameters if it's not what you intend.
+
+Or, to compare a MaCh3 LLH Scan with a BANFF LLH Scan:
+```
+    BANFF_MaCh3_LLH_comp BANFFLLHScan.root MaCh3LLHScan.root
+```
+This is hard coded for the current NIWG Model. Also need to be careful of parameter order. BANFF have FSI at the beginning as they don't use them in their PCA. We have FSI at the end so there's some shuffling.
+
+
+**Sigma Variations:**
+```
+ND280_SigmaVar_2019 config.cfg
+```
+
+Loads up stuff in similar way to MCMC and LLHscan. Then sets each parameter one by one to +/- 1,3 sigma and reweights MC with everything else nominal. Integrals for each sample are printed to the log file. Usually we send that log file to the BANFF and they make a nice latex comparison table.
+
+Can plot ratios of +/-1,3 sigma to nominal for each parameter with:
+```
+      cd nd280_utils
+      compareSigVar.C("OutputSigmaVar.root")
+```
 
-       ./clusters/submit_ND280.sh ExecutableName config.cfg JobName NumberOfJobs NumberOfSteps
+Currently assumes you ran with `plotbymode=true` in the config (which only plots 2p2h as well as all in sigma var). So there's some hard coding to loop over the 2p2h only histograms. Does this using a counter of histograms in each directory as can't just use 2p2h suffix as an identifier as some parameters end like that. Makes a root file and pdf of all the ratio plots.
 
-       You may have to add your own clusters into the script, and adapt load up + s/step for the Walltime
 
+**TH2Poly Making:**
 
-Running a fit:
+In the config you can set POLYFILE. In that file should be 18 TH2Polys named appropriately for each sample. Look in `inputs` for an example. These are then used as templates for the fit binning. Maybe you want to make such a file but with TH2D binning for some validations. Firstly make some histograms with:
+```
+cd nd280_utils
+`makeTH2D.C()
+```
 
-	`ND280_MCMC_2019 ./config.cfg`
+Inside makeTH2D the binning is hard coded for each axis for each sample. Just set them to be whatever you want and it makes a root file with 18 TH2Ds. These can then be converted to TH2Polys by:
+```
+convertTH2DToPoly.C()
+```
 
-	Initially loads up samplePDF, systematics, data. Reweighta MC to prior values. Then start a Markov Chain
+You'll have to set the input and output files by hand in the script, but it just spits out 18 TH2Polys with the same rectangular binning as for the input TH2D file. 
 
-	Output contains TTree 'posteriors'. In this is every parameter value for every step, and each contribution to the LLH for every step
+But now let's say you've run with uniform binning but a TH2Poly object, and you want to convert back to TH2D for eg comparisons with BANFF. Just do:
+```
+convertPolytoTH2D.C("TH2PolyFile.root")
+```
 
+As long as each poly has uniform rectangular binning, it will convert it to a TH2D with the same bin contents.
 
-Plotting Postfit Parameter Values and Distributions:
+NOTE: When these were written they were never intended to be committed so aren't as generic as they could/should be. 
 
-	 `cd nd280_utils`
-	 `./DrawComp FitOutput.root`
 
-	 This draws 1D distribution for each flux and cross-section parameter, and a plot of them all at the end. Saved in a root and pdf file
+**Xsec Cov:**
 
-	 To make correlations:
+Firstly make a nice xml file to reflect the NIWGs latest model. Examples are in `nd280_utils/xsecMatrixMaker/`. Then make it into the root file with:
+```
+cd nd280_utils/xsecMatrixMaker
+makeXSecMatrix.py xseccov.xml xseccov.root
+```
+Then send round to your friendly fellow analysers. 
 
-	 `./DrawComp FitOutput.root drawcorr`
 
-	 And to compare Fits:
+**NDDet Cov:**
 
-	 `./DrawComp FitOutput1.root FitOutput2.root (FitOutput3.root)`
+Normally the BANFF make this and we just convert it into a format compatible with MaCh3. For 2020, Will made them inside the BANFF and made it be able to TH2Poly Binning. Hopefully that's what was used to make yours as then you can convert with:
+```
+cd nd280_utils/xsecMatrixMaker
+ConvertPolyND280Bin banffNDCov.root
+```
+     
+The TH2Poly templates should be saved within the BANFFs NDDetCov file, so there's no hard coding of binning anymore.
 
-	 For nicer more aesthetic plots, run over the root file output of DrawComp:
 
-	 `GetAsimovPlots_HPDOnly.C("DrawCompOutput.root")`
-
-	 Uses Higher Posterior Density for each parameter. This has some hardcoding in for eg scaling Eb, plotting a higher z axis for CC Misc. DrawComp and GetAsimovPlots_HPDOnly could be combined. 
-
-	 Can compare two DrawComp outputs:
-
-	 `GetAsimovPlots_HPDOnly2Fits.C("DrawCompOutput1.root","DrawCompOutput2.root")`
-
-	 This could also be combined into one nice exec with GetAsimovPlots_HPD and DrawComp
-
-
-Chain Diagnostics:
-
-      `cd nd280_utils`	
-      `./DiagMCMC FitOutput.root`
-
-      This makes parameter traces, LLH trace, batched means, and auto correlations. Very useful for testing chain convergence and step size tuning. Output is a root file with plots in directories. To put every plot in a pdf:
-
-      `loopit.C("DiagMCMCOutput.root")`
-
-      Loopit is a generic script which just takes in a root file, loops through everything in the file (recursively over directories), and plots any TH1, TH2, or canvas.
-
-
-Posterior Predictions:
-
-	  `ND280_PosteriorPredictive_2016 config.cfg`
-
-	  In the config you specify the OutputChain.root you want to run over. The executable draws 20000 random steps, reweights the MC to each step. Then for each sample for each bin you have 20000 bin contents. Fit a guassian and take the central value and uncertainty as the bin contents and error for that bin in the prediction. Also throws and compares to make p values. NOTE: Will is in process of updating this for OA 2020 to use TH2Polys
-
-	  Again can save plots to pdf with:
-
-	  `loopit.C("PosteriorPredictionOutput.root")`
-
-
-LLH Scans:
-
-    `ND280_LLHscan_2019 config.cfg`
-
-    Loads up stuff in similar way to ND280_MCMC_2019. Then scrolls through parameters one by one, setting them each to 150 different values between +/-1sigma, while everything else is nominal. Reweights MC to each value and calculates the LLH. Output is a root file with plot of LLH vs parameter value for every parameter, and every LLH contribution
-
-    Can loop over file to get pdf of output with:
-
-    `loopit.C("LLHScanOutput.root")`
-
-    Or to compare two different LLH Scans:
-
-    `loopdir.C("LLHScanOutput1.root","LLHScanOutput2.root")`
-
-    Watch out for hard coding of eg not plotting NDDet parameters if it's not what you intend.
-
-    Or, to compare a MaCh3 LLH Scan with a BANFF LLH Scan:
-
-    `BANFF_MaCh3_LLH_comp BANFFLLHScan.root MaCh3LLHScan.root`
-
-    This is hard coded for the current NIWG Model. Also need to be careful of parameter order. BANFF have FSI at the beginning as they don't use them in their PCA. We have FSI at the end so there's some shuffling.
-
-
-Sigma Variations:
-
-      `ND280_SigmaVar_2019 config.cfg`
-
-      Loads up stuff in similar way to MCMC and LLHscan. Then sets each parameter one by one to +/- 1,3 sigma and reweights MC with everything else nominal. Integrals for each sample are printed to the log file. Usually we send that log file to the BANFF and they make a nice latex comparison table.
-
-      Can plot ratios of +/-1,3 sigma to nominal for each parameter with:
-
-      `cd nd280_utils`
-      `compareSigVar.C("OutputSigmaVar.root")`
-
-      Currently assumes you ran with `plotbymode=true` in the config (which only plots 2p2h as well as all in sigma var). So there's some hard coding to loop over the 2p2h only histograms. Does this using a counter of histograms in each directory as can't just use 2p2h suffix as an identifier as some parameters end like that. Makes a root file and pdf of all the ratio plots.
-
-
-TH2Poly Making:
-
-	In the config you can set POLYFILE. In that file should be 18 TH2Polys named appropriately for each sample. Look in `inputs` for an example. These are then used as templates for the fit binning. Maybe you want to make such a file but with TH2D binning for some validations. Firstly make some histograms with:
-
-	`cd nd280_utils`
-	`makeTH2D.C()`
-
-	Inside makeTH2D the binning is hard coded for each axis for each sample. Just set them to be whatever you want and it makes a root file with 18 TH2Ds. These can then be converted to TH2Polys by:
-
-	`convertTH2DToPoly.C()`
-
-	You'll have to set the input and output files by hand in the script, but it just spits out 18 TH2Polys with the same rectangular binning as for the input TH2D file. 
-
-	But now let's say you've run with uniform binning but a TH2Poly object, and you want to convert back to TH2D for eg comparisons with BANFF. Just do:
-
-	`convertPolytoTH2D.C("TH2PolyFile.root")`
-
-	As long as each poly has uniform rectangular binning, it will convert it to a TH2D with the same bin contents.
-
-	NOTE: When these were written they were never intended to be committed so aren't as generic as they could/should be. 
-
-
-Xsec Cov:
-
-     Firstly make a nice xml file to reflect the NIWGs latest model. Examples are in `nd280_utils/xsecMatrixMaker/``. Then make it into the root file with:
-
-     `cd nd280_utils/xsecMatrixMaker`
-     `makeXSecMatrix.py xseccov.xml xseccov.root`
-
-     Then send round to your friendly fellow analysers. 
-
-
-NDDet Cov:
-
-      Normally the BANFF make this and we just convert it into a format compatible with MaCh3. For 2020, Will made them inside the BANFF and made it be able to TH2Poly Binning. Hopefully that's what was used to make yours as then you can convert with:
-
-      `cd nd280_utils/xsecMatrixMaker`
-      `ConvertPolyND280Bin banffNDCov.root`
-
-      The TH2Poly templates should be saved within the BANFFs NDDetCov file, so there's no hard coding of binning anymore.
-
-
-Flux Cov:
-
-     Usually just get from beam group and lob in `inputs`. Make sure psyche is using the correct tuning version in `psyche/psycheND280_utils/v*r*/parameters/psycheND280Utils.parameters.dat`
+**Flux Cov:**
+Usually just get from beam group and lob in `inputs`. Make sure psyche is using the correct tuning version in `psyche/psycheND280_utils/v*r*/parameters/psycheND280Utils.parameters.dat`
 
