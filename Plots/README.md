@@ -37,7 +37,7 @@ In the main reweight loop we loop over the events and calculate the weight for e
 </ol>
 
 
-#Description of making inputs:
+# Description of making inputs:
 <ol>
 
 
@@ -85,7 +85,7 @@ The nd280Psyche package can be found at https://repo.nd280.org/viewvc/ND280/nd28
 Again, set your CMTPATH accordingly and source the nd280Psyche/cmt/setup.sh to export the environment variables.
 Build the libraries by cd nd280Psyche/VERSIONNUMBER/cmt && cmt broadcast cmt config && cmt broadcast cmt make
 
-  <li> Building it all together
+<li> Building it all together
 You should now hopefully have T2KReWeight downloaded, NEUT and NEUTReWeight downloaded and built, NIWGReWeight downloaded and built, psyche and oaAnalysisReader downloaded and built. Now for the fun task of linking them to T2KReWeight
 
 Setting up the configure file for install:
@@ -254,13 +254,13 @@ loopit.C("PosteriorPredictionOutput.root")
 
 **LLH Scans:**
 ```
-    ND280_LLHscan_2019 config.cfg
+ND280_LLHscan_2019 config.cfg
 ```
 Loads up stuff in similar way to ND280_MCMC_2019. Then scrolls through parameters one by one, setting them each to 150 different values between +/-1sigma, while everything else is nominal. Reweights MC to each value and calculates the LLH. Output is a root file with plot of LLH vs parameter value for every parameter, and every LLH contribution
 
 Can loop over file to get pdf of output with:
 ```
-    loopit.C("LLHScanOutput.root")
+loopit.C("LLHScanOutput.root")
 ```
 Or to compare two different LLH Scans:
 ```
@@ -270,7 +270,7 @@ Watch out for hard coding of eg not plotting NDDet parameters if it's not what y
 
 Or, to compare a MaCh3 LLH Scan with a BANFF LLH Scan:
 ```
-    BANFF_MaCh3_LLH_comp BANFFLLHScan.root MaCh3LLHScan.root
+BANFF_MaCh3_LLH_comp BANFFLLHScan.root MaCh3LLHScan.root
 ```
 This is hard coded for the current NIWG Model. Also need to be careful of parameter order. BANFF have FSI at the beginning as they don't use them in their PCA. We have FSI at the end so there's some shuffling.
 
@@ -284,8 +284,8 @@ Loads up stuff in similar way to MCMC and LLHscan. Then sets each parameter one 
 
 Can plot ratios of +/-1,3 sigma to nominal for each parameter with:
 ```
-      cd nd280_utils
-      compareSigVar.C("OutputSigmaVar.root")
+cd nd280_utils
+compareSigVar.C("OutputSigmaVar.root")
 ```
 
 Currently assumes you ran with `plotbymode=true` in the config (which only plots 2p2h as well as all in sigma var). So there's some hard coding to loop over the 2p2h only histograms. Does this using a counter of histograms in each directory as can't just use 2p2h suffix as an identifier as some parameters end like that. Makes a root file and pdf of all the ratio plots.
