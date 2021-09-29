@@ -60,7 +60,7 @@ echo "////////////////////////////" >> $filename
 echo "XSECCOVFILE = \"inputs/$XSEC_COV_FILE\"" >> $filename
 echo "NDDETCOVFILE = \"inputs/$ND_DETCOV_FILE\"" >> $filename
 echo "// Which are flat?" >> $filename
-echo "XSECPARAMFLAT = [20,21,22,23,25,26,27,28,42,55,56,57,74]" >> $filename
+echo "XSECPARAMFLAT = [20,21,22,23,25,26,27,28,42,74]" >> $filename
 echo "// Which are fixed?" >> $filename
 echo "XSECPARAMFIX = [36]" >> $filename
 echo "// Which parameters are linear: Pauli Blocking dials need linear response" >> $filename
