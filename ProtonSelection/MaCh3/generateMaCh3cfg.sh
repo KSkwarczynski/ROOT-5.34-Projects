@@ -23,6 +23,14 @@ echo "POLYFILE = \"inputs/$POLYFILE\"" >> $filename
 echo "ND_LIKELIHOOD = \"Barlow-Beeston\"" >> $filename
 echo "  " >> $filename
 
+echo "// Save the logger output in mcmc/mcmc.cpp" >> $filename
+echo "SUMMARY = false" >> $filename
+echo "// Save the nominal" >> $filename
+echo "SAVENOM = false" >> $filename
+echo "// Save mode by mode at ND280" >> $filename
+echo "PLOT_BY_MODE = false" >> $filename
+
+
 echo "////////////////////////////" >> $filename
 echo "// MCMC settings" >> $filename
 echo "////////////////////////////" >> $filename
