@@ -9,7 +9,9 @@ void PlotXsecNominal(TString postfitfile) {
     gStyle->SetOptTitle(0);
     
     gStyle->SetPaintTextFormat("4.1f"); //Precision of value in matrix element
-
+    //gStyle->SetPaintTextFormat("5.2f");
+    //gStyle->SetPaintTextFormat("6.3f");
+	
     c0->SetTickx();
     c0->SetTicky();
     c0->SetLeftMargin(0.1);
