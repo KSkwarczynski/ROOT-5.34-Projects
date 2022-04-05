@@ -61,14 +61,7 @@ int MaCh3_MaCh3_LLH_comp(std::string BANFFFile, std::string MaCh3File) {
   std::vector<std::string> BANFFNames = MakeMaCh3Names();
   std::vector<std::string> MaCh3Names = MakeMaCh3Names();
 
-  // BANFF and MaCh3 have different values for nominal
-  // In BANFF we always use the spline value for the parameter value, so MAQE = 0 means MAQE nominal
-  // In MaCh3 we instead have everything relative nominal, so MAQE = 1 means nominal
-  // To get the nominal values we read from file instead of hard-coding our life
-  // These are also re-ordered to put FSI before the xsec, like BANFF do
-  std::vector<double> XSecNominals = GetXSecNominal();
-  int XsecParams = GetXSecNominal().size();
-  std::cout << XsecParams << std::endl;
+
   // Now need to map these onto MaCh3 names somehow...
   unsigned int Params = BANFFNames.size();
   int nXsec = 0;
@@ -79,13 +72,13 @@ int MaCh3_MaCh3_LLH_comp(std::string BANFFFile, std::string MaCh3File) {
     //std::cout << "Getting " << BANFFNames[i] << std::endl;
     //TGraph *BANFFGraph = (TGraph*)(BANFF->Get(BANFFNames[i].c_str())->Clone());
 
-    BANFFNames[i] += "_full";
-    std::string TempPath = "Total_LLH/"+BANFFNames[i];
+    BANFFNames[i] += "_sam";
+    std::string TempPath = "Sample_LLH/"+BANFFNames[i];
     std::cout << "Getting " << BANFFNames[i] << std::endl;
     TH1D *BANFFGraph = (TH1D*)( BANFF->Get(TempPath.c_str()) );
     
-    MaCh3Names[i] += "_full";
-    std::string TempPath = "Total_LLH/"+MaCh3Names[i];
+    MaCh3Names[i] += "_sam";
+    std::string TempPath = "Sample_LLH/"+MaCh3Names[i];
     std::cout << "Getting " << MaCh3Names[i] << std::endl;
     TH1D *MaCh3Graph = (TH1D*)( MaCh3->Get(TempPath.c_str()) );
 
@@ -166,7 +159,7 @@ int MaCh3_MaCh3_LLH_comp(std::string BANFFFile, std::string MaCh3File) {
     BANFFGraph->SetLineWidth(3);
     BANFFGraph->SetLineColor(kRed);
     BANFFGraph->GetXaxis()->SetTitle("Variation");
-    BANFFGraph->GetYaxis()->SetTitle("-2LLH_{sample}-2LLH_{flux}-2LLH_{xsec}-2LLH_{ND}");
+    BANFFGraph->GetYaxis()->SetTitle("-2LLH_{sample}");
     //BANFFGraph->GetYaxis()->SetTitle("-2LLH_{FULL}");
 
     MaCh3Graph->SetTitle(MaCh3Names[i].c_str());
@@ -179,8 +172,8 @@ int MaCh3_MaCh3_LLH_comp(std::string BANFFFile, std::string MaCh3File) {
       
     // Add a legend
     TLegend *leg = new TLegend(0.35, 0.5, 0.8, 0.75);
-    leg->AddEntry(BANFFGraph, "DEFAULT", "l");
-    leg->AddEntry(MaCh3Graph, "PROTON", "l");
+    leg->AddEntry(BANFFGraph, "Updated Uniform", "l");
+    leg->AddEntry(MaCh3Graph, "Old Uniform", "l");
     leg->SetFillColor(0);
     leg->SetFillStyle(0);
     leg->SetLineWidth(0);
@@ -202,43 +195,54 @@ std::vector<std::string> MakeMaCh3Names() {
   // *******************
 
   std::vector<std::string> NameVector;
-  // The beam parameters
-  for (int i = 0; i <= 99; ++i) {
-    std::stringstream ss;
-    ss << "b_" << i;
-    NameVector.push_back(ss.str());
-  }
+
 
   // The cross-section parameters
   // First FSI to match BANFF
-  NameVector.push_back("FEFQE");
-  NameVector.push_back("FEFQEH");
-  NameVector.push_back("FEFINEL");
-  NameVector.push_back("FEFABS");
-  NameVector.push_back("FEFCX");
 
+  
   NameVector.push_back("MAQE");
-
+  
+   
+  NameVector.push_back("Q2_norm_5");
+  NameVector.push_back("Q2_norm_6");
+  NameVector.push_back("Q2_norm_7");
+  
+  NameVector.push_back("PShell_MF_Norm_C");
+  NameVector.push_back("SShell_MF_Norm_C");
+  NameVector.push_back("SRC_Norm_C");
+  NameVector.push_back("PShell_MF_PMissShape_C");
+  NameVector.push_back("SShell_MF_PMissShape_C");
+  NameVector.push_back("P1_2Shell_MF_Norm_O");
+  NameVector.push_back("P3_2Shell_MF_Norm_O");
+  NameVector.push_back("SShell_MF_Norm_O");
+  NameVector.push_back("SRC_Norm_O");
+  NameVector.push_back("P1_2Shell_MF_PMissShape_O");
+  NameVector.push_back("P3_2Shell_MF_PMissShape_O");
+  NameVector.push_back("SShell_MF_PMissShape_O");
+  
+  NameVector.push_back("Pauli_Blocking_C_nu");
+  NameVector.push_back("Pauli_Blocking_O_nu");
+  NameVector.push_back("Pauli_Blocking_C_nubar");
+  NameVector.push_back("Pauli_Blocking_O_nubar");
+  NameVector.push_back("Optical_Potential_C");
+  NameVector.push_back("Optical_Potential_O");
+  NameVector.push_back("MAQE");
+  
+  
   NameVector.push_back("2p2h_norm_nu");
   NameVector.push_back("2p2h_norm_nubar");
   NameVector.push_back("2p2h_normCtoO");
-  NameVector.push_back("2p2h_shape_C");
-  NameVector.push_back("2p2h_shape_O");
+  NameVector.push_back("PNNN_Shape");
+  NameVector.push_back("2p2h_shape_C_np");
+  NameVector.push_back("2p2h_shape_C_NN");
+  NameVector.push_back("2p2h_shape_O_np");
+  NameVector.push_back("2p2h_shape_O_NN");
 
   NameVector.push_back("2p2h_Edep_lowEnu");
   NameVector.push_back("2p2h_Edep_highEnu");
   NameVector.push_back("2p2h_Edep_lowEnubar");
   NameVector.push_back("2p2h_Edep_highEnubar");
-
-  NameVector.push_back("Q2_norm_0");
-  NameVector.push_back("Q2_norm_1");
-  NameVector.push_back("Q2_norm_2");
-  NameVector.push_back("Q2_norm_3");
-  NameVector.push_back("Q2_norm_4");
- 
-  NameVector.push_back("Q2_norm_5");
-  NameVector.push_back("Q2_norm_6");
-  NameVector.push_back("Q2_norm_7");
         
         
   NameVector.push_back("CA5");
@@ -246,18 +250,35 @@ std::vector<std::string> MakeMaCh3Names() {
   NameVector.push_back("ISO_BKG_LowPPi");
   NameVector.push_back("ISO_BKG");
 
+    NameVector.push_back("RES_Eb_C_numu");
+  NameVector.push_back("RES_Eb_O_numu");
+  NameVector.push_back("RES_Eb_C_numubar");
+  NameVector.push_back("RES_Eb_O_numubar");
+    NameVector.push_back("RS_Delta_Decay");
+
+    
+    NameVector.push_back("FEFQE");
+  NameVector.push_back("FEFQEH");
+  NameVector.push_back("FEFINEL");
+  NameVector.push_back("FEFABS");
+  NameVector.push_back("FEFCX");
+  NameVector.push_back("FEFCXH");
+    
+      NameVector.push_back("MPi_Multi_TotXSec");
+  NameVector.push_back("MPi_BY_Vector");
+  NameVector.push_back("MPi_BY_Axial");
+  NameVector.push_back("MPi_Multi_Shape");
+    NameVector.push_back("CC_BY_DIS");
+
+  NameVector.push_back("CC_DIS_MultPi_Norm_Nu");
+  NameVector.push_back("CC_DIS_MultPi_Norm_Nubar");
+  
   NameVector.push_back("CC_norm_nu");
   NameVector.push_back("CC_norm_nubar");
 
   NameVector.push_back("nue_numu");
   NameVector.push_back("nuebar_numubar");
 
-  NameVector.push_back("CC_BY_DIS");
-  NameVector.push_back("CC_BY_MPi");
-  NameVector.push_back("CC_AGKY_Mult");
-  NameVector.push_back("CC_Misc");
-  NameVector.push_back("CC_DIS_MultPi_Norm_Nu");
-  NameVector.push_back("CC_DIS_MultPi_Norm_Nubar");
 
   NameVector.push_back("CC_Coh_C");
   NameVector.push_back("CC_Coh_O");
@@ -282,96 +303,3 @@ std::vector<std::string> MakeMaCh3Names() {
   return NameVector;
 }
 
-// *******************
-// Get the xsec nominals
-std::vector<double> GetXSecNominal() {
-  // *******************
-
-  std::string XsecCovName = "../inputs/xsec_covariance_2020a_v8.root";
-  TFile *XsecFile = new TFile(XsecCovName.c_str());
-  // Get the nominal vector so we can shift all the MaCh3 values to BANFF values
-  TVectorT<double> *xsec_param_nom = (TVectorD*)(XsecFile->Get("xsec_param_nom")->Clone());
-  // Also need to find which parameters are spline parameters
-  TMatrixT<double> *xsec_param_id = (TMatrixD*)(XsecFile->Get("xsec_param_id")->Clone());
-  // Doesn't hurt to get the names whilst we're at it
-  TObjArray *xsec_param_names = (TObjArray*)(XsecFile->Get("xsec_param_names")->Clone());
-
-  int size = xsec_param_nom->GetNrows();
-  std::vector<double> ParamNominals(size, 0.0);
-  for (int i = 0; i < size; ++i) {
-    int id = int((*xsec_param_id)(i, 0));
-    if (id < 0) {
-      ParamNominals[i] = 0.0;
-    } else {
-      double NominalValue = (*xsec_param_nom)(i);
-      ParamNominals[i] = NominalValue;
-    }
-  }
-
-  // Then set the FSI parameters to be in the front, yuck
-  std::vector<double> ReOrderNominals(size, 0.0);
-  std::vector<std::string> ReOrderNames(size, "");
-
-  for (int i = 0; i < size; ++i) {
-    std::string ParamName = std::string(((TObjString*)(xsec_param_names->At(i)))->GetString());
-    if (ParamName == std::string("FEFQE")) {
-      ReOrderNominals[0] = ParamNominals[i];
-      ReOrderNames[0] = ParamName;
-    } else if (ParamName == std::string("FEFQEH")) {
-      ReOrderNominals[1] = ParamNominals[i];
-      ReOrderNames[1] = ParamName;
-    } else if (ParamName == std::string("FEFINEL")) {
-      ReOrderNominals[2] = ParamNominals[i];
-      ReOrderNames[2] = ParamName;
-    } else if (ParamName == std::string("FEFABS")) {
-      ReOrderNominals[3] = ParamNominals[i];
-      ReOrderNames[3] = ParamName;
-    } else if (ParamName == std::string("FEFCX")) {
-      ReOrderNominals[4] = ParamNominals[i];
-      ReOrderNames[4] = ParamName;
-    } else {
-      ReOrderNominals[i+5] = ParamNominals[i];
-      ReOrderNames[i+5] = ParamName;
-    }
-  }
-
-  // and now set Eb to the end
-  std::vector<double> ReOrderNominals2(size, 0.0);
-  std::vector<std::string> ReOrderNames2(size, "");
-  bool beforeEb = true;
-
-
-  for (int i=0; i < size; ++i) {
-    std::string ParamName2 = ReOrderNames[i];//std::string(((TObjString*)(xsec_param_names->At(i)))->GetString());
-    if (ParamName2 == std::string("EB_dial_C")) {
-      beforeEb = false;
-      ReOrderNominals2[size-4] = ReOrderNominals[i];
-      ReOrderNames2[size-4] = ParamName2;
-    }
-    else if (ParamName2 == std::string("EB_dial_O")) {
-      beforeEb = false;
-      ReOrderNominals2[size-3] = ReOrderNominals[i];
-      ReOrderNames2[size-3] = ParamName2;
-    }
-    if (ParamName2 == std::string("EB_dial_C_nubar")) {
-      beforeEb = false;
-      ReOrderNominals2[size-2] = ReOrderNominals[i];
-      ReOrderNames2[size-2] = ParamName2;
-    }
-    else if (ParamName2 == std::string("EB_dial_O_nubar")) {
-      beforeEb = false;
-      ReOrderNominals2[size-1] = ReOrderNominals[i];
-      ReOrderNames2[size-1] = ParamName2;
-    }
-    else if (beforeEb){
-      ReOrderNominals2[i] = ReOrderNominals[i];
-      ReOrderNames2[i] = ParamName2;
-    }
-    else if (!beforeEb){
-      ReOrderNominals2[i-2] = ReOrderNominals[i];
-      ReOrderNames2[i-2] = ParamName2;
-    }
-  }
-
-  return ReOrderNominals2;
-}
