@@ -106,11 +106,14 @@ void PullStudy()
     TPCpullData->GetXaxis()->SetTitle("Proton Pull");
     TPClikelihoodData->GetXaxis()->SetTitle("Proton Likelihood"); 
 
+    FGDlikelihoodData->SetLineColor(kBlack);
+    TPCpullData->SetLineColor(kBlack);
+    TPClikelihoodData->SetLineColor(kBlack);
     for(int i=0;  i<AllEvents; i++)
     {
         tree->GetEntry(i);
 
-        if(accum_level[0][0]>5) //CCInclusive
+        if(accum_level[0][1]>8) //Np
         {
             for(int ig=0;  ig<NTPCSec; ig++)
             {
@@ -164,7 +167,7 @@ void PullStudy()
     {
         treeData->GetEntry(i);
 
-        if(accum_levelData[0][0]>5) //CCInclusive
+        if(accum_levelData[0][1]>8) //Np
         {
             for(int ig=0;  ig<NTPCSecData; ig++)
             {
@@ -180,7 +183,7 @@ void PullStudy()
         }
     }
     
-    THStack *FGD_Stack= new THStack( "FGD_Stack", "FGD Proton Pull, CC Inclusive" );
+    THStack *FGD_Stack= new THStack( "FGD_Stack", "CC0#pi-Np FGD1" );
     FGD_Stack->Add( FGDlikelihoodNonProton );
     FGD_Stack->Add( FGDlikelihoodPiPlus );    
     FGD_Stack->Add( FGDlikelihoodProton );    
@@ -197,7 +200,7 @@ void PullStudy()
     FGDlikelihoodNonProton->SetFillStyle(3001);
     FGDlikelihoodNonProton->SetLineColor(kBlack);
     
-    THStack *TPC_Stack= new THStack( "TPC_Stack", "TPC Proton Likelihood, CC Inclusive" );
+    THStack *TPC_Stack= new THStack( "TPC_Stack", "CC0#pi-Np FGD1" );
     TPC_Stack->Add( TPClikelihoodNonProton );
     TPC_Stack->Add( TPClikelihoodMuon );
     TPC_Stack->Add( TPClikelihoodPiPlus );
@@ -219,7 +222,7 @@ void PullStudy()
     TPClikelihoodMuon->SetFillStyle(3001);
     TPClikelihoodMuon->SetLineColor(kRed);
     
-    THStack *TPC_Stack_pull = new THStack( "TPC_Stack_pull", "TPC Proton Pull, CC Inclusive, positive tracks" );
+    THStack *TPC_Stack_pull = new THStack( "TPC_Stack_pull", "CC0#pi-Np FGD1" );
     TPC_Stack_pull->Add( TPCpullNonProton );
     TPC_Stack_pull->Add( TPCpullPiPlus );
     TPC_Stack_pull->Add( TPCpullMuon );
@@ -246,33 +249,33 @@ void PullStudy()
     FGD_Stack->Draw("");
     FGDlikelihoodData->Draw("pe SAME");
     
-    TLegend *legend = new TLegend(0.75,0.75,0.9,0.9);
+    TLegend *legend = new TLegend(0.75,0.70,0.9,0.9);
     legend->AddEntry(FGDlikelihoodData, "Data","pe");
     legend->AddEntry(FGDlikelihoodProton, "Proton","l");
-    legend->AddEntry(FGDlikelihoodPiPlus, "Pi+","l");
+    legend->AddEntry(FGDlikelihoodPiPlus, "pi+","l");
     legend->AddEntry(FGDlikelihoodNonProton, "Other","l");
     legend->SetTextSize(0.04);
     legend->Draw();
     
     FGD_Stack->GetXaxis();
-    FGDlikelihoodData->GetXaxis()->SetTitle("Proton Pull");  
+    FGD_Stack->GetXaxis()->SetTitle("Proton FGD Pull");
     
     c1->Print("protonPull.pdf", "pdf");
   
     TPC_Stack_pull->Draw("");
     TPCpullData->Draw("pe same");
     
-    TLegend *legend2 = new TLegend(0.75,0.75,0.9,0.9);
+    TLegend *legend2 = new TLegend(0.75,0.70,0.9,0.9);
     legend2->AddEntry(TPCpullData, "Data","pe");
     legend2->AddEntry(TPCpullProton, "Proton","l");
     legend2->AddEntry(TPCpullMuon, "Muon","l");
-    legend2->AddEntry(TPCpullPiPlus, "Pi+","l");
+    legend2->AddEntry(TPCpullPiPlus, "pi+","l");
     legend2->AddEntry(TPCpullNonProton, "Other","l");
     legend2->SetTextSize(0.04);
     legend2->Draw();
     
     TPC_Stack_pull->GetXaxis();
-    TPC_Stack_pull->GetXaxis()->SetTitle("Proton Pull");  
+    TPC_Stack_pull->GetXaxis()->SetTitle("Proton TPC Pull");
     
     c1->Print("protonPull.pdf", "pdf");
 
@@ -282,17 +285,17 @@ void PullStudy()
     TPC_Stack->Draw("");
     TPClikelihoodData->Draw("pe same");
     
-    TLegend *legend3 = new TLegend(0.75,0.75,0.9,0.9);
+    TLegend *legend3 = new TLegend(0.75,0.70,0.9,0.9);
     legend3->AddEntry(TPClikelihoodData, "Data","pe");
     legend3->AddEntry(TPClikelihoodProton, "Proton","l");
     legend3->AddEntry(TPClikelihoodMuon, "Muon","l");
-    legend3->AddEntry(TPClikelihoodPiPlus, "Pi+","l");
+    legend3->AddEntry(TPClikelihoodPiPlus, "pi+","l");
     legend3->AddEntry(TPClikelihoodNonProton, "Other","l");
     legend3->SetTextSize(0.04);
     legend3->Draw();
     
     TPC_Stack->GetXaxis();
-    TPC_Stack->GetXaxis()->SetTitle("Proton Likelihood");  
+    TPC_Stack->GetXaxis()->SetTitle("Proton TPC Likelihood");
         
     c1->Print("protonPull.pdf", "pdf");
         
@@ -363,8 +366,8 @@ void SetT2Kstyl()
     // set the paper & margin sizes
     gStyle->SetPaperSize(20, 26);
     gStyle->SetPadTopMargin(0.1);
-    gStyle->SetPadBottomMargin(0.12);
-    gStyle->SetPadRightMargin(0.12); // 0.075 -> 0.13 for colz option
+    gStyle->SetPadBottomMargin(0.14);
+    gStyle->SetPadRightMargin(0.075); // 0.075 -> 0.13 for colz option
     gStyle->SetPadLeftMargin(0.12);//to include both large/small font options
 
     // Fonts, sizes, offsets
