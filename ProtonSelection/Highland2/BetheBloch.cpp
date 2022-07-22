@@ -18,7 +18,8 @@ void BetheBloch()
     Int_t           accum_level[1][2][10];   //[NTOYS]
     Int_t           sel_prot_truePDG;
     Float_t         sel_prot_truemom;
-        
+    Float_t         sel_prot_truedir[3];
+
     tree->SetBranchStatus("*", false);
     tree->SetBranchStatus( "accum_level", true);
     tree->SetBranchAddress("accum_level", &accum_level);
@@ -28,6 +29,10 @@ void BetheBloch()
     
     tree->SetBranchStatus( "sel_prot_truemom", true);
     tree->SetBranchAddress("sel_prot_truemom", &sel_prot_truemom);
+
+    tree->SetBranchStatus( "sel_prot_truedir", true);
+    tree->SetBranchAddress("sel_prot_truedir", &sel_prot_truedir);
+
     
     int AllEvents=tree->GetEntries();
     if(VERBOSE) cout<< "\033[1;34mNumber of all events \033[0m" <<AllEvents<<endl;
@@ -70,7 +75,7 @@ void BetheBloch()
         }
     }
 
-    THStack *PDG_Stack= new THStack( "PDG_Stack", "CC0#pi-Np-0#gamma" );
+    THStack *PDG_Stack= new THStack( "PDG_Stack", "CC0#pi-Np-0#gamma FGD1" );
     PDG_Stack->Add( PDG_NonProton );
     PDG_Stack->Add( PDG_Muon );
     PDG_Stack->Add( PDG_PiPlus );
@@ -96,16 +101,16 @@ void BetheBloch()
 
     PDG_Stack->Draw("");
     
-    TLegend *legend = new TLegend(0.75,0.75,0.9,0.9);
+    TLegend *legend = new TLegend(0.70,0.75,0.85,0.9);
     legend->AddEntry(PDG_Proton, "Proton","l");
-    legend->AddEntry(PDG_PiPlus, "#Pi+","l");
+    legend->AddEntry(PDG_PiPlus, "#pi+","l");
     legend->AddEntry(PDG_Muon, "#mu","l");
     legend->AddEntry(PDG_NonProton, "Other","l");
     legend->SetTextSize(0.04);
     legend->Draw();
     
     PDG_Stack->GetXaxis();
-    PDG_Stack->GetXaxis()->SetTitle("True Proton Momentum of Proton Candidate");  
+    PDG_Stack->GetXaxis()->SetTitle("True Proton Momentum of Proton Candidate");
     
     c1->Print("BetheBloch.pdf", "pdf");
         
