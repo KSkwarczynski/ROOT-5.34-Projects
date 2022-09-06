@@ -25,6 +25,18 @@ void ResolutionSFGD(TString fname)
     tree->SetBranchStatus( "TruePmu", true);
     tree->SetBranchAddress("TruePmu", &TrueMuonMom);
 
+    Double_t         RecoMuonMom;
+    tree->SetBranchStatus( "Pmu", true);
+    tree->SetBranchAddress("Pmu", &RecoMuonMom);
+
+    
+    Double_t         CosThetamu;
+    tree->SetBranchStatus( "CosThetamu", true);
+    tree->SetBranchAddress("CosThetamu", &CosThetamu);
+    
+    Double_t         TrueCosThetamu;
+    tree->SetBranchStatus( "TrueCosThetamu", true);
+    tree->SetBranchAddress("TrueCosThetamu", &TrueCosThetamu);
     
     int AllEvents = tree->GetEntries();
     
@@ -34,29 +46,50 @@ void ResolutionSFGD(TString fname)
     const int momBinMax = 2000;
     const int momBinMin = 0;
     
+    const int thetaBinCount = 100;
+    const int theteBinMax = 1;
+    const int thetaBinMin = -1;
     
     TH2F *hResolution[2];
+    TH2F *hResolution_CosTheta[2];
+    
     TH1F *hRMS_nProt[2];
     TH1F *hMeanRMS_nProt[2];
+    
+    TH1F *hRMS_thete[2];
+    TH1F *hMeanRMS_thete[2];
     
     std::string SampleName[2] = {"SFGD CC0#pi-0p", "SFGD CC0#pi-Np"};
     hResolution[0] = new TH2F("SFGD CC0#pi-0p", "SFGD CC0#pi-0p", momBinCount, momBinMin, momBinMax, momBinCount, momBinMin, momBinMax);
     hResolution[1] = new TH2F("SFGD CC0#pi-Np", "SFGD CC0#pi-Np", momBinCount, momBinMin, momBinMax, momBinCount, momBinMin, momBinMax);
      
+    hResolution_CosTheta[0] = new TH2F("SFGD CC0#pi-0p", "SFGD CC0#pi-0p", thetaBinCount, thetaBinMin, theteBinMax, thetaBinCount, thetaBinMin, theteBinMax);
+    hResolution_CosTheta[1] = new TH2F("SFGD CC0#pi-Np", "SFGD CC0#pi-Np", thetaBinCount, thetaBinMin, theteBinMax, thetaBinCount, thetaBinMin, theteBinMax);
+    
     hRMS_nProt[0] = new TH1F("RMS for SFGD CC0#pi-0p", "RMS for SFGD CC0#pi-0p", momBinCount, momBinMin, momBinMax);
     hRMS_nProt[1] = new TH1F(Form("hRMS_nProt_FGD%i",1), "RMS for SFGD CC0#pi-Np", momBinCount, momBinMin, momBinMax);
 
     hMeanRMS_nProt[0] = new TH1F("Mean and RMS for SFGD CC0#pi-0p", "Mean and RMS for SFGD CC0#pi-0p", momBinCount, momBinMin, momBinMax);
     hMeanRMS_nProt[1] = new TH1F(Form("hMeanRMS_nProt_FGD%i",1), "Mean and RMS for SFGD CC0#pi-Np", momBinCount, momBinMin, momBinMax);
 
+    
+    hRMS_thete[0] = new TH1F("RMS for SFGD CC0#pi-0p", "RMS for SFGD CC0#pi-0p", thetaBinCount, thetaBinMin, theteBinMax);
+    hRMS_thete[1] = new TH1F(Form("hRMS_nProt_FGD%i",1), "RMS for SFGD CC0#pi-Np", thetaBinCount, thetaBinMin, theteBinMax);
+
+    hMeanRMS_thete[0] = new TH1F("Mean and RMS for SFGD CC0#pi-0p", "Mean and RMS for SFGD CC0#pi-0p", thetaBinCount, thetaBinMin, theteBinMax);
+    hMeanRMS_thete[1] = new TH1F(Form("hMeanRMS_nProt_FGD%i",1), "Mean and RMS for SFGD CC0#pi-Np", thetaBinCount, thetaBinMin, theteBinMax);
+    
     TH1F *Gauss_NProt[2][momBinCount];
-    TH1F *Gauss_NProt_Transvers[2][momBinCount];
+    TH1F *Gauss_thete[2][thetaBinCount];
     
     for(int i = 0;i<2;i++)
     {
 
         hResolution[i] ->GetXaxis()->SetTitle("True Momentum #mu (MeV/c)");
         hResolution[i] ->GetYaxis()->SetTitle("Reco Momentum #mu (MeV/c)");
+        
+        hResolution_CosTheta[i] ->GetXaxis()->SetTitle("True cos#theta #mu (MeV/c)");
+        hResolution_CosTheta[i] ->GetYaxis()->SetTitle("Reco cos#theta #mu (MeV/c)");
         
         hRMS_nProt[i]->GetXaxis()->SetTitle("True Momentum #mu (MeV/c)");
         
@@ -65,8 +98,8 @@ void ResolutionSFGD(TString fname)
 
         for(int ig=0;ig<momBinCount;ig++)
         {
-            Gauss_NProt[i][ig] = new TH1F(Form("Gauss_NProt%ig_FGD%i",ig,i+1), "Gauss_NProt", momBinCount, momBinMin, momBinMax);
-            Gauss_NProt_Transvers[i][ig] = new TH1F(Form("Gauss_NProt_Transvers%ig_FGD%i",ig,i+1), "Gauss_NProt_Transvers", momBinCount, momBinMin, momBinMax);
+            Gauss_NProt[i][ig] = new TH1F(Form("Gauss_NProt%ig_FGD%i",ig,i+1), "Gauss_NProt", momBinCount, thetaBinMin, theteBinMax);
+            Gauss_thete[i][ig] = new TH1F(Form("Gauss_NProt_Transvers%ig_FGD%i",ig,i+1), "Gauss_NProt_Transvers", thetaBinCount, thetaBinMin, theteBinMax);
         }  
         
     }
@@ -88,11 +121,13 @@ void ResolutionSFGD(TString fname)
         if(SelectedSample == CC0Pi0P)
         {
             hResolution[0]->Fill(TrueMuonMom, RecoMuonMom);
+            hResolution_CosTheta[0]->Fill(TrueCosThetamu, CosThetamu);
         }
         
         if(SelectedSample == CC0PiNp)//CCOPi-Np FGD1
         {
-             hResolution[1]->Fill(TrueMuonMom, RecoMuonMom);   
+             hResolution[1]->Fill(TrueMuonMom, RecoMuonMom);
+             hResolution_CosTheta[1]->Fill(TrueCosThetamu, CosThetamu);
         }
     }
     
@@ -115,6 +150,25 @@ void ResolutionSFGD(TString fname)
                 hMeanRMS_nProt[i]->SetBinError(ix,  RMS);
                 hRMS_nProt[i]->SetBinContent(ix,  RMS);
         }
+        
+        
+        for(int ix=1;ix<hResolution_CosTheta[i]->GetNbinsX() + 1; ix++)
+        {
+            double RMS = 0;
+            double Mean = 0;
+            for(int iy=1;iy<hResolution_CosTheta[i]->GetNbinsY() + 1; iy++)
+            {  
+                double BinTempCont = hResolution_CosTheta[i]->GetBinContent(ix,iy);
+                Gauss_thete[i][ix-1]->SetBinContent(iy,BinTempCont);
+
+            }
+                Mean= Gauss_thete[i][ix-1]->GetMean();
+                RMS = Gauss_thete[i][ix-1]->GetRMS();
+                
+                hMeanRMS_thete[i]->SetBinContent(ix,  Mean);
+                hMeanRMS_thete[i]->SetBinError(ix,  RMS);
+                hRMS_thete[i]->SetBinContent(ix,  RMS);
+        }
     }
     
     c1->Print(Form("%s.pdf[",fname.Data()), "pdf");  
@@ -128,6 +182,15 @@ void ResolutionSFGD(TString fname)
         c1->Print(Form("%s.pdf",fname.Data()), "pdf");
         
         hMeanRMS_nProt[i]->Draw("");
+        c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+        
+        hResolution_CosTheta[i]->Draw("COLZ");
+        c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+        
+        hRMS_thete[i]->Draw("");
+        c1->Print(Form("%s.pdf",fname.Data()), "pdf");
+        
+        hMeanRMS_thete[i]->Draw("");
         c1->Print(Form("%s.pdf",fname.Data()), "pdf");
     }    
     
