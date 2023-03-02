@@ -23,7 +23,7 @@
 
 void SetT2Kstyl();
 
-void SplineReweight() {
+void Regenerate() {
 
     TCanvas *c1 = new TCanvas("c1"," ", 0, 0, 800,630);
     SetT2Kstyl();
@@ -47,8 +47,6 @@ void SplineReweight() {
 
 
     int NFSprot, NFSneut;
-    double HMprotonMom, HMneutronMom;
-
     tree->SetBranchStatus("*", false);
 
     tree->SetBranchStatus( "NFSprot", true);
@@ -57,46 +55,37 @@ void SplineReweight() {
     tree->SetBranchStatus( "NFSneut", true);
     tree->SetBranchAddress("NFSneut", &(NFSneut));
 
-    tree->SetBranchStatus( "HMprotonMom", true);
-    tree->SetBranchAddress("HMprotonMom", &(HMprotonMom));
-
-    tree->SetBranchStatus( "HMneutronMom", true);
-    tree->SetBranchAddress("HMneutronMom", &(HMneutronMom));
-
     tree->SetBranchStatus( "SRCFrac_CGraph", true);
     tree->SetBranchAddress("SRCFrac_CGraph", &SRCFrac_C);
 
     //tree->SetBranchAddress("SRCFrac_OGraph", &SRCFrac_O);
 
 
-    int NKnots = 4;
-    double Knots[4] = {0, 0.3, 0.5, 1};
-    Color_t RelevantModesColors[4] = {kRed, kGreen+1, kTeal, kBlue+1};
-    TH1F ** Nprotshist = new TH1F*[4];
-    TH1F ** Nneutshist = new TH1F*[4];
 
-    TH1F ** ProtMomhist = new TH1F*[4];
-    TH1F ** NeutMomhist = new TH1F*[4];
+    TFile *file2 = new TFile("Regnerated_05.root");
+    TTree *tree2 = (TTree*)file->Get("sample_sum");
 
-    for(int i = 0; i < NKnots; i++)
-    {
-       Nprotshist[i] = new TH1F(Form("Nprotshist_knot=%.1f",Knots[i]),Form("Nprotshist_knot=%.1f",Knots[i]), 6, 0, 6);
-       Nprotshist[i]->GetXaxis()->SetTitle("N true protons");
-       Nprotshist[i]->GetYaxis()->SetTitle("Events");
+    int NFSprotReg, NFSneutReg;
+    tree2->SetBranchStatus("*", false);
 
-       Nneutshist[i] = new TH1F(Form("Nneutshist_knot=%.1f",Knots[i]),Form("Nneutshist_knot=%.1f",Knots[i]), 6, 0, 6);
-       Nneutshist[i]->GetXaxis()->SetTitle("N true neutrons");
-       Nneutshist[i]->GetYaxis()->SetTitle("Events");
+    tree2->SetBranchStatus( "NFSprot", true);
+    tree2->SetBranchAddress("NFSprot", &(NFSprotReg));
 
-       ProtMomhist[i] = new TH1F(Form("ProtMomhist_knot=%.1f",Knots[i]),Form("ProtMomhist_knot=%.1f",Knots[i]), 50, 0, 1000);
-       ProtMomhist[i]->GetXaxis()->SetTitle("true HM proton  momentum MeV/c");
-       ProtMomhist[i]->GetYaxis()->SetTitle("Events");
+    tree2->SetBranchStatus( "NFSneut", true);
+    tree2->SetBranchAddress("NFSneut", &(NFSneutReg));
 
-       NeutMomhist[i] = new TH1F(Form("NeutMomhist_knot=%.1f",Knots[i]),Form("NeutMomhist_knot=%.1f",Knots[i]), 50, 0, 1000);
-       NeutMomhist[i]->GetXaxis()->SetTitle("true HM proton  momentum MeV/c");
-       NeutMomhist[i]->GetYaxis()->SetTitle("Events");
 
-    }
+     TH1F * NprotshistReweighted = new TH1F("Nprotshist_rew","Nprotshist_rew", 6, 0, 6);
+     NprotshistReweighted->GetXaxis()->SetTitle("N true protons");
+     NprotshistReweighted->GetYaxis()->SetTitle("Events");
+
+     TH1F * NprotshistRegenerated = new TH1F("NprotshistRegenerated","NprotshistRegenerated", 6, 0, 6);
+
+     TH1F * NneutshistReweighted = new TH1F("NneutshistReweighted","NneutshistReweighted", 6, 0, 6);
+     NneutshistReweighted->GetXaxis()->SetTitle("N true neutrons");
+     NneutshistReweighted->GetYaxis()->SetTitle("Events");
+
+     TH1F * NneutshistRegenerated = new TH1F("NneutshistRegenerated","NneutshistRegenerated", 6, 0, 6);
 
     for (int i = 0; i < nentries; ++i)
     {
@@ -108,121 +97,60 @@ void SplineReweight() {
         TGraph *Graph = (TGraph*)(SRCFrac_C->At(0)->Clone());
 
         double weight = 1.;
+        weight = Graph->Eval(0.5);
 
-        for(int ik = 0; ik < NKnots; ik++)
-        {
-            weight = Graph->Eval(Knots[ik]);
-
-            Nprotshist[ik]->Fill(NFSprot, weight);
-            Nneutshist[ik]->Fill(NFSneut, weight);
-
-            ProtMomhist[ik]->Fill(HMprotonMom, weight);
-            NeutMomhist[ik]->Fill(HMneutronMom, weight);
-        }
+        NprotshistReweighted->Fill(NFSprot, weight);
+        NneutshistReweighted->Fill(NFSneut, weight);
     }
 
-
-    c1->Print("Reweight.pdf[");
-
-    double Maximum1 = 0;
-    double Maximum2 = 0;
-
-    double Maximum3 = 0;
-    double Maximum4 = 0;
-
-    for(int i = 0; i < NKnots; i++)
+    for (int i = 0; i < tree2->GetEntries(); ++i)
     {
-        if(Nprotshist[i]->GetMaximum() > Maximum1) Maximum1 = Nprotshist[i]->GetMaximum();
-        Nprotshist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
-        if(Nneutshist[i]->GetMaximum() > Maximum2) Maximum2 = Nneutshist[i]->GetMaximum();
-        Nneutshist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
+        if (i % (1000) == 0) std::cout<<i<<std::endl;
+        tree2->GetEntry(i);
 
+        //std::cout<<SRCFrac_C->At(0)<<std::endl;
 
-        if(ProtMomhist[i]->GetMaximum() > Maximum3) Maximum3 = ProtMomhist[i]->GetMaximum();
-        ProtMomhist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
-
-        if(NeutMomhist[i]->GetMaximum() > Maximum4) Maximum4 = NeutMomhist[i]->GetMaximum();
-        NeutMomhist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
+        NprotshistRegenerated->Fill(NFSprotReg);
+        NneutshistRegenerated->Fill(NFSneutReg);
     }
 
 
-    Nprotshist[0]->SetMaximum(Maximum1);
-    Nprotshist[0]->Draw("");
-    for(int i = 1; i < NKnots; i++)
-    {
-       Nprotshist[i]->Draw("same");
-    }
+    c1->Print("Regenerate.pdf[");
+
+    NprotshistReweighted->SetLineColorAlpha(kRed, 1);
+    NprotshistRegenerated->SetLineColorAlpha(kBlue, 1);
+
+    NprotshistReweighted->Draw("");
+    NprotshistRegenerated->Draw("same");
 
     TLegend* legend = new TLegend(0.6,0.7,0.9,0.9);
-    for(int i = NKnots-1; i >= 0; i--)
-    {
-       legend->AddEntry(Nprotshist[i], Form("SRCFrac_C=%.1f",Knots[i]),"l");
-    }
+    legend->AddEntry(NprotshistRegenerated, "Regenerated","l");
+    legend->AddEntry(NprotshistReweighted, "Reweighted","l");
     legend->SetTextSize(0.035);
     legend->Draw("same");
-    c1->Print("Reweight.pdf");
+    c1->Print("Regenerate.pdf");
+
+    delete legend;
+    legend = NULL;
+
+    NneutshistReweighted->SetLineColorAlpha(kRed, 1);
+    NneutshistRegenerated->SetLineColorAlpha(kBlue, 1);
+
+    NneutshistReweighted->Draw("");
+    NneutshistRegenerated->Draw("same");
+
+    TLegend* legend = new TLegend(0.6,0.7,0.9,0.9);
+    legend->AddEntry(NneutshistRegenerated, "Regenerated","l");
+    legend->AddEntry(NneutshistReweighted, "Reweighted","l");
+    legend->SetTextSize(0.035);
+    legend->Draw("same");
+    c1->Print("Regenerate.pdf");
 
     delete legend;
     legend = NULL;
 
 
-    Nneutshist[0]->SetMaximum(Maximum2);
-    Nneutshist[0]->Draw("");
-    for(int i = 1; i < NKnots; i++)
-    {
-       Nneutshist[i]->Draw("same");
-    }
-
-    TLegend* legend = new TLegend(0.6,0.7,0.9,0.9);
-    for(int i = NKnots-1; i >= 0; i--)
-    {
-       legend->AddEntry(Nneutshist[i], Form("SRCFrac_C=%.1f",Knots[i]),"l");
-    }
-    legend->SetTextSize(0.035);
-    legend->Draw("same");
-    c1->Print("Reweight.pdf");
-    delete legend;
-    legend = NULL;
-
-
-    ProtMomhist[0]->SetMaximum(Maximum3);
-    ProtMomhist[0]->Draw("");
-    for(int i = 1; i < NKnots; i++)
-    {
-       ProtMomhist[i]->Draw("same");
-    }
-
-    TLegend* legend = new TLegend(0.6,0.7,0.9,0.9);
-    for(int i = NKnots-1; i >= 0; i--)
-    {
-       legend->AddEntry(ProtMomhist[i], Form("SRCFrac_C=%.1f",Knots[i]),"l");
-    }
-    legend->SetTextSize(0.035);
-    legend->Draw("same");
-    c1->Print("Reweight.pdf");
-    delete legend;
-    legend = NULL;
-
-
-    NeutMomhist[0]->SetMaximum(Maximum4);
-    NeutMomhist[0]->Draw("");
-    for(int i = 1; i < NKnots; i++)
-    {
-       NeutMomhist[i]->Draw("same");
-    }
-
-    TLegend* legend = new TLegend(0.6,0.7,0.9,0.9);
-    for(int i = NKnots-1; i >= 0; i--)
-    {
-       legend->AddEntry(NeutMomhist[i], Form("SRCFrac_C=%.1f",Knots[i]),"l");
-    }
-    legend->SetTextSize(0.035);
-    legend->Draw("same");
-    c1->Print("Reweight.pdf");
-    delete legend;
-    legend = NULL;
-
-    c1->Print("Reweight.pdf]");
+    c1->Print("Regenerate.pdf]");
 }
 
 
