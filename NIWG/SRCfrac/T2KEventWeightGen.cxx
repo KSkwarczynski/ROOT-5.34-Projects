@@ -147,11 +147,11 @@ int main(int argc, char *argv[])
   TLorentzVector *PSRCnonSpcNuc;
   TLorentzVector *PHMPrimaryNuc;
   */
-  float Q2;
-  float q0;
-  float q3;
-  float Emiss;
-  float Pmiss;
+  double Q2;
+  double q0;
+  double q3;
+  double Emiss;
+  double Pmiss;
   int   isSRC;
 
   int NFSprot;
@@ -244,16 +244,20 @@ int main(int argc, char *argv[])
       Mode = 0;
       Mode = niwgev.neutmode;
 
+    q3 = -999;
+    q0 = -999;
+    Q2 = -999;
+
     q3 =  niwgev.q3 * 1000.0; //Converts to MeV
     q0 =  niwgev.q0 * 1000.0; //Converts to MeV
 
+    Q2 = niwgev.Q2 * 1000.0;
     isSRC = niwgev.isSRC;
     Emiss = 1000.0*niwgev.Emiss; //Converts to MeV
     Pmiss = 1000.0*niwgev.Pmiss; //Converts to MeV
 
     int NFSlep = 0;
     NFSlep++;
-
 
     PDGHMFSNuc = 0;
     PDGSRCnonSpcNuc = 0;
@@ -284,6 +288,7 @@ int main(int argc, char *argv[])
     int NPrimaryLepFound = 0;
 
 
+    TVector3 nu = niwgev.part_stack[niwgev.nu_index].p.Vect();
 
     for (size_t i = 0; i < niwgev.part_stack.size(); ++i) {
 
@@ -336,7 +341,9 @@ int main(int argc, char *argv[])
           //std::cout<<i<<" prot mom before "<<HMprotonMom<<" post "<<part.p.Vect().Mag()*1000<<std::endl;
           if (part.p.Vect().Mag() > HMprotonMom) {
             HMprotonMom = part.p.Vect().Mag()*1000;
-            HMprotonTheta = part.p.Pz();
+
+            TVector3 part = niwgev.part_stack[i].p.Vect();
+            HMprotonTheta = part.Unit().Dot(nu.Unit());
           }
           break;
         }
@@ -344,7 +351,9 @@ int main(int argc, char *argv[])
           NFSneut++;
           if (part.p.Vect().Mag() > HMneutronMom) {
             HMneutronMom = part.p.Vect().Mag()*1000;
-            HMneutronTheta = part.p.Pz();
+
+            TVector3 part = niwgev.part_stack[i].p.Vect();
+            HMneutronTheta = part.Unit().Dot(nu.Unit());
           }
           break;
         }

@@ -27,7 +27,7 @@ void SplineReweight() {
 
     TCanvas *c1 = new TCanvas("c1"," ", 0, 0, 800,630);
     SetT2Kstyl();
-    c1->SetTopMargin(0.08);
+    c1->SetTopMargin(0.12);
     c1->SetBottomMargin(0.12);
     c1->SetRightMargin(0.075);
     c1->SetLeftMargin(0.12);
@@ -35,7 +35,7 @@ void SplineReweight() {
     gStyle->SetPalette(51);
 
 
-    TFile *file = new TFile("Weight.root");
+    TFile *file = new TFile("Weight_C_numu.root");
     TTree *tree = (TTree*)file->Get("sample_sum");
 
     int nentries = tree->GetEntries();
@@ -47,7 +47,7 @@ void SplineReweight() {
 
 
     int NFSprot, NFSneut;
-    double HMprotonMom, HMneutronMom;
+    double HMprotonMom, HMneutronMom, HMprotonTheta, HMneutronTheta, Q2;
 
     tree->SetBranchStatus("*", false);
 
@@ -63,20 +63,36 @@ void SplineReweight() {
     tree->SetBranchStatus( "HMneutronMom", true);
     tree->SetBranchAddress("HMneutronMom", &(HMneutronMom));
 
+    tree->SetBranchStatus( "HMprotonTheta", true);
+    tree->SetBranchAddress("HMprotonTheta", &(HMprotonTheta));
+
+    tree->SetBranchStatus( "HMneutronTheta", true);
+    tree->SetBranchAddress("HMneutronTheta", &(HMneutronTheta));
+
+    tree->SetBranchStatus( "Q2", true);
+    tree->SetBranchAddress("Q2", &(Q2));
+
     tree->SetBranchStatus( "SRCFrac_CGraph", true);
     tree->SetBranchAddress("SRCFrac_CGraph", &SRCFrac_C);
 
+    std::string TitleName = "#nu_{#mu} ^{12}C";
+    //std::string TitleName = "#bar{#nu}_{#mu} ^{12}C";
     //tree->SetBranchAddress("SRCFrac_OGraph", &SRCFrac_O);
 
 
-    int NKnots = 4;
-    double Knots[4] = {0, 0.3, 0.5, 1};
-    Color_t RelevantModesColors[4] = {kRed, kGreen+1, kTeal, kBlue+1};
-    TH1F ** Nprotshist = new TH1F*[4];
-    TH1F ** Nneutshist = new TH1F*[4];
+    const int NKnots = 6;
+    double Knots[NKnots] = {0, 0.2, 0.3, 0.5, 0.7, 1};
+    Color_t RelevantModesColors[NKnots] = {kRed, kGreen+1, kTeal, kBlue+1,  kOrange+1, kCyan+2};
+    TH1F ** Nprotshist = new TH1F*[NKnots];
+    TH1F ** Nneutshist = new TH1F*[NKnots];
 
-    TH1F ** ProtMomhist = new TH1F*[4];
-    TH1F ** NeutMomhist = new TH1F*[4];
+    TH1F ** ProtMomhist = new TH1F*[NKnots];
+    TH1F ** NeutMomhist = new TH1F*[NKnots];
+
+    TH1F ** ProtThetaist = new TH1F*[NKnots];
+    TH1F ** NeutThetahist = new TH1F*[NKnots];
+
+    TH1F ** Q2hist = new TH1F*[NKnots];
 
     for(int i = 0; i < NKnots; i++)
     {
@@ -88,14 +104,27 @@ void SplineReweight() {
        Nneutshist[i]->GetXaxis()->SetTitle("N true neutrons");
        Nneutshist[i]->GetYaxis()->SetTitle("Events");
 
-       ProtMomhist[i] = new TH1F(Form("ProtMomhist_knot=%.1f",Knots[i]),Form("ProtMomhist_knot=%.1f",Knots[i]), 50, 0, 1000);
-       ProtMomhist[i]->GetXaxis()->SetTitle("true HM proton  momentum MeV/c");
+       ProtMomhist[i] = new TH1F(Form("ProtMomhist_knot=%.1f",Knots[i]),Form("ProtMomhist_knot=%.1f",Knots[i]), 50, 0, 1400);
+       ProtMomhist[i]->GetXaxis()->SetTitle("true HM proton momentum MeV/c");
        ProtMomhist[i]->GetYaxis()->SetTitle("Events");
 
        NeutMomhist[i] = new TH1F(Form("NeutMomhist_knot=%.1f",Knots[i]),Form("NeutMomhist_knot=%.1f",Knots[i]), 50, 0, 1000);
-       NeutMomhist[i]->GetXaxis()->SetTitle("true HM proton  momentum MeV/c");
+       NeutMomhist[i]->GetXaxis()->SetTitle("true HM neutron momentum MeV/c");
        NeutMomhist[i]->GetYaxis()->SetTitle("Events");
 
+
+       ProtThetaist[i] = new TH1F(Form("ProtThetaist_knot=%.1f",Knots[i]),Form("ProtThetaist_knot=%.1f",Knots[i]), 50, -1., 1.);
+       ProtThetaist[i]->GetXaxis()->SetTitle("true HM proton #cos$theta");
+       ProtThetaist[i]->GetYaxis()->SetTitle("Events");
+
+       NeutThetahist[i] = new TH1F(Form("NeutMomhist_knot=%.1f",Knots[i]),Form("NeutMomhist_knot=%.1f",Knots[i]), 50, -1., 1.);
+       NeutThetahist[i]->GetXaxis()->SetTitle("true HM neutron #cos$theta");
+       NeutThetahist[i]->GetYaxis()->SetTitle("Events");
+
+
+      Q2hist[i] = new TH1F(Form("Q2hist_knot=%.1f",Knots[i]),Form("Q2hist_knot=%.1f",Knots[i]), 50, 0., 5000.);
+       Q2hist[i]->GetXaxis()->SetTitle("true Q^{2}");
+       Q2hist[i]->GetYaxis()->SetTitle("Events");
     }
 
     for (int i = 0; i < nentries; ++i)
@@ -118,6 +147,11 @@ void SplineReweight() {
 
             ProtMomhist[ik]->Fill(HMprotonMom, weight);
             NeutMomhist[ik]->Fill(HMneutronMom, weight);
+
+            ProtThetaist[ik]->Fill(HMprotonTheta, weight);
+            NeutThetahist[ik]->Fill(HMneutronTheta, weight);
+
+            Q2hist[ik]->Fill(Q2, weight);
         }
     }
 
@@ -126,28 +160,47 @@ void SplineReweight() {
 
     double Maximum1 = 0;
     double Maximum2 = 0;
-
     double Maximum3 = 0;
     double Maximum4 = 0;
 
+   double Maximum5 = 0;
+   double Maximum6 = 0;
+   double Maximum7 = 0;
+
     for(int i = 0; i < NKnots; i++)
     {
+
+         Nprotshist[i]->Scale(1/Nprotshist[i]->Integral());
+         Nneutshist[i]->Scale(1/Nneutshist[i]->Integral());
+
+         //ProtMomhist[i]->Scale(1/ProtMomhist[i]->Integral());
+         //NeutMomhist[i]->Scale(1/NeutMomhist[i]->Integral());
+
         if(Nprotshist[i]->GetMaximum() > Maximum1) Maximum1 = Nprotshist[i]->GetMaximum();
         Nprotshist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
         if(Nneutshist[i]->GetMaximum() > Maximum2) Maximum2 = Nneutshist[i]->GetMaximum();
         Nneutshist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
 
-
         if(ProtMomhist[i]->GetMaximum() > Maximum3) Maximum3 = ProtMomhist[i]->GetMaximum();
         ProtMomhist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
-
         if(NeutMomhist[i]->GetMaximum() > Maximum4) Maximum4 = NeutMomhist[i]->GetMaximum();
         NeutMomhist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
+
+        if(ProtThetaist[i]->GetMaximum() > Maximum5) Maximum5 = ProtThetaist[i]->GetMaximum();
+        ProtThetaist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
+        if(NeutThetahist[i]->GetMaximum() > Maximum6) Maximum6 = NeutThetahist[i]->GetMaximum();
+        NeutThetahist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
+
+       if(Q2hist[i]->GetMaximum() > Maximum7) Maximum7 = Q2hist[i]->GetMaximum();
+        Q2hist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
+
+
     }
 
 
     Nprotshist[0]->SetMaximum(Maximum1);
     Nprotshist[0]->Draw("");
+    Nprotshist[0]->SetTitle(TitleName.c_str());
     for(int i = 1; i < NKnots; i++)
     {
        Nprotshist[i]->Draw("same");
@@ -164,10 +217,11 @@ void SplineReweight() {
 
     delete legend;
     legend = NULL;
-
+///////////////////////////////
 
     Nneutshist[0]->SetMaximum(Maximum2);
     Nneutshist[0]->Draw("");
+    Nneutshist[0]->SetTitle(TitleName.c_str());
     for(int i = 1; i < NKnots; i++)
     {
        Nneutshist[i]->Draw("same");
@@ -187,6 +241,7 @@ void SplineReweight() {
 
     ProtMomhist[0]->SetMaximum(Maximum3);
     ProtMomhist[0]->Draw("");
+    ProtMomhist[0]->SetTitle(TitleName.c_str());
     for(int i = 1; i < NKnots; i++)
     {
        ProtMomhist[i]->Draw("same");
@@ -202,10 +257,11 @@ void SplineReweight() {
     c1->Print("Reweight.pdf");
     delete legend;
     legend = NULL;
-
+///////////////////////////////
 
     NeutMomhist[0]->SetMaximum(Maximum4);
     NeutMomhist[0]->Draw("");
+    NeutMomhist[0]->SetTitle(TitleName.c_str());
     for(int i = 1; i < NKnots; i++)
     {
        NeutMomhist[i]->Draw("same");
@@ -221,6 +277,67 @@ void SplineReweight() {
     c1->Print("Reweight.pdf");
     delete legend;
     legend = NULL;
+///////////////////////////////
+
+    ProtThetaist[0]->SetMaximum(Maximum5);
+    ProtThetaist[0]->Draw("");
+    ProtThetaist[0]->SetTitle(TitleName.c_str());
+    for(int i = 1; i < NKnots; i++)
+    {
+       ProtThetaist[i]->Draw("same");
+    }
+
+    TLegend* legend = new TLegend(0.6,0.7,0.9,0.9);
+    for(int i = NKnots-1; i >= 0; i--)
+    {
+       legend->AddEntry(ProtThetaist[i], Form("SRCFrac_C=%.1f",Knots[i]),"l");
+    }
+    legend->SetTextSize(0.035);
+    legend->Draw("same");
+    c1->Print("Reweight.pdf");
+    delete legend;
+    legend = NULL;
+///////////////////////////////
+
+    NeutThetahist[0]->SetMaximum(Maximum6);
+    NeutThetahist[0]->Draw("");
+    NeutThetahist[0]->SetTitle(TitleName.c_str());
+    for(int i = 1; i < NKnots; i++)
+    {
+       NeutThetahist[i]->Draw("same");
+    }
+
+    TLegend* legend = new TLegend(0.6,0.7,0.9,0.9);
+    for(int i = NKnots-1; i >= 0; i--)
+    {
+       legend->AddEntry(NeutThetahist[i], Form("SRCFrac_C=%.1f",Knots[i]),"l");
+    }
+    legend->SetTextSize(0.035);
+    legend->Draw("same");
+    c1->Print("Reweight.pdf");
+    delete legend;
+    legend = NULL;
+    ///////////////////////////////
+
+    Q2hist[0]->SetMaximum(Maximum7);
+    Q2hist[0]->Draw("");
+    Q2hist[0]->SetTitle(TitleName.c_str());
+    for(int i = 1; i < NKnots; i++)
+    {
+       Q2hist[i]->Draw("same");
+    }
+
+    TLegend* legend = new TLegend(0.6,0.7,0.9,0.9);
+    for(int i = NKnots-1; i >= 0; i--)
+    {
+       legend->AddEntry(Q2hist[i], Form("SRCFrac_C=%.1f",Knots[i]),"l");
+    }
+    legend->SetTextSize(0.035);
+    legend->Draw("same");
+    c1->Print("Reweight.pdf");
+    delete legend;
+    legend = NULL;
+
 
     c1->Print("Reweight.pdf]");
 }
@@ -337,7 +454,7 @@ void SetT2Kstyl()
     gStyle->SetErrorX(0.001);
 
     // do not display any of the standard histogram decorations
-    gStyle->SetOptTitle(0); //Set 0 to disable histogram tittle
+    //gStyle->SetOptTitle(0); //Set 0 to disable histogram tittle
     gStyle->SetOptStat(0); //Set 0 to disable statystic box
     //gStyle->SetOptFit(0);
 
