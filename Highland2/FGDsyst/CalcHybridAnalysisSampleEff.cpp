@@ -60,7 +60,7 @@ void CalcHybridAnalysisSampleEff()
     int nWrong_RHC[N_FGDs][Nbins] = {0};
     double Efficiency_RHC[N_FGDs][Nbins] = {0};
 
-    const int AccumCut = 4;
+    const int AccumCut = 5;
     for(int i = 0;  i < AllEvents; i++)
     {
         tree->GetEntry(i);
