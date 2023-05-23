@@ -6,9 +6,9 @@ double GetPmissShapeWeight(const double Pmiss, const int target);
 const double Pmiss_Bins[] = {300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800};
 const double Pmiss_SRC_weight_C[] = {1.03828, 1.04218, 0.881711, 0.845165, 1.1546, 0.874676, 0.908355, 1.18892, 1.24608, 2.09019};
 const double Pmiss_SRC_weight_O[] = {0.978954, 1.07854, 0.980071, 0.865904, 1.06439, 0.849815, 0.975878, 1.32599, 1.8081, 1.9782};
-TH1D* SRC_C;
-TH1D* SRC_O;
 
+TGraph* SRC_C;
+TGraph* SRC_O;
 
 double FromValue = 0.;
 double ToValue = 1.;
@@ -16,22 +16,14 @@ const int Target = 12;
 void SRC_Dial_Achilles()
 {
 
-  SRC_C = new TH1D("SRC_C", "SRC_C", 10, Pmiss_Bins);
-  for(int i = 0; i < SRC_C->GetXaxis()->GetNbins(); i++)
-  {
-    SRC_C->SetBinContent(SRC_C->FindBin(Pmiss_Bins[i]), Pmiss_SRC_weight_C[i]);
-  }
+  SRC_C = new TGraph(10, Pmiss_Bins, Pmiss_SRC_weight_C);
+  SRC_O = new TGraph(10, Pmiss_Bins, Pmiss_SRC_weight_O);
 
-  SRC_O = new TH1D("SRC_O", "SRC_O", 10, Pmiss_Bins);
-  for(int i = 0; i < SRC_O->GetXaxis()->GetNbins(); i++)
-  {
-    SRC_O->SetBinContent(SRC_O->FindBin(Pmiss_Bins[i]), Pmiss_SRC_weight_O[i]);
-  }
   TCanvas *Canvas = new TCanvas("Canvas", "Canvas", 1024, 1024);
   SetT2Kstyl();
   Canvas->Print("SRC_Dial_Achilles.pdf[", "pdf");
 
-  TFile *file = new TFile("numu_O_Compareison_Pauli.root");
+  TFile *file = new TFile("numu_C_Compareison_Pauli.root");
   TTree *tree = (TTree*)file->Get("sample_sum");
 
   int isSRC;
@@ -183,9 +175,9 @@ double GetPmissShapeWeight(const double Pmiss, const int target)
 
   // Carbon
   if (target == 12)
-    weight = SRC_C->GetBinContent(SRC_C->FindBin(Pmiss));
+    weight = SRC_C->Eval(Pmiss);
   else if (target == 16)
-    weight = SRC_O->GetBinContent(SRC_O->FindBin(Pmiss));
+    weight = SRC_O->Eval(Pmiss);
   else return 1;
 
   //KS: Basically linear interpolation if ToValue is different than 1
