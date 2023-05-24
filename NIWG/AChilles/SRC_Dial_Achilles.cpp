@@ -23,7 +23,9 @@ void SRC_Dial_Achilles()
   SetT2Kstyl();
   Canvas->Print("SRC_Dial_Achilles.pdf[", "pdf");
 
-  TFile *file = new TFile("numu_C_Compareison_Pauli.root");
+  TFile *file = NULL;
+  if(Target == 12) file = new TFile("numu_C_Compareison_Pauli.root");
+  else if (Target == 16) file = new TFile("numu_O_Compareison_Pauli.root");
   TTree *tree = (TTree*)file->Get("sample_sum");
 
   int isSRC;
@@ -100,7 +102,7 @@ void SRC_Dial_Achilles()
   TLegend *legend1 = new TLegend(0.60,0.52,0.80,0.88);
   legend1->AddEntry(hPmiss_MF, "MF NEUT","lfe");
   legend1->AddEntry(hPmiss_SRC, "SRC NEUT","lfe");
-  legend1->AddEntry(hPmiss_SRC_reweight, "SRC reweighted","lfe");
+  legend1->AddEntry(hPmiss_SRC_reweight, "SRC reweighted","le");
   legend1->SetTextSize(0.038);
 
   THStack* Stack = new THStack("stack", "stack");
@@ -122,6 +124,26 @@ void SRC_Dial_Achilles()
 
   Canvas->SetLogy(false);
 
+
+
+  TLegend *legend2 = new TLegend(0.60,0.52,0.80,0.88);
+  legend2->AddEntry(hPmiss_SRC, "SRC NEUT","lfe");
+  legend2->AddEntry(hPmiss_SRC_reweight, "SRC reweighted","le");
+  legend2->SetTextSize(0.038);
+
+  hPmiss_SRC->Draw();
+  hPmiss_SRC_reweight->Draw("hist same");
+  legend2->Draw("same");
+
+  Canvas->Print("SRC_Dial_Achilles.pdf", "pdf");
+
+  Canvas->SetLogy(true);
+  Canvas->Update();
+  Canvas->Print("SRC_Dial_Achilles.pdf", "pdf");
+
+  Canvas->SetLogy(false);
+
+
   hPmiss_Paper->SetBinContent(hPmiss_Paper->FindBin(300), 0.280);
   hPmiss_Paper->SetBinContent(hPmiss_Paper->FindBin(350), 0.150);
   hPmiss_Paper->SetBinContent(hPmiss_Paper->FindBin(400), 0.090);
@@ -134,8 +156,8 @@ void SRC_Dial_Achilles()
   hPmiss_Paper->SetBinContent(hPmiss_Paper->FindBin(750), 0.004);
 
   TLegend *legend= new TLegend(0.40,0.52,0.60,0.88);
-  legend->AddEntry(hPmiss, "Neut","lfe");
-  legend->AddEntry(hPmiss_Paper, "Achilles","lfe");
+  legend->AddEntry(hPmiss, "Neut","le");
+  legend->AddEntry(hPmiss_Paper, "Achilles","le");
   //legend->AddEntry(hPmiss_reweight, "Reweighted","lfe");
   legend->SetTextSize(0.038);
 
