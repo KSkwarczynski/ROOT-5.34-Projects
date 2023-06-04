@@ -3,9 +3,18 @@
 void SetT2Kstyl();
 double GetPmissShapeWeight(const double Pmiss, const int target);
 
+
 const double Pmiss_Bins[] = {300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800};
-const double Pmiss_SRC_weight_C[] = {1.03828, 1.04218, 0.881711, 0.845165, 1.1546, 0.874676, 0.908355, 1.18892, 1.24608, 2.09019};
-const double Pmiss_SRC_weight_O[] = {0.978954, 1.07854, 0.980071, 0.865904, 1.06439, 0.849815, 0.975878, 1.32599, 1.8081, 1.9782};
+//const double Pmiss_SRC_weight_C[] = {1.03828, 1.04218, 0.881711, 0.845165, 1.1546, 0.874676, 0.908355, 1.18892, 1.24608, 2.09019};
+//const double Pmiss_SRC_weight_O[] = {0.978954, 1.07854, 0.980071, 0.865904, 1.06439, 0.849815, 0.975878, 1.32599, 1.8081, 1.9782};
+
+const double Pmiss_SRC_NUET_C[] = {0.387467, 0.206794, 0.146658, 0.102, 0.0622201, 0.0410661, 0.0284713, 0.0145018, 0.00807131, 0.00274957};
+const double Pmiss_SRC_NEUT_O[] = {0.410948, 0.199823, 0.13194, 0.0995571, 0.0674934, 0.0422675, 0.0265013, 0.0130027, 0.00556244, 0.00290523};
+const double Pmiss_SRC_Achilles[] = {0.402299, 0.215517, 0.12931, 0.0862069, 0.0718391, 0.0359195, 0.0258621, 0.0172414, 0.0100575, 0.00574713};
+
+
+double Pmiss_SRC_weight_C[] = {1, 1, 1., 1., 1., 1., 1., 1., 1., 1.};
+double Pmiss_SRC_weight_O[] = {1, 1., 1., 1., 1., 1., 1., 1., 1., 1.};
 
 TGraph* SRC_C;
 TGraph* SRC_O;
@@ -16,6 +25,11 @@ const int Target = 12;
 void SRC_Dial_Achilles()
 {
 
+  for (int i = 0; i < 10; i++)
+  {
+    Pmiss_SRC_weight_C[i] = Pmiss_SRC_Achilles[i]/Pmiss_SRC_NUET_C[i];
+    Pmiss_SRC_weight_O[i] = Pmiss_SRC_Achilles[i]/Pmiss_SRC_NEUT_O[i];
+  }
   SRC_C = new TGraph(10, Pmiss_Bins, Pmiss_SRC_weight_C);
   SRC_O = new TGraph(10, Pmiss_Bins, Pmiss_SRC_weight_O);
 
@@ -182,7 +196,8 @@ void SRC_Dial_Achilles()
 
   for (int i = 1; i <= hPmiss->GetXaxis()->GetNbins(); i++)
   {
-      std::cout<< hPmiss_Paper->GetBinContent(i)/hPmiss->GetBinContent(i)<<std::endl;
+      //std::cout<< hPmiss_Paper->GetBinContent(i)/hPmiss->GetBinContent(i)<<std::endl;
+      std::cout<<hPmiss_Paper->GetBinContent(i)<<"  "<<hPmiss->GetBinContent(i)<<std::endl;
   }
   Canvas->Print("SRC_Dial_Achilles.pdf]", "pdf");
 }
