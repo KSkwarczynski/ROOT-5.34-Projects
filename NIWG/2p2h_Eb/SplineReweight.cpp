@@ -23,10 +23,11 @@
 
 void SetT2Kstyl();
 
-const int NFiles = 2;
+const int NFiles = 3;
 std::string TitleName = "#nu_{#mu} ^{12}C";
 double Knots[6] = {0, 0.2, 0.3, 0.5, 0.7, 1};
-Color_t RelevantModesColors[6] = {kRed, kGreen+1, kTeal, kBlue+1,  kOrange+1, kCyan+2};
+const Style_t CredibleRegionStyle[6] = {kSolid, kDotted, kDashed, kDotted, kDashed, kSolid};
+Color_t RelevantModesColors[6] = {kRed, kGreen+1, kBlue+1, kOrange+1, kCyan+2, kTeal};
 std::string Titles[NFiles];
 
 inline void MakePlot(TH1F** hist, TCanvas* c1)
@@ -38,6 +39,7 @@ inline void MakePlot(TH1F** hist, TCanvas* c1)
 
         if(hist[i]->GetMaximum() > Maximum) Maximum = hist[i]->GetMaximum();
         hist[i]->SetLineColorAlpha(RelevantModesColors[i], 1);
+        hist[i]->SetLineStyle(CredibleRegionStyle[i]);
     }
     Maximum = Maximum+Maximum*0.1;
     hist[0]->SetMaximum(Maximum);
@@ -48,7 +50,7 @@ inline void MakePlot(TH1F** hist, TCanvas* c1)
        hist[i]->Draw("same");
     }
 
-    TLegend* legend = new TLegend(0.6,0.7,0.9,0.9);
+    TLegend* legend = new TLegend(0.4,0.7,0.9,0.9);
     for(int i = NFiles-1; i >= 0; i--)
     {
        legend->AddEntry(hist[i], Titles[i].c_str(),"l");
@@ -80,16 +82,24 @@ void SplineReweight() {
     TFile *file[NFiles] = {NULL};
     TTree *tree[NFiles] = {NULL};
 
-    file[0] = new TFile("Default_2p2h_Event.root");
-    Titles[0] = "Default ~25MeV";
+    file[0] = new TFile("18MeV_2p2h_Event.root");
+    Titles[0] = "Eb = 18MeV";
 
-    file[1] = new TFile("18MeV_2p2h_Event.root");
-    Titles[1] = "18MeV";
+    file[1] = new TFile("Default_2p2h_Event.root");
+    Titles[1] = "Default Eb~25MeV";
+
+    file[2] = new TFile("36MeV_2p2h_Event.root");
+    Titles[2] = "Eb = 36MeV";
+
+    //file[3] = new TFile("Default_Federico_2p2h_Event.root");
+    //Titles[3] = "Eb~25MeV NV2P2HQVAL=2";
 
     int nentries[NFiles];
     int NFSprot[NFiles], NFSneut[NFiles];
     double HMprotonMom[NFiles], HMneutronMom[NFiles], HMprotonTheta[NFiles], HMneutronTheta[NFiles], Q2[NFiles];
     double q0[NFiles], q3[NFiles], PFSLep[NFiles];
+
+    double CosFSLep[NFiles], Enu[NFiles], EnuQErec[NFiles], kERecQEBias[NFiles];
 
     for(int i = 0; i < NFiles; i++)
     {
@@ -128,6 +138,18 @@ void SplineReweight() {
       tree[i]->SetBranchStatus( "PFSLep", true);
       tree[i]->SetBranchAddress("PFSLep", &(PFSLep[i]));
 
+      tree[i]->SetBranchStatus( "CosFSLep", true);
+      tree[i]->SetBranchAddress("CosFSLep", &(CosFSLep[i]));
+
+      tree[i]->SetBranchStatus( "Enu", true);
+      tree[i]->SetBranchAddress("Enu", &(Enu[i]));
+
+      tree[i]->SetBranchStatus( "EnuQErec", true);
+      tree[i]->SetBranchAddress("EnuQErec", &(EnuQErec[i]));
+
+      tree[i]->SetBranchStatus( "kERecQEBias", true);
+      tree[i]->SetBranchAddress("kERecQEBias", &(kERecQEBias[i]));
+
     }
 
     std::cout<< "\033[1;34mNumber of all events in the tree \033[0m " <<nentries[0]<<std::endl;
@@ -145,13 +167,34 @@ void SplineReweight() {
     TH1F ** q0hist = new TH1F*[NFiles];
     TH1F ** q3hist = new TH1F*[NFiles];
 
-    TH1F ** lephist = new TH1F*[NFiles];
+   TH1F ** lephist = new TH1F*[NFiles];
+   TH1F ** lepCoshist = new TH1F*[NFiles];
+
+   TH1F ** EnuHist = new TH1F*[NFiles];
+   TH1F ** EnuQEHist = new TH1F*[NFiles];
+   TH1F ** kERecQEBiasHist = new TH1F*[NFiles];
 
     for(int i = 0; i < NFiles; i++)
     {
        lephist[i] = new TH1F(Form("lephisthist_knot=%.1f",Knots[i]),Form("lephisthist_knot=%.1f",Knots[i]), 50, 0., 2000.);
        lephist[i]->GetXaxis()->SetTitle("p_{Lep} MeV");
        lephist[i]->GetYaxis()->SetTitle("Events");
+
+       lepCoshist[i] = new TH1F(Form("lepCoshist_knot=%.1f",Knots[i]),Form("lepCoshist_knot=%.1f",Knots[i]), 50, -1., 1.);
+       lepCoshist[i]->GetXaxis()->SetTitle("Cos#theta_{lep}");
+       lepCoshist[i]->GetYaxis()->SetTitle("Events");
+
+       EnuHist[i] = new TH1F(Form("EnuHist=%.1f",Knots[i]),Form("EnuHist=%.1f",Knots[i]), 50, 0., 2000);
+       EnuHist[i]->GetXaxis()->SetTitle("Enu MeV");
+       EnuHist[i]->GetYaxis()->SetTitle("Events");
+
+       EnuQEHist[i] = new TH1F(Form("EnuQEHist=%.1f",Knots[i]),Form("EnuQEHist=%.1f",Knots[i]), 50, 0., 2000);
+       EnuQEHist[i]->GetXaxis()->SetTitle("EnuQE MeV");
+       EnuQEHist[i]->GetYaxis()->SetTitle("Events");
+
+       kERecQEBiasHist[i] = new TH1F(Form("kERecQEBiasHist=%.1f",Knots[i]),Form("kERecQEBiasHist=%.1f",Knots[i]), 50, -1., 1);
+       kERecQEBiasHist[i]->GetXaxis()->SetTitle("EnuQE Bias");
+       kERecQEBiasHist[i]->GetYaxis()->SetTitle("Events");
 
        Nprotshist[i] = new TH1F(Form("Nprotshist_knot=%.1f",Knots[i]),Form("Nprotshist_knot=%.1f",Knots[i]), 6, 0, 6);
        Nprotshist[i]->GetXaxis()->SetTitle("N true protons");
@@ -181,11 +224,11 @@ void SplineReweight() {
        Q2hist[i]->GetXaxis()->SetTitle("true Q^{2}");
        Q2hist[i]->GetYaxis()->SetTitle("Events");
 
-       q0hist[i] = new TH1F(Form("q0hist_knot=%.1f",Knots[i]),Form("Q0hist_knot=%.1f",Knots[i]), 50, 0., 2000.);
+       q0hist[i] = new TH1F(Form("q0hist_knot=%.1f",Knots[i]),Form("Q0hist_knot=%.1f",Knots[i]), 50, 0., 1200.);
        q0hist[i]->GetXaxis()->SetTitle("true q_{0}");
        q0hist[i]->GetYaxis()->SetTitle("Events");
 
-       q3hist[i] = new TH1F(Form("q3hist_knot=%.1f",Knots[i]),Form("q3hist_knot=%.1f",Knots[i]), 50, 0., 2000.);
+       q3hist[i] = new TH1F(Form("q3hist_knot=%.1f",Knots[i]),Form("q3hist_knot=%.1f",Knots[i]), 50, 0., 1200.);
        q3hist[i]->GetXaxis()->SetTitle("true q_{3}");
        q3hist[i]->GetYaxis()->SetTitle("Events");
     }
@@ -200,6 +243,11 @@ void SplineReweight() {
          double weight = 1.;
 
          lephist[ik]->Fill(PFSLep[ik], weight);
+         lepCoshist[ik]->Fill(CosFSLep[ik], weight);
+
+         EnuHist[ik]->Fill(Enu[ik], weight);
+         EnuQEHist[ik]->Fill(EnuQErec[ik], weight);
+         kERecQEBiasHist[ik]->Fill(kERecQEBias[ik], weight);
 
          Nprotshist[ik]->Fill(NFSprot[ik], weight);
          Nneutshist[ik]->Fill(NFSneut[ik], weight);
@@ -219,7 +267,11 @@ void SplineReweight() {
     c1->Print("Reweight.pdf[");
 
 
-   MakePlot(lephist, c1);
+    MakePlot(EnuHist, c1);
+    MakePlot(EnuQEHist, c1);
+    MakePlot(kERecQEBiasHist, c1);
+    MakePlot(lephist, c1);
+    MakePlot(lepCoshist, c1);
    MakePlot(ProtMomhist, c1);
    MakePlot(NeutMomhist, c1);
    MakePlot(ProtThetaist, c1);
