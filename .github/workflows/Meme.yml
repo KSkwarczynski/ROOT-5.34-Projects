@@ -1,5 +1,7 @@
 name: "Greet With A Random Meme"
 on:
+  issues:
+    types: [opened, reopened]
   pull_request:
     types: [opened, reopened]
 
