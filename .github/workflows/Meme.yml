@@ -12,6 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: memes on isssues
-        uses: deep5050/memes-on-issues-action@main
+        uses: deep5050/memes-on-issues-action@v1.0.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
