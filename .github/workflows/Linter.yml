@@ -15,7 +15,8 @@ jobs:
     - name: Run Super Linter
       uses: github/super-linter@v5
       env:
-        VALIDATE_CPP: true  # Enable C++ linting (adjust other languages as needed)
-        VALIDATE_PYTHON: true  # Enable Python linting
+        VALIDATE_MARKDOWN: true  # Enable Markdown linting
+        VALIDATE_DOCKERFILE: true  # Enable Dockerfile linting
         VALIDATE_ALL_CODEBASE: true  # Lint the entire codebase
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for permissions
+        DISABLE_LINTERS: "CPP,PYTHON"  # Disable linting for other languages
