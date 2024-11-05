@@ -14,8 +14,12 @@ jobs:
         with:
           fetch-depth: 0  # Fetch all history including tags
 
+      - name: Check Recent Commits
+        run: |
+          echo "Recent commits in the last 7 days:"
+          git log --since="7 days ago"
+
       - name: Get First Author
         run: |
-          git shortlog -n -s --since="7 days ago" | awk '{$1=""; sub(/^ /, ""); print $0}' | head -n 1
-          FIRST_AUTHOR=$(git shortlog -n -s --since="7 days ago" | awk '{$1=""; sub(/^ /, ""); print $0}' | head -n 1)
+          FIRST_AUTHOR=$(git log --since="7 days ago" --pretty=format:"%an" | sort | uniq -c | sort -nr | head -n 1)
           echo "First author in the last 7 days: $FIRST_AUTHOR"
