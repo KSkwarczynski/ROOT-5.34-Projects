@@ -36,7 +36,7 @@
 
     // Set axis titles
     mg->GetXaxis()->SetTitle("Q^{2} (GeV^{2})");
-    mg->GetYaxis()->SetTitle("Max Factorability (%)");
+    mg->GetYaxis()->SetTitle("Max Error on Factorisation (%)");
 
     // Create a legend
     TLegend *legend = new TLegend(0.1, 0.7, 0.3, 0.9);
